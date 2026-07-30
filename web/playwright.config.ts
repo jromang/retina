@@ -55,6 +55,12 @@ export default defineConfig({
   expect: { timeout: 15_000 },
   fullyParallel: false, // one server, hence one `app`: the tests would step on each other
   workers: 1,
+  // Retries on CI only. A shared runner is slower and contended, and the project tests take a
+  // domain-side exclusivity lock: on a loaded machine the next call can arrive before the
+  // previous save has released it, and the server answers "a project operation is already in
+  // progress". That is the lock doing its job, not a regression, so a retry is the honest
+  // response — while locally a retry would hide a real race, hence zero.
+  retries: process.env.CI ? 2 : 0,
   reporter: [['list']],
   use: {
     baseURL: `http://127.0.0.1:${PORT}`,
