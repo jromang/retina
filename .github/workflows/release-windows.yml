@@ -1,0 +1,211 @@
+name: Windows MSI
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+    inputs:
+      publish:
+        description: 'Attach the MSI to a draft GitHub Release'
+        type: boolean
+        default: false
+  # Called by the weekly packaging canary, which wants the build without the release.
+  workflow_call:
+    inputs:
+      publish:
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: msi-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  msi:
+    runs-on: windows-latest
+    timeout-minutes: 90
+    permissions:
+      contents: write        # only the release step needs it
+    env:
+      PYO3_USE_ABI3_FORWARD_COMPATIBILITY: '1'
+      PIP_DISABLE_PIP_VERSION_CHECK: '1'
+    steps:
+      - uses: actions/checkout@v4
+
+      # LOAD-BEARING. Briefcase builds the embedded-runtime URL from the minor version of *this*
+      # interpreter plus `support_revision` in pyproject.toml: 3.14 comes from here, the .6 from
+      # there. Bumping this line silently reships a different CPython -- and a different OpenSSL,
+      # since libssl-3.dll comes out of the same archive.
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.14', cache: pip, cache-dependency-path: pyproject.toml }
+
+      - uses: actions/setup-node@v4
+        with: { node-version: '22', cache: npm, cache-dependency-path: web/package-lock.json }
+
+      - uses: dtolnay/rust-toolchain@stable
+      # retina_shell pulls ~300 crates (tao/wry/rfd); this cache is the single biggest win here.
+      - uses: Swatinem/rust-cache@v2
+        with: { shared-key: msi-windows }
+
+      # Briefcase reads [tool.briefcase] version, never git. A tag that disagrees would ship an
+      # MSI whose version does not match its own release.
+      - name: Check the tag matches the declared version
+        if: startsWith(github.ref, 'refs/tags/v')
+        shell: pwsh
+        run: |
+          $declared = python -c "import tomllib,pathlib; print(tomllib.loads(pathlib.Path('pyproject.toml').read_text('utf-8'))['tool']['briefcase']['version'])"
+          $tag = "${{ github.ref_name }}".TrimStart('v')
+          if ($declared -ne $tag) { throw "tag v$tag disagrees with [tool.briefcase] version $declared" }
+          Write-Host "version $declared"
+
+      # `maturin develop` refuses to run outside a virtualenv, and setup-python does not give one.
+      - name: Create the virtualenv
+        shell: pwsh
+        run: |
+          python -m venv .venv
+          "$PWD\.venv\Scripts" | Out-File -Append -Encoding utf8 $env:GITHUB_PATH
+          "VIRTUAL_ENV=$PWD\.venv" | Out-File -Append -Encoding utf8 $env:GITHUB_ENV
+
+      - name: Install the build tooling
+        run: pip install -U pip maturin "briefcase>=0.3.20"
+
+      # Pre-step 1 of 3: Vite -> resources/webui/, cargo -> retina/shell/retina_shell.exe.
+      - name: build_dist (frontend + native shell)
+        run: python scripts/build_dist.py
+
+      # Pre-step 2 of 3: ~105 MB from SourceForge, which is not always cooperative.
+      - name: Cache the ASTAP bundle
+        id: astap
+        uses: actions/cache@v4
+        with:
+          path: vendor/astap
+          key: astap-win64-d05-${{ hashFiles('scripts/fetch_astap.py') }}
+
+      - name: Fetch ASTAP, with retries
+        if: steps.astap.outputs.cache-hit != 'true'
+        shell: pwsh
+        run: |
+          $ok = $false
+          foreach ($i in 1..3) {
+            Write-Host "ASTAP fetch, attempt $i of 3"
+            python scripts/fetch_astap.py --platform win64 --database d05
+            if ($LASTEXITCODE -eq 0) { $ok = $true; break }
+            Remove-Item -Recurse -Force vendor/astap/win64 -ErrorAction SilentlyContinue
+            Start-Sleep -Seconds (20 * $i)
+          }
+          if (-not $ok) { throw "ASTAP download failed after three attempts" }
+
+      - name: Verify the ASTAP bundle
+        shell: pwsh
+        run: |
+          if (-not (Test-Path vendor/astap/win64/astap_cli.exe)) { throw "astap_cli.exe missing" }
+          $db = Get-ChildItem vendor/astap/win64 -Filter *.290 -ErrorAction SilentlyContinue
+          Write-Host "star database files: $($db.Count)"
+
+      # Pre-step 3 of 3: the native core lands in python/retina/, which is what
+      # `sources = ["python/retina"]` carries into the bundle. Not a wheel.
+      - name: maturin develop --release
+        run: maturin develop --release
+
+      - name: Verify the native core reached the source tree
+        shell: pwsh
+        run: |
+          $pyd = Get-ChildItem python/retina -Filter "_core*.pyd"
+          if (-not $pyd) { throw "_core .pyd not found in python/retina/" }
+          Write-Host $pyd.FullName
+
+      # This is the one machine where the ASTAP plumbing test does not self-skip.
+      - name: ASTAP plumbing test
+        run: |
+          pip install pytest pytest-asyncio
+          pytest tests/test_astrometry.py -q -rs
+
+      - name: Cache the briefcase toolchain (WiX + the CPython embed archive)
+        uses: actions/cache@v4
+        with:
+          path: ~\AppData\Local\BeeWare
+          key: beeware-${{ runner.os }}-${{ hashFiles('pyproject.toml') }}
+
+      # THE TRAP. Briefcase does not re-download the support package while this directory
+      # exists, so moving `support_revision` would change nothing and the MSI would look fixed
+      # without being. On a fresh runner this is a no-op -- but it is the invariant, and it is
+      # why build/ must NEVER be cached.
+      - name: Remove any stale briefcase build tree
+        shell: pwsh
+        run: Remove-Item -Recurse -Force build\retina\windows -ErrorAction SilentlyContinue
+
+      - name: briefcase create
+        run: briefcase create windows --no-input
+
+      # The generated briefcase.toml echoes the template's revision and is not evidence. The
+      # DLL's ProductVersion is.
+      - name: Verify the embedded CPython and OpenSSL
+        shell: pwsh
+        run: |
+          $src = "build\retina\windows\app\src"
+          $version = (Get-Item "$src\python314.dll").VersionInfo.ProductVersion
+          Write-Host "python314.dll ProductVersion = $version"
+          if ($version -notlike "3.14.6*") { throw "embedded CPython is $version, expected 3.14.6" }
+          Get-Item "$src\libssl-3.dll","$src\libcrypto-3.dll" -ErrorAction SilentlyContinue |
+            ForEach-Object { Write-Host "$($_.Name) $($_.VersionInfo.ProductVersion)" }
+
+      - name: briefcase build
+        run: briefcase build windows --no-input
+
+      # The check that matters: the processes import their dependencies lazily, so a bundle
+      # missing a wheel starts fine and dies on the first click. Run before packaging, so a
+      # failure does not cost the WiX pass.
+      - name: Smoke test the bundle
+        run: python scripts/smoke_bundle.py --tree build/retina/windows/app
+
+      - name: briefcase package
+        run: briefcase package windows --no-input
+
+      - name: Checksums
+        shell: pwsh
+        run: |
+          Get-ChildItem dist\*.msi | ForEach-Object {
+            $hash = (Get-FileHash $_ -Algorithm SHA256).Hash.ToLower()
+            "$hash  $($_.Name)" | Out-File -Append -Encoding ascii dist\SHA256SUMS.txt
+            Write-Host "$hash  $($_.Name)"
+          }
+
+      # The MSI is already compressed; re-zipping it costs minutes and saves nothing.
+      - uses: actions/upload-artifact@v4
+        with:
+          name: retina-msi
+          path: |
+            dist/*.msi
+            dist/SHA256SUMS.txt
+          compression-level: 0
+          retention-days: 14
+
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: briefcase-logs
+          path: logs/
+          retention-days: 7
+
+      # Wired but inert until the secret exists: SignPath's free OSS programme requires the
+      # repository to be public first, so the first release ships unsigned with its checksums.
+      - name: Sign the MSI
+        if: env.SIGNPATH_API_TOKEN != ''
+        env:
+          SIGNPATH_API_TOKEN: ${{ secrets.SIGNPATH_API_TOKEN }}
+        run: echo "SignPath signing would run here"
+
+      # draft: true is deliberate. The MSI is unsigned, so it deserves one human look --
+      # and a download to see what SmartScreen actually says -- before it is permanent.
+      - name: Draft GitHub Release
+        if: startsWith(github.ref, 'refs/tags/v') || inputs.publish
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dist/*.msi
+            dist/SHA256SUMS.txt
+          draft: true
+          generate_release_notes: true

@@ -1,0 +1,35 @@
+# name: Johnson-Cousins U
+# kind: filter
+# channel: uv
+# manufacturer: Standard Johnson photometric series
+# source: https://gitlab.com/free-astro/siril-spcc-database/-/blob/main/mono_filters/Johnson_photometric.json
+# origin: M. S. Bessell 1990 PASP 102 1181 (DOI 10.1086/132749) Table 2
+# license: GPL-3.0-or-later
+wavelength_nm,value
+200,0
+300,0
+305,0.016
+310,0.068
+315,0.167
+320,0.287
+325,0.423
+330,0.56
+335,0.673
+340,0.772
+345,0.841
+350,0.905
+355,0.943
+360,0.981
+365,0.993
+370,1
+375,0.989
+380,0.916
+385,0.804
+390,0.625
+395,0.423
+400,0.238
+405,0.114
+410,0.051
+415,0.019
+420,0
+600,0

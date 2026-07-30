@@ -1,0 +1,39 @@
+{
+  "schema": 1,
+  "comment": [
+    "Sample raw frame sets. See python/retina/samples.py.",
+    "Nothing is redistributed by Retina: the manifest only carries the upstream URL, the",
+    "SHA-256 digest of the file as published, its licence and its attribution.",
+    "Rule: no entry without an explicit licence AND a permanent identifier (DOI).",
+    "An unverifiable URL produces the failure nobody diagnoses.",
+    "The digests were computed on the files actually downloaded from Zenodo,",
+    "and the MD5 published by Zenodo was cross-checked along the way."
+  ],
+  "default": "example-cryo-lfc",
+  "samples": [
+    {
+      "id": "example-cryo-lfc",
+      "name": "Palomar LFC — cryogenic CCD, chip 0",
+      "url": "https://zenodo.org/api/records/3254683/files/example-cryo-LFC.tar.bz2/content",
+      "sha256": "373cfadcbfa4172516c146c8d07b0485e77f73a7af02712d71fc775e33fce659",
+      "size": 161627346,
+      "license": "CC-BY-4.0",
+      "attribution": "Erik Tollerud (STScI) and Matthew Craig (Minnesota State University Moorhead), CC BY 4.0",
+      "homepage": "https://doi.org/10.5281/zenodo.3254683",
+      "doi": "10.5281/zenodo.3254683",
+      "note": "Bias, darks, flats in two filters (g', i') and science frames of VV124, from chip 0 of the Large Format Camera on the Hale 5 m telescope at Palomar. Carries BIASSEC overscan and full IMAGETYP/EXPTIME/FILTER/INSTRUME identity: the whole calibration chain applies. Also used by the astropy CCD Data Reduction Guide."
+    },
+    {
+      "id": "example-thermo-electric",
+      "name": "Feder Observatory — thermo-electric CCD (Andor Aspen CG16M)",
+      "url": "https://zenodo.org/api/records/3245296/files/example-thermo-electric.tar.bz2/content",
+      "sha256": "9a09f4df58dab967d8c876c388f0c065acd0b8b55bf9e2dc50be73c30047f77b",
+      "size": 482929625,
+      "license": "CC-BY-4.0",
+      "attribution": "Matthew Craig (Minnesota State University Moorhead), CC BY 4.0",
+      "homepage": "https://doi.org/10.5281/zenodo.3245296",
+      "doi": "10.5281/zenodo.3245296",
+      "note": "Bias, darks, flats and science frames of KELT-16 b from the Paul P. Feder Observatory. A thermo-electrically cooled camera, closer to amateur equipment than the Palomar set: dark current matters, and the darks are there to show it."
+    }
+  ]
+}

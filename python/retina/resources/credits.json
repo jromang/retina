@@ -1,0 +1,246 @@
+{
+  "schema": 1,
+  "comment": [
+    "What Retina bundles, and under which licence. See python/retina/credits.py.",
+    "Python dependencies are NOT listed here: they are enumerated at runtime from the",
+    "metadata of the installed distributions, which cannot drift.",
+    "This file covers what introspection does not see: the assets versioned in the",
+    "repository, the npm packages inlined by Vite, the crates linked into the shell, and",
+    "what is downloaded on demand.",
+    "kind: asset (versioned here) | frontend (npm, inlined into resources/webui) |",
+    "      native (linked Rust crate) | download (fetched on demand, outside the wheel)"
+  ],
+  "components": [
+    {
+      "id": "tabler-icons",
+      "name": "Tabler Icons",
+      "kind": "asset",
+      "license": "MIT",
+      "copyright": "Copyright (c) 2020-2024 Paweł Kuna",
+      "url": "https://tabler.io/icons",
+      "notice": "licenses/tabler-icons.txt",
+      "note": "Process icons (resources/icons/lib)."
+    },
+    {
+      "id": "katex",
+      "name": "KaTeX",
+      "version": "0.16.11",
+      "kind": "asset",
+      "license": "MIT",
+      "copyright": "Copyright (c) 2013-2020 Khan Academy and other contributors",
+      "url": "https://katex.org",
+      "notice": "licenses/katex.txt",
+      "note": "Formula rendering in the process documentation."
+    },
+    {
+      "id": "siril-spcc-database",
+      "name": "siril-spcc-database",
+      "kind": "asset",
+      "license": "GPL-3.0-or-later",
+      "copyright": "Siril community and contributors",
+      "url": "https://gitlab.com/free-astro/siril-spcc-database",
+      "note": "The 54 curves in resources/spectra/: filter transmissions, sensor quantum efficiencies, white references. Each CSV cites its source in its header. Imported by scripts/fetch_spectra.py."
+    },
+    {
+      "id": "preact",
+      "name": "Preact",
+      "version": "10.29.7",
+      "kind": "frontend",
+      "license": "MIT",
+      "copyright": "Copyright (c) 2015-present Jason Miller",
+      "url": "https://preactjs.com",
+      "notice": "licenses/preact.txt",
+      "note": "The foundation of the frontend."
+    },
+    {
+      "id": "preact-signals",
+      "name": "@preact/signals",
+      "version": "2.10.0",
+      "kind": "frontend",
+      "license": "MIT",
+      "copyright": "Copyright (c) 2022-present Preact Team",
+      "url": "https://preactjs.com/guide/v10/signals/",
+      "notice": "licenses/preact-signals.txt",
+      "note": "Reactive state of the shell."
+    },
+    {
+      "id": "dockview-core",
+      "name": "dockview-core",
+      "version": "4.13.1",
+      "kind": "frontend",
+      "license": "MIT",
+      "url": "https://github.com/mathuo/dockview",
+      "note": "Docking of the centre and right zones. The package declares MIT but publishes no notice file upstream — we do not invent one."
+    },
+    {
+      "id": "monaco-editor",
+      "name": "Monaco Editor",
+      "version": "0.54.0",
+      "kind": "frontend",
+      "license": "MIT",
+      "copyright": "Copyright (c) 2016 - present Microsoft Corporation",
+      "url": "https://microsoft.github.io/monaco-editor/",
+      "notice": "licenses/monaco-editor.txt",
+      "note": "Console, script editor and long text fields."
+    },
+    {
+      "id": "codicons",
+      "name": "VS Code Icons (codicons)",
+      "version": "0.0.46-24",
+      "kind": "frontend",
+      "license": "CC-BY-4.0",
+      "copyright": "Copyright (c) Microsoft Corporation",
+      "url": "https://github.com/microsoft/vscode-codicons",
+      "notice": "licenses/codicons.txt",
+      "note": "Icons of the shell chrome. The icons are under CC BY 4.0, the accompanying code under MIT."
+    },
+    {
+      "id": "tao",
+      "name": "tao",
+      "kind": "native",
+      "license": "Apache-2.0",
+      "url": "https://github.com/tauri-apps/tao",
+      "note": "Native window and event loop of the shell."
+    },
+    {
+      "id": "wry",
+      "name": "wry",
+      "kind": "native",
+      "license": "Apache-2.0 OR MIT",
+      "url": "https://github.com/tauri-apps/wry",
+      "note": "WebView of the shell (WebView2 on Windows, WebKitGTK on Linux)."
+    },
+    {
+      "id": "rfd",
+      "name": "rfd",
+      "kind": "native",
+      "license": "MIT",
+      "url": "https://github.com/PolyMeilex/rfd",
+      "note": "Native file dialogs."
+    },
+    {
+      "id": "serde_json",
+      "name": "serde_json",
+      "kind": "native",
+      "license": "MIT OR Apache-2.0",
+      "url": "https://github.com/serde-rs/json",
+      "note": "IPC between the shell and the frontend."
+    },
+    {
+      "id": "sys-locale",
+      "name": "sys-locale",
+      "kind": "native",
+      "license": "MIT OR Apache-2.0",
+      "url": "https://github.com/1Password/sys-locale",
+      "note": "Detection of the system language at startup."
+    },
+    {
+      "id": "pyo3",
+      "name": "PyO3",
+      "kind": "native",
+      "license": "MIT OR Apache-2.0",
+      "url": "https://github.com/pyo3/pyo3",
+      "note": "Python binding of the Rust core (retina._core)."
+    },
+    {
+      "id": "rust-numpy",
+      "name": "rust-numpy",
+      "kind": "native",
+      "license": "BSD-2-Clause",
+      "url": "https://github.com/PyO3/rust-numpy",
+      "note": "Zero-copy numpy interop of the Rust core."
+    },
+    {
+      "id": "ndarray",
+      "name": "ndarray",
+      "kind": "native",
+      "license": "MIT OR Apache-2.0",
+      "url": "https://github.com/rust-ndarray/ndarray",
+      "note": "N-dimensional arrays of the Rust core."
+    },
+    {
+      "id": "rayon",
+      "name": "rayon",
+      "kind": "native",
+      "license": "MIT OR Apache-2.0",
+      "url": "https://github.com/rayon-rs/rayon",
+      "note": "Multicore parallelism of the Rust core."
+    },
+    {
+      "id": "astap",
+      "name": "ASTAP",
+      "kind": "download",
+      "license": "MPL-2.0",
+      "url": "https://www.hnsky.org/astap.htm",
+      "note": "Offline plate solving on Windows, with its D05 star database. Fetched by scripts/fetch_astap.py at packaging time, outside the repository."
+    },
+    {
+      "id": "astrometry-index",
+      "name": "astrometry.net index files",
+      "kind": "download",
+      "license": "GPL-3.0-or-later",
+      "url": "https://astrometry.net",
+      "note": "Downloaded once by PlateSolve into cache_dir()/astrometry-indexes."
+    },
+    {
+      "id": "cds-hips2fits",
+      "name": "hips2fits (CDS, Strasbourg)",
+      "kind": "download",
+      "license": "Public service",
+      "url": "https://alasky.cds.unistra.fr/hips-image-services/hips2fits",
+      "note": "Service of the Centre de Donnees astronomiques de Strasbourg, which renders a HiPS survey as FITS on a given WCS. SurveyReference queries it on demand to synthesize a sky background reference; nothing is redistributed, and the images obtained are cached in cache_dir()/hips/. The CDS asks that use of the service be acknowledged in publications."
+    },
+    {
+      "id": "dss-survey",
+      "name": "Digitized Sky Survey (DSS2)",
+      "kind": "download",
+      "license": "Non-commercial use, with attribution",
+      "copyright": "Space Telescope Science Institute (STScI) / AURA, Palomar Observatory, UK Schmidt Telescope",
+      "url": "https://archive.stsci.edu/dss/acknowledging.html",
+      "note": "The dss2-red and dss2-blue surveys of SurveyReference, served by hips2fits. The DSS is based on photographic plates from the Palomar Observatory (Caltech) and the UK Schmidt Telescope, digitized by STScI under United States government funding. Non-commercial reproduction is allowed with attribution; commercial use requires the agreement of the institutions. The full notice is at the URL above."
+    },
+    {
+      "id": "panstarrs-survey",
+      "name": "Pan-STARRS1 Surveys",
+      "kind": "download",
+      "license": "Free use with attribution",
+      "copyright": "Chambers, K. C. et al. (2016), arXiv:1612.05560",
+      "url": "https://outerspace.stsci.edu/display/PANSTARRS/",
+      "note": "The panstarrs-g/r/i surveys of SurveyReference, served by hips2fits. Data produced by the PS1 Science Consortium and its member institutions. The requested attribution is the citation of Chambers et al. 2016."
+    },
+    {
+      "id": "finkbeiner-halpha",
+      "name": "All-sky H-alpha map (Finkbeiner)",
+      "kind": "download",
+      "license": "Free use with attribution",
+      "copyright": "Finkbeiner, D. P. (2003), ApJS 146, 407",
+      "url": "https://faun.rc.fas.harvard.edu/dfink/skymaps/halpha/",
+      "note": "The halpha survey of SurveyReference, served by hips2fits. A VTSS/SHASSA/WHAM composite. The requested attribution is the citation of Finkbeiner 2003."
+    },
+    {
+      "id": "graxpert-models",
+      "name": "GraXpert models",
+      "kind": "download",
+      "license": "CC-BY-NC-SA-4.0",
+      "url": "https://huggingface.co/jromanghf/graxpert-models",
+      "note": "Background extraction, denoising and deconvolution by neural network. The GraXpert code is under GPL-3 but its MODELS are under CC BY-NC-SA 4.0: free and shareable, but COMMERCIAL use is forbidden. Retina re-hosts them UNCHANGED on huggingface.co/jromanghf/graxpert-models (redistribution allowed by the licence, with attribution) and also detects a local GraXpert installation, which takes precedence. If you use one, this restriction applies to you — it comes from GraXpert, not from Retina."
+    },
+    {
+      "id": "sample-data-zenodo",
+      "name": "Sample raw frame sets (Zenodo)",
+      "kind": "download",
+      "license": "CC-BY-4.0",
+      "copyright": "Erik Tollerud (STScI) et Matthew Craig (Minnesota State University Moorhead)",
+      "url": "https://doi.org/10.5281/zenodo.3254683",
+      "note": "The sets offered by app.download_sample(): bias, darks, flats and object frames from the Large Format Camera of the Hale 5 m at Palomar (DOI 10.5281/zenodo.3254683) and from the Andor Aspen CG16M of the Paul P. Feder Observatory (DOI 10.5281/zenodo.3245296). Published under CC BY 4.0 — free to use, including commercially, with attribution to follow the images. Retina does not redistribute them: they are downloaded from Zenodo on demand, SHA-256 digest verified, into cache_dir()/samples/. Manifest: resources/samples.json."
+    },
+    {
+      "id": "starnet-models",
+      "name": "StarNet models",
+      "kind": "download",
+      "license": "Proprietary",
+      "url": "https://www.starnetastro.com",
+      "note": "Star removal by neural network. Proprietary licence: neither redistribution nor direct linking. Retina does not distribute them."
+    }
+  ]
+}

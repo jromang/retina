@@ -1,0 +1,84 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+
+# Rust
+/target/
+**/target/
+Cargo.lock.orig
+
+# maturin / build artifacts
+*.so
+*.pyd
+*.dll
+*.dylib
+*.pdb
+wheels/
+
+# Briefcase logs (logs/briefcase.*.log), written at the root on every command.
+/logs/
+
+# OS / editor
+.DS_Store
+*.swp
+.idea/
+.vscode/
+
+# Project data / scratch
+*.fits
+*.xisf
+scratch/
+data/
+
+# Web shell: npm dependencies and Vite build. The build feeds the Python package
+# (resources/webui/) and is embedded in the wheel by maturin — but it is an artifact,
+# the source lives in web/src.
+/web/node_modules/
+/web/dist/
+/python/retina/resources/webui/
+# Messages compiled by Paraglide (`npm run messages`, run before tsc and by the Vite plugin).
+# The source is the `web/messages/{en,fr}.json` catalogs, which are versioned. The directory
+# already carries its own generated .gitignore; the entry is repeated here so that one does not
+# have to infer it from a file that only exists after a first build.
+/web/src/paraglide/
+/web/project.inlang/cache/
+/web/test-results/
+/web/.e2e-config/
+# Playwright writes its results directory relative to the current directory: running the suite
+# from the root rather than from web/ drops it here.
+/test-results/
+
+# Native shell placed by scripts/build_dist.py where find_shell() looks for it.
+# A copy of the Cargo binary, not a source: the source is in crates/retina_shell.
+/python/retina/shell/
+
+# Working notes, kept on disk but out of the repository. These are session logs and competitive
+# analysis written for an audience of one; they are neither documentation nor roadmap, and the
+# published architecture reference is ARCHITECTURE.md instead.
+/TODO_REFERENCE.md
+/TODO_REFERENCE2.md
+/TODO_NEXTPROCESS.md
+/docs/
+/scripts/compare_pixinsight.py
+
+# Agent instructions. CLAUDE.md is a personal working file: it is loaded into an AI assistant's
+# context at the start of every session, and what belongs in it (build commands, pitfalls,
+# conventions that differ from tool defaults) is not what belongs in project documentation.
+/CLAUDE.md
+/CLAUDE.local.md
+/.claude/
+
+# Bundled third-party binaries (ASTAP + star database) — fetched via scripts/fetch_astap.py.
+# Only the README is versioned; the ~105 MB of binaries and database stay out of the repository.
+/vendor/astap/*
+!/vendor/astap/README.md

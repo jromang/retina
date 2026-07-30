@@ -1,0 +1,42 @@
+{
+ "image_size": [
+  1200,
+  800
+ ],
+ "vw": 1920.0,
+ "vh": 1080.0,
+ "cases": [
+  {
+   "start_zoom": 1.0,
+   "target_zoom": 2.0,
+   "pivot": [
+    300.0,
+    200.0
+   ],
+   "center_before": [
+    600.0,
+    400.0
+   ],
+   "center_after": [
+    450.0,
+    300.0
+   ]
+  },
+  {
+   "start_zoom": 2.0,
+   "target_zoom": 0.5,
+   "pivot": [
+    900.0,
+    700.0
+   ],
+   "center_before": [
+    600.0,
+    400.0
+   ],
+   "center_after": [
+    -300.0,
+    -500.0
+   ]
+  }
+ ]
+}

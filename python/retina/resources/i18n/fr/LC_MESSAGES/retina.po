@@ -1,0 +1,2738 @@
+# French translations for Retina.
+# Copyright (C) 2026 Retina
+# This file is distributed under the same license as the Retina project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Retina VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2026-07-30 23:52+0200\n"
+"PO-Revision-Date: 2026-07-27 14:30+0200\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: fr\n"
+"Language-Team: fr <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+#, python-brace-format
+msgid "Unknown view: {id!r}"
+msgstr "Vue inconnue : {id!r}"
+
+msgid "View without a window."
+msgstr "Vue sans fenêtre."
+
+#, python-brace-format
+msgid "Unknown preview: {id!r}"
+msgstr "Preview inconnue : {id!r}"
+
+#, python-brace-format
+msgid "Unsupported extension: {ext}"
+msgstr "Extension non supportée : {ext}"
+
+msgid "No active window to reload."
+msgstr "Aucune fenêtre active à recharger."
+
+msgid "This window has no source file on disk — nothing to reload."
+msgstr "Cette fenêtre n'a pas de fichier source sur le disque — rien à recharger."
+
+msgid "No active window to save."
+msgstr "Aucune fenêtre active à enregistrer."
+
+msgid "No current project: give a path (app.save_project('/.../x.retina'))."
+msgstr ""
+"Aucun projet courant : donnez un chemin "
+"(app.save_project('/.../x.retina'))."
+
+msgid "No active window."
+msgstr "Aucune fenêtre active."
+
+msgid "No open sequence - call app.blink(frames) first."
+msgstr "Aucune séquence ouverte — appeler app.blink(frames) d'abord."
+
+msgid "No target view."
+msgstr "Aucune vue cible."
+
+#, python-brace-format
+msgid "Mask not found: {source!r}"
+msgstr "Masque introuvable : {source!r}"
+
+#, python-brace-format
+msgid "Unknown window: {window!r}"
+msgstr "Fenêtre inconnue : {window!r}"
+
+#, python-brace-format
+msgid "Unknown readout option: {key!r}"
+msgstr "Option de readout inconnue : {key!r}"
+
+#, python-brace-format
+msgid "no embedded notice for {id!r}"
+msgstr "aucune notice embarquée pour {id!r}"
+
+#, python-brace-format
+msgid "unknown component: {id!r}"
+msgstr "composant inconnu : {id!r}"
+
+#, python-brace-format
+msgid "documentation page outside the doc tree: {id!r}"
+msgstr "page de documentation hors de l'arborescence : {id!r}"
+
+#, python-brace-format
+msgid "No documentation page for {id!r}"
+msgstr "Aucune page de documentation pour {id!r}"
+
+msgid "Documentation"
+msgstr "Documentation"
+
+msgid "Start with a guide, or pick a process."
+msgstr "Commencez par un guide, ou choisissez un process."
+
+msgid "Guides"
+msgstr "Guides"
+
+#, python-brace-format
+msgid "Unknown survey {name!r} — give an explicit HiPS id."
+msgstr "Survey inconnu {name!r} — donnez un identifiant HiPS explicite."
+
+msgid "Survey server unavailable, trying a mirror…"
+msgstr "Serveur de survey indisponible, essai d'un miroir…"
+
+msgid "The survey returned no usable data for this field."
+msgstr "Le survey n'a rendu aucune donnée exploitable pour ce champ."
+
+#, python-brace-format
+msgid "Querying survey {name}…"
+msgstr "Interrogation du survey {name}…"
+
+#, python-brace-format
+msgid ""
+"Survey {name} covers only {coverage} of this field — choose a survey that"
+" covers it."
+msgstr ""
+"Le survey {name} ne couvre que {coverage} de ce champ — choisissez-en un "
+"qui le couvre.Le survey {name} ne couvre que {percent:.0f} % de ce champ "
+"— choisissez-en un qui le couvre."
+
+msgid "Survey reference ready"
+msgstr "Référence de survey prête"
+
+msgid "DSS2 red (all-sky)"
+msgstr "DSS2 rouge (tout le ciel)"
+
+msgid "DSS2 blue (all-sky)"
+msgstr "DSS2 bleu (tout le ciel)"
+
+msgid "Pan-STARRS DR1 g (dec > -30 deg)"
+msgstr "Pan-STARRS DR1 g (dec > -30°)"
+
+msgid "Pan-STARRS DR1 r (dec > -30 deg)"
+msgstr "Pan-STARRS DR1 r (dec > -30°)"
+
+msgid "Pan-STARRS DR1 i (dec > -30 deg)"
+msgstr "Pan-STARRS DR1 i (dec > -30°)"
+
+msgid "H-alpha full sky (Finkbeiner)"
+msgstr "Hα sur tout le ciel (Finkbeiner)"
+
+msgid "Custom HiPS id"
+msgstr "Identifiant HiPS libre"
+
+#, python-brace-format
+msgid "Unknown library entry: {name!r}"
+msgstr "Entrée de bibliothèque inconnue : {name!r}"
+
+msgid "app.library accepts a configured Process or a ProcessContainer."
+msgstr "app.library accepte un Process configuré ou un ProcessContainer."
+
+msgid "Empty name."
+msgstr "Nom vide."
+
+#, python-brace-format
+msgid "Name already taken: {name!r}"
+msgstr "Nom déjà pris : {name!r}"
+
+msgid "noise_ksigma expects a 2D plane"
+msgstr "noise_ksigma attend un plan 2D"
+
+msgid "noise_mrs expects a 2D plane"
+msgstr "noise_mrs attend un plan 2D"
+
+#, python-brace-format
+msgid "unknown kind: {kind!r} (expected: {expected})"
+msgstr "kind inconnu : {kind!r} (attendu : {expected})"
+
+msgid "Folders"
+msgstr "Dossiers"
+
+msgid "Pipeline output folder"
+msgstr "Dossier de sortie du pré-traitement"
+
+msgid "Empty: alongside the frames, in retina_pipeline/"
+msgstr "Vide : à côté des brutes, dans retina_pipeline/"
+
+msgid "Temporary files"
+msgstr "Fichiers temporaires"
+
+msgid "Empty: the system temporary folder"
+msgstr "Vide : le dossier temporaire du système"
+
+msgid "Performance"
+msgstr "Performance"
+
+msgid "Concurrent jobs"
+msgstr "Traitements simultanés"
+
+msgid "Takes effect at next launch"
+msgstr "Prend effet au prochain lancement"
+
+msgid "Use the GPU when available"
+msgstr "Utiliser le GPU quand il est disponible"
+
+msgid "RETINA_GPU=0 overrides this setting"
+msgstr "RETINA_GPU=0 passe outre ce réglage"
+
+msgid "Viewport defaults"
+msgstr "Défauts du viewport"
+
+msgid "Mask display"
+msgstr "Affichage du masque"
+
+msgid "Applies to newly opened windows"
+msgstr "S'applique aux fenêtres nouvellement ouvertes"
+
+msgid "Transparency display"
+msgstr "Affichage de la transparence"
+
+msgid "Readout probe size (px)"
+msgstr "Taille de la sonde de readout (px)"
+
+msgid "Session"
+msgstr "Session"
+
+msgid "Interface language"
+msgstr "Langue de l'interface"
+
+msgid "Reopen the previous session on startup"
+msgstr "Rouvrir la session précédente au démarrage"
+
+msgid "Recent files kept"
+msgstr "Fichiers récents conservés"
+
+msgid "Show the guided tour at startup"
+msgstr "Afficher la visite guidée au démarrage"
+
+#, python-brace-format
+msgid "unknown preference: {key!r} (known: {known})"
+msgstr "préférence inconnue : {key!r} (connues : {known})"
+
+#, python-brace-format
+msgid "{id}: {value!r} is outside the allowed values ({choices})"
+msgstr "{id} : {value!r} hors des valeurs admises ({choices})"
+
+#, python-brace-format
+msgid ""
+"sample manifest in schema {schema}, known up to {known} - please update "
+"Retina"
+msgstr ""
+"manifeste de jeux d'exemple en schéma {schema}, connu jusqu'à {known} — "
+"mettez Retina à jour"
+
+msgid "none"
+msgstr "aucun"
+
+#, python-brace-format
+msgid "unknown sample dataset: {id!r} (available: {known})"
+msgstr "jeu d'exemple inconnu : {id!r} (disponibles : {known})"
+
+#, python-brace-format
+msgid "archive entry escapes its folder: {name!r}"
+msgstr "une entrée de l'archive sort de son dossier : {name!r}"
+
+#, python-brace-format
+msgid "Extracting {done}/{total}"
+msgstr "Extraction {done}/{total}"
+
+#, python-brace-format
+msgid "Downloading {label}…"
+msgstr "Téléchargement de {label}…"
+
+#, python-brace-format
+msgid ""
+"wrong fingerprint for sample {id!r}: expected {expected}, got {got}. File"
+" discarded."
+msgstr ""
+"empreinte du jeu {id!r} incorrecte : attendu {expected}, obtenu {got}. "
+"Fichier écarté."
+
+#, python-brace-format
+msgid "{label} is ready in {path}"
+msgstr "{label} est prêt dans {path}"
+
+#, python-brace-format
+msgid "unknown language: {language!r} (expected {expected} or None)"
+msgstr "langue inconnue : {language!r} (attendu {expected} ou None)"
+
+#, python-brace-format
+msgid "unknown curve family: {kind!r} (known: {known})"
+msgstr "famille de courbe inconnue : {kind!r} (connues : {known})"
+
+#, python-brace-format
+msgid "unknown {kind} curve: {name!r} (available: {available})"
+msgstr "courbe {kind} inconnue : {name!r} (disponibles : {available})"
+
+#, python-brace-format
+msgid "empty curve: {path}"
+msgstr "courbe vide : {path}"
+
+msgid "a curve needs at least two points"
+msgstr "une courbe demande au moins deux points"
+
+#, python-brace-format
+msgid ""
+"model manifest in schema {schema}, known up to {known} - please update "
+"Retina"
+msgstr ""
+"manifeste de modèles en schéma {schema}, connu jusqu'à {known} — mettez "
+"Retina à jour"
+
+#, python-brace-format
+msgid "unknown model: {id!r} (available: {known})"
+msgstr "modèle inconnu : {id!r} (disponibles : {known})"
+
+#, python-brace-format
+msgid "model not found: {path}"
+msgstr "modèle introuvable : {path}"
+
+#, python-brace-format
+msgid ""
+"no model available for task '{task}'. Install GraXpert, check your "
+"connection, or set 'model' (a local .onnx)."
+msgstr ""
+"aucun modèle disponible pour la tâche « {task} ». Installez GraXpert, "
+"vérifiez votre connexion, ou renseignez 'model' (un .onnx local)."
+
+#, python-brace-format
+msgid ""
+"wrong fingerprint for model {id!r}: expected {expected}, got {got}. File "
+"discarded."
+msgstr ""
+"empreinte du modèle {id!r} incorrecte : attendu {expected}, obtenu {got}."
+" Fichier écarté."
+
+#, python-brace-format
+msgid "{label} downloaded"
+msgstr "{label} téléchargé"
+
+#, python-brace-format
+msgid ""
+"model {id!r}: the file has vanished ({path}). Was GraXpert updated during"
+" processing?"
+msgstr ""
+"modèle {id!r} : le fichier a disparu ({path}). GraXpert a-t-il été mis à "
+"jour pendant le traitement ?"
+
+msgid "open_session: empty model path"
+msgstr "open_session : chemin de modèle vide"
+
+#, python-brace-format
+msgid "ONNX model not found: {path}"
+msgstr "modèle ONNX introuvable : {path}"
+
+msgid "run_tiled expects an (H, W, C) array"
+msgstr "run_tiled attend un tableau (H, W, C)"
+
+msgid "richardson_lucy expects a 2D image"
+msgstr "richardson_lucy attend une image 2D"
+
+msgid "richardson_lucy expects a 2D PSF"
+msgstr "richardson_lucy attend une PSF 2D"
+
+msgid "PSF with null or negative sum"
+msgstr "PSF de somme nulle ou négative"
+
+#, python-brace-format
+msgid "Unsupported FITS dimensionality: {shape}"
+msgstr "FITS de dimension non supportée : {shape}"
+
+msgid "Retina projects require h5py: pip install 'retina[project]'"
+msgstr "Les projets Retina demandent h5py : pip install 'retina[project]'"
+
+#, python-brace-format
+msgid "Window {id!r} has no image state."
+msgstr "Fenêtre {id!r} sans état d'image."
+
+#, python-brace-format
+msgid "{path} is not a Retina project."
+msgstr "{path} n'est pas un projet Retina."
+
+#, python-brace-format
+msgid ""
+"Project is version {version}, this copy of Retina reads up to "
+"{max_version}. Update Retina to open it."
+msgstr ""
+"Projet en version {version}, cette copie de Retina lit jusqu'à "
+"{max_version}. Mettez Retina à jour pour l'ouvrir."
+
+#, python-brace-format
+msgid "Duplicate view identifiers in the project: {ids}"
+msgstr "Identifiants de vue en double dans le projet : {ids}"
+
+#, python-brace-format
+msgid "Unsupported raster extension: {ext}"
+msgstr "Extension raster non supportée : {ext}"
+
+msgid "JPEG XL requires the 'astro' extra — pip install 'retina[astro]'."
+msgstr "JPEG XL exige l'extra « astro » — pip install 'retina[astro]'."
+
+msgid "XISF support requires the 'xisf' package (pip install 'retina[xisf]')."
+msgstr "Le support XISF requiert le paquet 'xisf' (pip install 'retina[xisf]')."
+
+msgid "Missing XISF signature: not a monolithic XISF file."
+msgstr "Signature XISF absente : ce n'est pas un XISF monolithique."
+
+#, python-brace-format
+msgid "Truncated block at {position}: {missing} bytes missing."
+msgstr "Bloc tronqué à {position} : {missing} octets manquants."
+
+#, python-brace-format
+msgid "Unknown checksum algorithm: {algorithm!r} (expected: {expected})."
+msgstr "Algorithme de checksum inconnu : {algorithm!r} (attendus : {expected})."
+
+#, python-brace-format
+msgid "XISF checksum with unknown algorithm: {declared!r}."
+msgstr "Checksum XISF d'algorithme inconnu : {declared!r}."
+
+#, python-brace-format
+msgid ""
+"Invalid {algorithm} checksum for the block at {position} in {path}: "
+"expected {expected}, computed {actual}. Corrupted file."
+msgstr ""
+"Checksum {algorithm} invalide pour le bloc à {position} de {path} : "
+"attendu {expected}, calculé {actual}. Fichier corrompu."
+
+#, python-brace-format
+msgid "Image expects a 2D or 3D array, got ndim={ndim}"
+msgstr "Image attend un tableau 2D ou 3D, reçu ndim={ndim}"
+
+#, python-brace-format
+msgid "Mask {mask_shape} != image {image_shape}: incompatible dimensions."
+msgstr "Masque {mask_shape} ≠ image {image_shape} : dimensions incompatibles."
+
+msgid "A history contains at least the initial state."
+msgstr "Un historique comporte au moins l'état initial."
+
+#, python-brace-format
+msgid "History index out of range: {index} / {count}"
+msgstr "Index d'historique hors bornes : {index} / {count}"
+
+#, python-brace-format
+msgid "Nothing to replay at history index {index}."
+msgstr "Rien à rejouer à l'étape {index} de l'historique."
+
+#, python-brace-format
+msgid "History step {index} ({label!r}) carries no replayable process."
+msgstr "L'étape {index} ({label!r}) ne porte aucun process rejouable."
+
+#, python-brace-format
+msgid ""
+"History step {index} ({label!r}) comes from a process this installation "
+"does not have."
+msgstr ""
+"L'étape {index} ({label!r}) vient d'un process absent de cette "
+"installation."
+
+#, python-brace-format
+msgid "History step {index} used mask {mask!r}, which no longer exists."
+msgstr "L'étape {index} employait le masque {mask!r}, qui n'existe plus."
+
+#, python-brace-format
+msgid "Unknown display channel: {channel!r} (expected {choices})"
+msgstr "Canal d'affichage inconnu : {channel!r} (attendu {choices})"
+
+#, python-brace-format
+msgid "Unknown overlay kind: {kind!r}"
+msgstr "Type d'overlay inconnu : {kind!r}"
+
+msgid "set_overlays requires a tag (otherwise use clear_overlays)."
+msgstr "set_overlays exige une étiquette (sinon utiliser clear_overlays)."
+
+msgid "No astrometric solution (run PlateSolve)."
+msgstr "Pas de solution astrométrique (lance PlateSolve)."
+
+msgid "Empty preview identifier."
+msgstr "Identifiant de preview vide."
+
+#, python-brace-format
+msgid "Identifier already taken: {new_id!r}"
+msgstr "Identifiant déjà pris : {new_id!r}"
+
+#, python-brace-format
+msgid "Unknown step {step!r} (known: {known})"
+msgstr "Étape inconnue : {step!r} (connues : {known})"
+
+#, python-brace-format
+msgid "{name}: {value!r} is not one of {choices}"
+msgstr "{name} : {value!r} n'est pas parmi {choices}"
+
+#, python-brace-format
+msgid "{name}: {value} is below the minimum {limit}"
+msgstr "{name} : {value} est sous le minimum {limit}"
+
+#, python-brace-format
+msgid "{name}: {value} is above the maximum {limit}"
+msgstr "{name} : {value} est au-dessus du maximum {limit}"
+
+#, python-brace-format
+msgid "Step {step!r} has {count} process(es), no index {index}"
+msgstr "L'étape {step!r} a {count} process, pas d'indice {index}"
+
+#, python-brace-format
+msgid "{names}: resolved at run time ({tokens}), cannot be set"
+msgstr "{names} : résolus à l'exécution ({tokens}), non modifiables"
+
+#, python-brace-format
+msgid "{process_id}: unknown parameters {names}"
+msgstr "{process_id} : paramètres inconnus {names}"
+
+#, python-brace-format
+msgid "Hook script not found: {path}"
+msgstr "Script de hook introuvable : {path}"
+
+msgid "no compatible dark: lights will not be subtracted"
+msgstr "aucun dark compatible : les lights ne seront pas soustraits"
+
+msgid "unknown exposure: dark used as is"
+msgstr "exposition inconnue : dark utilisé tel quel"
+
+#, python-brace-format
+msgid "dark {dark} too far from {light} (×{scale:.2f}): dark ignored"
+msgstr "dark {dark} trop éloigné de {light} (×{scale:.2f}) : dark ignoré"
+
+#, python-brace-format
+msgid ""
+"dark {dark} not scaled for {light}: no master bias to extract the dark "
+"current from"
+msgstr ""
+"dark {dark} non mis à l'échelle pour {light} : pas de master bias pour en"
+" extraire le courant"
+
+#, python-brace-format
+msgid "dark current scaled ×{scale:.2f} ({dark} → {light})"
+msgstr "dark de courant mis à l'échelle ×{scale:.2f} ({dark} → {light})"
+
+#, python-brace-format
+msgid "{gap:g} s exposure gap with the dark, without scaling"
+msgstr "écart de pose de {gap:g} s avec le dark, sans mise à l'échelle"
+
+msgid "filterless flat used for lack of anything better"
+msgstr "flat sans filtre utilisé faute de mieux"
+
+#, python-brace-format
+msgid "no flat for filter {filter}"
+msgstr "aucun flat pour le filtre {filter}"
+
+msgid "(none)"
+msgstr "(aucun)"
+
+msgid "same-exposure flat-dark: it already carries the bias"
+msgstr "flat-dark de même pose : il porte déjà le bias"
+
+msgid "no compatible bias: flats integrated raw"
+msgstr "aucun bias compatible : flats intégrés bruts"
+
+#, python-brace-format
+msgid "Unknown step: {step_id!r}"
+msgstr "Étape inconnue : {step_id!r}"
+
+#, python-brace-format
+msgid "Plan version {version}, incompatible with {expected}"
+msgstr "Plan de version {version}, incompatible avec {expected}"
+
+#, python-brace-format
+msgid "{key}: reusing supplied master ({file})"
+msgstr "{key} : master fourni réutilisé ({file})"
+
+#, python-brace-format
+msgid "Overscan — {key}"
+msgstr "Overscan — {key}"
+
+#, python-brace-format
+msgid "{key}: overscan {biassec} corrected, useful area {trimsec}"
+msgstr "{key} : overscan {biassec} corrigé, zone utile {trimsec}"
+
+msgid "unchanged"
+msgstr "inchangée"
+
+#, python-brace-format
+msgid "Master bias — {key}"
+msgstr "Master bias — {key}"
+
+#, python-brace-format
+msgid "Master dark — {key}"
+msgstr "Master dark — {key}"
+
+#, python-brace-format
+msgid "Flat calibration — {key}"
+msgstr "Calibration des flats — {key}"
+
+#, python-brace-format
+msgid "Master flat — {key}"
+msgstr "Master flat — {key}"
+
+#, python-brace-format
+msgid "{key}: no calibration master, lights used raw"
+msgstr "{key} : aucun master de calibration, lights utilisés bruts"
+
+#, python-brace-format
+msgid "{key}: dark scale searched around ×{scale:.2f}"
+msgstr "{key} : échelle du dark cherchée autour de ×{scale:.2f}"
+
+#, python-brace-format
+msgid "Calibration — {key}"
+msgstr "Calibration — {key}"
+
+#, python-brace-format
+msgid "{band} extraction — {key}"
+msgstr "Extraction {band} — {key}"
+
+#, python-brace-format
+msgid "{key}: dual-band OSC, Ha and OIII extracted separately (no debayer)"
+msgstr ""
+"{key} : OSC dual-band, Ha et OIII extraits séparément (pas de "
+"débayerisation)"
+
+#, python-brace-format
+msgid "Measurements — {key}"
+msgstr "Mesures — {key}"
+
+#, python-brace-format
+msgid "Registration — {key}"
+msgstr "Recalage — {key}"
+
+#, python-brace-format
+msgid "Normalization — {key}"
+msgstr "Normalisation — {key}"
+
+#, python-brace-format
+msgid "Drizzle — {key}"
+msgstr "Drizzle — {key}"
+
+#, python-brace-format
+msgid "Integration — {key}"
+msgstr "Intégration — {key}"
+
+#, python-brace-format
+msgid "Crop — {key}"
+msgstr "Recadrage — {key}"
+
+msgid ""
+"mosaic detected: astrometry enabled (index files downloaded on first use,"
+" cached afterwards)"
+msgstr ""
+"mosaïque détectée : astrométrie activée (fichiers d'index téléchargés au "
+"premier appel, puis mis en cache)"
+
+#, python-brace-format
+msgid "Astrometry — {key}"
+msgstr "Astrométrie — {key}"
+
+#, python-brace-format
+msgid "Mosaic — {n} panels{filter}"
+msgstr "Mosaïque — {n} panneaux{filter}"
+
+#, python-brace-format
+msgid ""
+"{n} mosaic panels detected: each is integrated on its own, then assembled"
+" on a common WCS grid"
+msgstr ""
+"{n} panneaux de mosaïque détectés : chacun est intégré séparément, puis "
+"assemblé sur une grille WCS commune"
+
+msgid ""
+"drizzle without measurements: no reference to aim at, frames will be "
+"assumed already aligned"
+msgstr ""
+"drizzle sans mesures : aucune référence à viser, les poses seront "
+"supposées déjà superposées"
+
+msgid "no light: nothing to integrate"
+msgstr "aucun light : rien à intégrer"
+
+#, python-brace-format
+msgid "filters expected by the preset but missing: {filters}"
+msgstr "filtres attendus par le preset mais absents : {filters}"
+
+#, python-brace-format
+msgid "{key}: {count} frame(s), too few for robust rejection"
+msgstr "{key} : {count} frame(s), trop peu pour un rejet robuste"
+
+msgid "Automatic"
+msgstr "Automatique"
+
+msgid "Deduced from the contents of the folder"
+msgstr "Déduit du contenu du dossier"
+
+msgid "Colour (OSC)"
+msgstr "Couleur (OSC)"
+
+msgid "One-shot colour sensor, debayering forced"
+msgstr "Capteur couleur one-shot, dématriçage forcé"
+
+msgid "Mono LRGB"
+msgstr "Mono LRGB"
+
+msgid "L/R/G/B filter wheel"
+msgstr "Roue à filtres L/R/G/B"
+
+msgid "Mono SHO"
+msgstr "Mono SHO"
+
+msgid "Ha/SII/OIII narrowband"
+msgstr "Bande étroite Ha/SII/OIII"
+
+msgid "Seestar"
+msgstr "Seestar"
+
+msgid "ZWO Seestar — short subs, unregulated sensor"
+msgstr "ZWO Seestar — poses courtes, capteur non régulé"
+
+msgid "Dwarf"
+msgstr "Dwarf"
+
+msgid "DwarfLab Dwarf — short subs, unregulated sensor"
+msgstr "DwarfLab Dwarf — poses courtes, capteur non régulé"
+
+#, python-brace-format
+msgid "Unknown preset: {preset!r} (known: {known})"
+msgstr "Preset inconnu : {preset!r} (connus : {known})"
+
+#, python-brace-format
+msgid "{step}: unknown late binding {token!r}"
+msgstr "{step} : liaison tardive inconnue {token!r}"
+
+#, python-brace-format
+msgid "{group}: {count} frame(s) excluded from stacking ({detail})"
+msgstr "{group} : {count} frame(s) écartée(s) de l'empilement ({detail})"
+
+#, python-brace-format
+msgid "{group}: weights unavailable, uniform integration"
+msgstr "{group} : poids indisponibles, intégration uniforme"
+
+#, python-brace-format
+msgid "{step}: {param} unresolved (no reference available)"
+msgstr "{step} : {param} non résolu (aucune référence disponible)"
+
+#, python-brace-format
+msgid "registration reference: {file} ({stars} stars)"
+msgstr "référence de recalage : {file} ({stars} étoiles)"
+
+#, python-brace-format
+msgid "panel {panel}: registration reference {file} ({stars} stars)"
+msgstr "panneau {panel} : référence de recalage {file} ({stars} étoiles)"
+
+#, python-brace-format
+msgid "{step}: {file} excluded — {error}"
+msgstr "{step} : {file} écartée — {error}"
+
+#, python-brace-format
+msgid "{step}: no frame could be processed"
+msgstr "{step} : aucune frame n'a pu être traitée"
+
+#, python-brace-format
+msgid "{step}: no inputs left"
+msgstr "{step} : plus aucune entrée disponible"
+
+#, python-brace-format
+msgid "{group}: astrometry solved"
+msgstr "{group} : astrométrie résolue"
+
+#, python-brace-format
+msgid "{group}: astrometry not solved — {error}"
+msgstr "{group} : astrométrie non résolue — {error}"
+
+#, python-brace-format
+msgid "{step}: {phase} hook — {path}"
+msgstr "{step} : hook {phase} — {path}"
+
+#, python-brace-format
+msgid "Folder not found: {path}"
+msgstr "Dossier introuvable : {path}"
+
+#, python-brace-format
+msgid "Frame not in inventory: {path}"
+msgstr "Frame absente de l'inventaire : {path}"
+
+#, python-brace-format
+msgid "Unknown type: {kind!r} (expected: {kinds})"
+msgstr "Type inconnu : {kind!r} (attendu : {kinds})"
+
+#, python-brace-format
+msgid "No measurement step for group {group!r} (known: {known})"
+msgstr "Aucune étape de mesure pour le groupe {group!r} (connus : {known})"
+
+#, python-brace-format
+msgid "Unknown criteria: {unknown} (available: {available})"
+msgstr "Critères inconnus : {unknown} (disponibles : {available})"
+
+#, python-brace-format
+msgid "{name}: {problem}"
+msgstr "{name} : {problem}"
+
+#, python-brace-format
+msgid "unknown mode: {mode!r} (expected one of: {modes})"
+msgstr "mode inconnu : {mode!r} (attendu parmi : {modes})"
+
+#, python-brace-format
+msgid "{process_id}: no real-time preview"
+msgstr "{process_id} : pas d'aperçu temps réel"
+
+#, python-brace-format
+msgid "{process_id} is not a global process"
+msgstr "{process_id} n'est pas un process global"
+
+#, python-brace-format
+msgid "Unknown step: {index} (0…{last})"
+msgstr "Étape inconnue : {index} (0…{last})"
+
+#, python-brace-format
+msgid ""
+"Mask not found: the recipe refers to view {mask_id!r}, which is not open "
+"({error})."
+msgstr ""
+"Masque introuvable : la recette désigne la vue {mask_id!r}, qui n'est pas"
+" ouverte ({error})."
+
+#, python-brace-format
+msgid "Unreadable module spec: {path}"
+msgstr "Spec de module illisible : {path}"
+
+msgid "Model"
+msgstr "Modèle"
+
+msgid "Local model (.onnx), overrides the above"
+msgstr "Modèle local (.onnx), prioritaire sur le précédent"
+
+msgid "Model version (recorded)"
+msgstr "Version du modèle (enregistrée)"
+
+msgid "Model fingerprint (recorded)"
+msgstr "Empreinte du modèle (enregistrée)"
+
+#, python-brace-format
+msgid ""
+"{process}: the model fingerprint differs from the recorded one — the "
+"result will not be identical."
+msgstr ""
+"{process} : l'empreinte du modèle diffère de celle enregistrée — le "
+"résultat ne sera pas identique."
+
+msgid "AI model"
+msgstr "Modèle IA"
+
+msgid "Strength"
+msgstr "Force"
+
+msgid "Tile size"
+msgstr "Taille de tuile"
+
+msgid "Overlap (px)"
+msgstr "Recouvrement (px)"
+
+#, python-brace-format
+msgid "{label} — tile {n}/{total}"
+msgstr "{label} — tuile {n}/{total}"
+
+msgid "AI denoise"
+msgstr "Débruitage IA"
+
+msgid "AI deconvolution"
+msgstr "Déconvolution IA"
+
+msgid "Target"
+msgstr "Cible"
+
+msgid "Alpha source"
+msgstr "Source de l'alpha"
+
+msgid "Constant value"
+msgstr "Valeur constante"
+
+msgid "Source view"
+msgstr "Vue source"
+
+#, python-brace-format
+msgid "Source view not found: {view_id!r}"
+msgstr "Vue source introuvable : {view_id!r}"
+
+#, python-brace-format
+msgid ""
+"Incompatible geometry: {width}×{height} for a {img_width}×{img_height} "
+"image"
+msgstr ""
+"Géométrie incompatible : {width}×{height} pour une image "
+"{img_width}×{img_height}"
+
+msgid "Mode"
+msgstr "Mode"
+
+msgid "The image has no alpha channel."
+msgstr "L'image n'a pas de canal alpha."
+
+msgid "Detection FWHM"
+msgstr "FWHM détection"
+
+msgid "Threshold (σ)"
+msgstr "Seuil (σ)"
+
+msgid "Fitted stars (max)"
+msgstr "Étoiles ajustées (max)"
+
+msgid "Field grid (n×n)"
+msgstr "Grille du champ (n×n)"
+
+msgid "PSF profile"
+msgstr "Profil de PSF"
+
+msgid "Draw field map"
+msgstr "Dessiner la carte du champ"
+
+msgid "Mosaic size (n×n)"
+msgstr "Taille de la mosaïque (n×n)"
+
+msgid "Panel size (px)"
+msgstr "Taille des vignettes (px)"
+
+msgid "Separation (px)"
+msgstr "Séparation (px)"
+
+msgid "Method"
+msgstr "Méthode"
+
+msgid "Clipping (k·σ)"
+msgstr "Écrêtage (k·σ)"
+
+msgid "Wavelet scales"
+msgstr "Échelles d'ondelettes"
+
+msgid "Undebayered CFA image"
+msgstr "Image CFA non débayerisée"
+
+msgid "Backend"
+msgstr "Backend"
+
+msgid "Index series"
+msgstr "Série d'index"
+
+msgid "Index scales"
+msgstr "Échelles d'index"
+
+msgid "Index directory (offline)"
+msgstr "Dossier d'index (offline)"
+
+msgid "Approximate RA (deg, 0 = blind)"
+msgstr "RA approx (deg, 0 = aveugle)"
+
+msgid "Approximate Dec (deg)"
+msgstr "Dec approx (deg)"
+
+msgid "Search radius (deg, 0 = blind)"
+msgstr "Rayon de recherche (deg, 0 = aveugle)"
+
+msgid "Min scale (arcsec/px)"
+msgstr "Échelle min (arcsec/px)"
+
+msgid "Max scale (arcsec/px)"
+msgstr "Échelle max (arcsec/px)"
+
+msgid "Max stars (solver)"
+msgstr "Étoiles max (solveur)"
+
+msgid "Astrometry.net API key (online)"
+msgstr "Clé API Astrometry.net (en ligne)"
+
+msgid "Timeout (s)"
+msgstr "Timeout (s)"
+
+msgid "astap_cli path (empty = bundle/PATH)"
+msgstr "Chemin astap_cli (vide = bundle/PATH)"
+
+msgid "PlateSolve: the view does not belong to any window."
+msgstr "PlateSolve : la vue n'appartient à aucune fenêtre."
+
+msgid "PlateSolve: not enough stars detected."
+msgstr "PlateSolve : pas assez d'étoiles détectées."
+
+msgid "PlateSolve (offline): no match found (check scales/indexes)."
+msgstr "PlateSolve (offline) : aucun appariement (vérifie échelles/index)."
+
+msgid "PlateSolve (astrometry_net): API key required (api_key parameter)."
+msgstr "PlateSolve (astrometry_net) : clé API requise (paramètre api_key)."
+
+msgid "PlateSolve: Astrometry.net did not solve the field."
+msgstr "PlateSolve : Astrometry.net n'a pas résolu le champ."
+
+msgid ""
+"PlateSolve (astap): astap_cli not found. Expected in vendor/astap/, via "
+"$RETINA_ASTAP, the astap_exe parameter, or the PATH."
+msgstr ""
+"PlateSolve (astap) : astap_cli introuvable. Attendu dans vendor/astap/, "
+"via $RETINA_ASTAP, le paramètre astap_exe, ou le PATH."
+
+#, python-brace-format
+msgid "PlateSolve (astap): field not solved — {detail}"
+msgstr "PlateSolve (astap) : champ non résolu — {detail}"
+
+msgid "no solution"
+msgstr "aucune solution"
+
+msgid "PlateSolve (astap): .ini solved but incomplete WCS."
+msgstr "PlateSolve (astap) : .ini résolu mais WCS incomplet."
+
+msgid "Grid spacing (deg)"
+msgstr "Pas de grille (deg)"
+
+msgid "Line width (frac.)"
+msgstr "Épaisseur (frac.)"
+
+msgid "Rendering"
+msgstr "Rendu"
+
+msgid "Annotation requires an astrometric solution (run PlateSolve)."
+msgstr "Annotation nécessite une solution astrométrique (lance PlateSolve)."
+
+msgid "Catalog"
+msgstr "Catalogue"
+
+msgid "Limiting magnitude"
+msgstr "Magnitude limite"
+
+msgid "Max objects"
+msgstr "Objets max"
+
+msgid "Marker radius (px)"
+msgstr "Rayon marqueur (px)"
+
+msgid "Labels (magnitude)"
+msgstr "Étiquettes (magnitude)"
+
+msgid "CatalogAnnotation requires a WCS (run PlateSolve)."
+msgstr "CatalogAnnotation nécessite un WCS (lance PlateSolve)."
+
+msgid "Source window (empty = active)"
+msgstr "Fenêtre source (vide = active)"
+
+msgid "Chart size (px)"
+msgstr "Taille de la carte (px)"
+
+msgid "Field factor"
+msgstr "Facteur de champ"
+
+msgid "Grid spacing (deg, 0 = auto)"
+msgstr "Pas de grille (deg, 0 = auto)"
+
+msgid "New image id"
+msgstr "Id nouvelle image"
+
+#, python-brace-format
+msgid "Window not found: {view_id!r}"
+msgstr "Fenêtre introuvable : {view_id!r}"
+
+msgid "FindingChart requires an astrometric solution (run PlateSolve)."
+msgstr "FindingChart nécessite une solution astrométrique (lance PlateSolve)."
+
+msgid "Engine"
+msgstr "Moteur"
+
+msgid "Box size (photutils)"
+msgstr "Taille des boîtes (photutils)"
+
+msgid "Subtract (otherwise: output the model)"
+msgstr "Soustraire (sinon : sortir le modèle)"
+
+msgid "Pedestal"
+msgstr "Piédestal"
+
+msgid "Background estimator (photutils)"
+msgstr "Estimateur de fond (photutils)"
+
+msgid "Background — downscaling"
+msgstr "Fond — réduction"
+
+msgid "Background — neural estimate"
+msgstr "Fond — estimation par réseau"
+
+msgid "Background — upscaling"
+msgstr "Fond — agrandissement"
+
+msgid "Ball radius"
+msgstr "Rayon de la boule"
+
+msgid "optimize_dark_scale: geometry mismatch"
+msgstr "optimize_dark_scale : géométries différentes"
+
+msgid "Master bias"
+msgstr "Master bias"
+
+msgid "Master dark"
+msgstr "Master dark"
+
+msgid "Master flat"
+msgstr "Master flat"
+
+msgid "Dark scale"
+msgstr "Échelle du dark"
+
+msgid "≠ 1 requires a bias-subtracted dark (dark current) AND the master bias"
+msgstr "≠ 1 exige un dark débiaisé (dark de courant) ET le master bias"
+
+msgid "Optimize dark scale"
+msgstr "Optimiser l'échelle du dark"
+
+msgid ""
+"Searches for the factor minimizing residual grain; only meaningful on a "
+"bias-subtracted dark"
+msgstr ""
+"Cherche le facteur qui minimise la granularité résiduelle ; n'a de sens "
+"que sur un dark débiaisé"
+
+msgid "Search range"
+msgstr "Amplitude de recherche"
+
+msgid "The factor is searched between scale/range and scale×range"
+msgstr "Le facteur est cherché entre échelle/amplitude et échelle×amplitude"
+
+msgid "Manual pedestal"
+msgstr "Piédestal manuel"
+
+msgid "Tolerated negative fraction"
+msgstr "Fraction négative tolérée"
+
+msgid "Valid flat threshold"
+msgstr "Seuil de flat valide"
+
+msgid ""
+"Fraction of the mean flat below which a pixel is considered blind and is "
+"not divided"
+msgstr ""
+"Fraction du flat moyen sous laquelle un pixel est jugé aveugle et n'est "
+"pas divisé"
+
+msgid "Subtracting bias"
+msgstr "Soustraction du bias"
+
+msgid "Optimizing dark scale"
+msgstr "Optimisation de l'échelle du dark"
+
+#, python-brace-format
+msgid "Subtracting dark (×{scale:.3f})"
+msgstr "Soustraction du dark (×{scale:.3f})"
+
+msgid "Flat correction"
+msgstr "Correction du flat"
+
+#, python-brace-format
+msgid "{process_id} requires a WCS (run PlateSolve)."
+msgstr "{process_id} nécessite un WCS (lance PlateSolve)."
+
+#, python-brace-format
+msgid "{process_id} requires a view with a WCS: execute_on(view)."
+msgstr "{process_id} requiert une vue avec WCS : execute_on(view)."
+
+msgid "G magnitude limit"
+msgstr "Magnitude G limite"
+
+msgid "Maximum stars"
+msgstr "Étoiles max"
+
+msgid "V magnitude limit"
+msgstr "Magnitude V limite"
+
+msgid "Search radius (deg, 0 = the field)"
+msgstr "Rayon de recherche (deg, 0 = le champ)"
+
+msgid "Maximum objects"
+msgstr "Objets au maximum"
+
+msgid "Keep only these types"
+msgstr "Ne garder que ces types"
+
+msgid "SIMBAD otype prefixes, separated by commas; empty keeps all"
+msgstr "Préfixes de type SIMBAD, séparés par des virgules ; vide garde tout"
+
+msgid "Channel"
+msgstr "Canal"
+
+msgid "R view"
+msgstr "Vue R"
+
+msgid "G view"
+msgstr "Vue G"
+
+msgid "B view"
+msgstr "Vue B"
+
+msgid "Lower bound"
+msgstr "Borne basse"
+
+msgid "Upper bound"
+msgstr "Borne haute"
+
+msgid "Threshold"
+msgstr "Seuil"
+
+msgid "X offsets (px)"
+msgstr "Décalages X (px)"
+
+msgid "Y offsets (px)"
+msgstr "Décalages Y (px)"
+
+msgid "Linear correction factors"
+msgstr "Facteurs de correction linéaire"
+
+msgid "Interpolation order"
+msgstr "Ordre d'interpolation"
+
+msgid "Neutral protection"
+msgstr "Protection neutre"
+
+msgid "Amount"
+msgstr "Quantité"
+
+msgid "Reference view"
+msgstr "Vue de référence"
+
+msgid "Saturation"
+msgstr "Saturation"
+
+msgid "White preview (empty = gray-world)"
+msgstr "Preview blanc (vide = gray-world)"
+
+msgid "Background preview (empty = image)"
+msgstr "Preview fond (vide = image)"
+
+msgid "Luminance view"
+msgstr "Vue Luminance"
+
+msgid "L weight"
+msgstr "Poids L"
+
+msgid "R weight"
+msgstr "Poids R"
+
+msgid "G weight"
+msgstr "Poids G"
+
+msgid "B weight"
+msgstr "Poids B"
+
+msgid "Rotational angle (°)"
+msgstr "Angle rotationnel (°)"
+
+msgid "Center X (-1 = middle)"
+msgstr "Centre X (-1 = milieu)"
+
+msgid "Center Y (-1 = middle)"
+msgstr "Centre Y (-1 = milieu)"
+
+msgid "Frames (time order)"
+msgstr "Frames (ordre temporel)"
+
+msgid "X velocity (px/frame)"
+msgstr "Vitesse X (px/frame)"
+
+msgid "Y velocity (px/frame)"
+msgstr "Vitesse Y (px/frame)"
+
+msgid "Result id"
+msgstr "Id résultat"
+
+msgid "CometAlignment: no frames provided"
+msgstr "CometAlignment : aucune frame fournie"
+
+msgid "Sigma"
+msgstr "Sigma"
+
+msgid "Standard deviation of the Gaussian kernel (pixels)."
+msgstr "Écart-type du noyau gaussien (pixels)."
+
+msgid "Filter"
+msgstr "Filtre"
+
+msgid "Radius / sigma"
+msgstr "Rayon / sigma"
+
+msgid "Sigma clip"
+msgstr "Sigma clip"
+
+msgid "Object limit"
+msgstr "Object limit"
+
+msgid "Iterations"
+msgstr "Itérations"
+
+msgid "Read noise (e-)"
+msgstr "Read noise (e-)"
+
+msgid "Points"
+msgstr "Points"
+
+msgid "Points (x, y)"
+msgstr "Points (x, y)"
+
+msgid "Sample radius (px)"
+msgstr "Rayon d'échantillon (px)"
+
+msgid "σ tolerance (star rejection)"
+msgstr "Tolérance σ (rejet étoiles)"
+
+msgid "Degree (poly)"
+msgstr "Degré (poly)"
+
+msgid "Smoothing (rbf)"
+msgstr "Lissage (rbf)"
+
+msgid "Subtract (otherwise: model)"
+msgstr "Soustraire (sinon : modèle)"
+
+msgid "DBE: at least 3 sample points required."
+msgstr "DBE : au moins 3 points d'échantillonnage requis."
+
+msgid "DBE: too few valid points (inside the frame)."
+msgstr "DBE : trop peu de points valides (dans le cadre)."
+
+#, python-brace-format
+msgid "Background model — channel {n}/{total}"
+msgstr "Modèle de fond — canal {n}/{total}"
+
+msgid "CFA pattern"
+msgstr "Motif CFA"
+
+msgid "Whitening (PCA)"
+msgstr "Blanchiment (PCA)"
+
+msgid "Strength (α1)"
+msgstr "Force (α1)"
+
+#, python-brace-format
+msgid "TGV denoise — channel {n}/{total}"
+msgstr "Débruitage TGV — canal {n}/{total}"
+
+msgid "Smoothing radius"
+msgstr "Rayon de lissage"
+
+msgid "Structure protection"
+msgstr "Protection des structures"
+
+#, python-brace-format
+msgid "ACDNR — channel {n}/{total}"
+msgstr "ACDNR — canal {n}/{total}"
+
+msgid "Strength (× noise σ)"
+msgstr "Force (× σ bruit)"
+
+msgid "Patch size"
+msgstr "Taille de patch"
+
+msgid "Search distance"
+msgstr "Distance de recherche"
+
+#, python-brace-format
+msgid "NLM — channel {n}/{total}"
+msgstr "NLM — canal {n}/{total}"
+
+msgid "Strength (h)"
+msgstr "Force (h)"
+
+msgid "Template size"
+msgstr "Taille du patch"
+
+msgid "Search window"
+msgstr "Fenêtre de recherche"
+
+#, python-brace-format
+msgid "Fast NLM — channel {n}/{total}"
+msgstr "NLM rapide — canal {n}/{total}"
+
+msgid "Threshold (σ above background)"
+msgstr "Seuil (σ au-dessus du fond)"
+
+msgid "Min connected pixels"
+msgstr "Pixels connectés min"
+
+msgid "Deblend merged sources"
+msgstr "Déblender les sources fusionnées"
+
+msgid "Box size"
+msgstr "Taille de boîte"
+
+msgid "Median filter size"
+msgstr "Taille du filtre médian"
+
+msgid "Min area (pixels)"
+msgstr "Aire min (pixels)"
+
+msgid "Body"
+msgstr "Corps"
+
+msgid "Small-body designation"
+msgstr "Désignation du petit corps"
+
+msgid "JPL Horizons designation, e.g. 'Ceres', '2024 YR4', '1P/Halley'"
+msgstr "Désignation JPL Horizons, p. ex. « Ceres », « 2024 YR4 », « 1P/Halley »"
+
+msgid "Ephemeris kernel"
+msgstr "Noyau d'éphémérides"
+
+msgid "de440s is the JPL kernel: more precise, downloaded once (~32 MB)"
+msgstr "de440s est le noyau du JPL : plus précis, téléchargé une fois (~32 Mo)"
+
+msgid "Start (ISO UTC)"
+msgstr "Début (ISO UTC)"
+
+msgid "Step (hours)"
+msgstr "Pas (heures)"
+
+msgid "Number of points"
+msgstr "Nombre de points"
+
+msgid "EphemerisGenerator: body='custom' needs a small-body designation."
+msgstr "EphemerisGenerator : body='custom' exige une désignation de petit corps."
+
+msgid "Continuum view (broadband)"
+msgstr "Vue continuum (bande large)"
+
+msgid "k factor (0 = auto)"
+msgstr "Facteur k (0 = auto)"
+
+msgid "Output"
+msgstr "Sortie"
+
+msgid "InverseFourierTransform expects 2·C channels (real|imaginary)"
+msgstr "InverseFourierTransform attend 2·C canaux (réel|imaginaire)"
+
+msgid "Initial semi-major axis"
+msgstr "Demi-grand axe initial"
+
+msgid "Initial ellipticity"
+msgstr "Ellipticité initiale"
+
+msgid "Required coverage"
+msgstr "Couverture exigée"
+
+msgid "Minimum fraction of non-zero pixels to keep a row"
+msgstr "Fraction minimale de pixels non nuls pour garder une ligne"
+
+msgid "Maximum trim"
+msgstr "Rognage maximal"
+
+msgid "Safeguard: beyond this, a legitimately dark image is suspected"
+msgstr "Garde-fou : au-delà, on suspecte une image légitimement sombre"
+
+msgid "Registered frames"
+msgstr "Poses recalées"
+
+msgid "Used to measure the actual coverage; empty = inferred from the image"
+msgstr "Sert à mesurer la couverture réelle ; vide = déduite de l'image"
+
+msgid "Left"
+msgstr "Gauche"
+
+msgid "Top"
+msgstr "Haut"
+
+msgid "Right"
+msgstr "Droite"
+
+msgid "Bottom"
+msgstr "Bas"
+
+msgid "Scale factor"
+msgstr "Facteur d'échelle"
+
+msgid "Integer factor"
+msgstr "Facteur entier"
+
+msgid "Direction"
+msgstr "Sens"
+
+msgid "Binning (average / sum = flux preserving)"
+msgstr "Binning (average / sum = flux conservé)"
+
+msgid "Angle (°)"
+msgstr "Angle (°)"
+
+msgid "Operation"
+msgstr "Opération"
+
+msgid "Polynomial degree"
+msgstr "Degré du polynôme"
+
+msgid "Gradient scale (layers)"
+msgstr "Échelle du gradient (couches)"
+
+msgid "Reference view (no gradient)"
+msgstr "Vue de référence (sans gradient)"
+
+msgid "Reference file"
+msgstr "Fichier de référence"
+
+msgid "Reference has no large-scale structure"
+msgstr "La référence ne porte aucune structure grande échelle"
+
+msgid "Reference does not match the image background"
+msgstr "La référence ne correspond pas au fond de l'image"
+
+#, python-brace-format
+msgid "{reason} — falling back to the reference-free correction."
+msgstr "{reason} — repli sur la correction sans référence."
+
+msgid "Sky survey"
+msgstr "Survey du ciel"
+
+msgid "HiPS id"
+msgstr "Identifiant HiPS"
+
+msgid "Max size (px, 0 = full)"
+msgstr "Taille maximale (px, 0 = pleine)"
+
+msgid "Use the local cache"
+msgstr "Utiliser le cache local"
+
+msgid "SurveyReference requires an astrometric solution (run PlateSolve)."
+msgstr "SurveyReference nécessite une solution astrométrique (lance PlateSolve)."
+
+msgid "Other panel (view)"
+msgstr "Autre panneau (vue)"
+
+msgid "Exponent (compression, <1)"
+msgstr "Exposant (compression, <1)"
+
+msgid "Threshold (× mean gradient)"
+msgstr "Seuil (× gradient moyen)"
+
+msgid "GradientHDRComposition: no frames provided"
+msgstr "GradientHDRComposition : aucune pose fournie"
+
+msgid "Frames (increasing exposure)"
+msgstr "Poses (durées croissantes)"
+
+msgid "Saturation threshold"
+msgstr "Seuil de saturation"
+
+msgid "HDRComposition: no frames provided"
+msgstr "HDRComposition : aucune pose fournie"
+
+msgid "Frames"
+msgstr "Frames"
+
+msgid "Combination"
+msgstr "Combinaison"
+
+msgid "FastIntegration: no frames provided"
+msgstr "FastIntegration : aucune frame fournie"
+
+msgid "Shadows (black point)"
+msgstr "Point noir (shadows)"
+
+msgid "Midtones"
+msgstr "Milieu (midtones)"
+
+msgid "Highlights (white point)"
+msgstr "Point blanc (highlights)"
+
+msgid "Working profile"
+msgstr "Profil de travail"
+
+msgid "Rendering intent"
+msgstr "Intention de rendu"
+
+msgid "Color management enabled"
+msgstr "Gestion des couleurs active"
+
+msgid "Profile (name or .icc path)"
+msgstr "Profil (nom ou chemin .icc)"
+
+msgid "Source profile"
+msgstr "Profil source"
+
+msgid "Target profile"
+msgstr "Profil cible"
+
+msgid "Frame sequence"
+msgstr "Séquence de frames"
+
+msgid "Weight per frame"
+msgstr "Poids par frame"
+
+msgid "Empty = uniform weights; otherwise one weight per frame"
+msgstr "Vide = poids uniformes ; sinon un poids par frame"
+
+msgid "Rejection"
+msgstr "Rejet"
+
+msgid "auto: percentile below 6 frames, winsorized up to 15, linear fit beyond"
+msgstr ""
+"auto : percentile sous 6 frames, winsorisé jusqu'à 15, ajustement "
+"linéaire au-delà"
+
+msgid "Low sigma"
+msgstr "Sigma bas"
+
+msgid "High sigma"
+msgstr "Sigma haut"
+
+msgid "Low percentile"
+msgstr "Percentile bas"
+
+msgid "High percentile"
+msgstr "Percentile haut"
+
+msgid "Max memory (MB)"
+msgstr "Mémoire max (Mo)"
+
+msgid "Sizes the row bands; does not affect the result"
+msgstr "Dimensionne les bandes de lignes ; n'affecte pas le résultat"
+
+#, python-brace-format
+msgid "Integration: {n} weights for {count} frames"
+msgstr "Integration : {n} poids pour {count} frames"
+
+msgid "Integration: negative weight"
+msgstr "Integration : poids négatif"
+
+msgid "Integration: all weights are zero"
+msgstr "Integration : tous les poids sont nuls"
+
+msgid "Integration: no frames provided"
+msgstr "Integration : aucune frame fournie"
+
+msgid "Integration: no readable frames"
+msgstr "Integration : aucune frame lisible"
+
+#, python-brace-format
+msgid "Integration: heterogeneous geometries {shapes}"
+msgstr "Integration : géométries hétérogènes {shapes}"
+
+msgid "Integration"
+msgstr "Intégration"
+
+#, python-brace-format
+msgid "Cannot read star {text!r} — expected 'ra,dec[,mag]' or 'x:y'."
+msgstr "Étoile illisible {text!r} — attendu « ra,dec[,mag] » ou « x:y »."
+
+msgid "Target star"
+msgstr "Étoile cible"
+
+msgid "'ra,dec' in degrees, or 'x:y' in pixels of the first frame"
+msgstr "« ra,dec » en degrés, ou « x:y » en pixels de la première pose"
+
+msgid "Comparison stars"
+msgstr "Étoiles de comparaison"
+
+msgid ""
+"Same syntax, separated by ';'. A third value is the catalogue magnitude, "
+"which turns the output into standard magnitudes"
+msgstr ""
+"Même syntaxe, séparées par « ; ». Une troisième valeur est la magnitude "
+"catalogue, qui fait passer la sortie en magnitudes standard"
+
+msgid "Check star"
+msgstr "Étoile de contrôle"
+
+msgid ""
+"Measured like the target but never used to correct it: its flatness is "
+"what proves the run is trustworthy"
+msgstr ""
+"Mesurée comme la cible mais jamais utilisée pour la corriger : sa "
+"platitude est ce qui prouve que la série est digne de confiance"
+
+msgid "Photometry mode"
+msgstr "Mode de photométrie"
+
+msgid "Aperture radius (px)"
+msgstr "Rayon d'ouverture (px)"
+
+msgid "Background annulus, inner (px)"
+msgstr "Anneau de fond, interne (px)"
+
+msgid "Background annulus, outer (px)"
+msgstr "Anneau de fond, externe (px)"
+
+msgid "Channel (-1 = luminance)"
+msgstr "Canal (-1 = luminance)"
+
+msgid "Frame matching"
+msgstr "Appariement des poses"
+
+msgid "Recentre on each frame"
+msgstr "Recentrer sur chaque pose"
+
+msgid ""
+"An aperture off by two pixels loses a varying amount of flux from frame "
+"to frame, which fabricates variability"
+msgstr ""
+"Une ouverture décalée de deux pixels perd une quantité de flux variable "
+"d'une pose à l'autre, ce qui fabrique une variabilité"
+
+msgid "Reuse cached measurements"
+msgstr "Réutiliser les mesures en cache"
+
+msgid "AAVSO observer code"
+msgstr "Code observateur AAVSO"
+
+msgid "Filter (empty = FITS FILTER keyword)"
+msgstr "Filtre (vide = mot-clé FITS FILTER)"
+
+msgid "AAVSO chart id"
+msgstr "Identifiant de carte AAVSO"
+
+msgid "Notes"
+msgstr "Notes"
+
+msgid "Export to CSV"
+msgstr "Exporter en CSV"
+
+msgid "Export to AAVSO format"
+msgstr "Exporter au format AAVSO"
+
+msgid "LightCurve: no target star given."
+msgstr "LightCurve : aucune étoile cible donnée."
+
+#, python-brace-format
+msgid "LightCurve: frame {frame} carries no WCS (matching='wcs')."
+msgstr "LightCurve : la pose {frame} ne porte pas de WCS (matching='wcs')."
+
+#, python-brace-format
+msgid ""
+"LightCurve: cannot match frame {frame} to the first one — give a WCS or "
+"align the series first."
+msgstr ""
+"LightCurve : impossible d'apparier la pose {frame} à la première — "
+"fournissez un WCS ou recalez la série d'abord."
+
+msgid ""
+"LightCurve: celestial coordinates need a WCS on the first frame, or give "
+"pixel positions as 'x:y'."
+msgstr ""
+"LightCurve : des coordonnées célestes exigent un WCS sur la première pose"
+" ; sinon, donnez des positions pixel « x:y »."
+
+msgid "LightCurve: no frames given."
+msgstr "LightCurve : aucune pose donnée."
+
+#, python-brace-format
+msgid "Photometry {n}/{total}"
+msgstr "Photométrie {n}/{total}"
+
+msgid "Photometry complete"
+msgstr "Photométrie terminée"
+
+msgid "Detect columns"
+msgstr "Détecter les colonnes"
+
+msgid "Detect rows"
+msgstr "Détecter les lignes"
+
+msgid "Export defect list (JSON)"
+msgstr "Exporter la liste de défauts (JSON)"
+
+msgid "Draw defects"
+msgstr "Dessiner les défauts"
+
+msgid "LinearDefectDetection: run the measurement first."
+msgstr "LinearDefectDetection : lance d'abord la mesure."
+
+msgid "Correct columns"
+msgstr "Corriger les colonnes"
+
+msgid "Correct rows"
+msgstr "Corriger les lignes"
+
+msgid "Defect list (JSON)"
+msgstr "Liste de défauts (JSON)"
+
+msgid ""
+"LinearPatternSubtraction(mode='defect_list'): 'defects_path' parameter "
+"required (the JSON produced by LinearDefectDetection)."
+msgstr ""
+"LinearPatternSubtraction(mode='defect_list') : paramètre 'defects_path' "
+"requis (le JSON produit par LinearDefectDetection)."
+
+#, python-brace-format
+msgid "LinearPatternSubtraction: defect list not found ({path})"
+msgstr "LinearPatternSubtraction : liste introuvable ({path})"
+
+msgid "…or reference file"
+msgstr "…ou fichier de référence"
+
+msgid "Background scale (σ)"
+msgstr "Échelle du fond (σ)"
+
+msgid "Frames (unregistered)"
+msgstr "Frames (non recalées)"
+
+msgid "Upsampling"
+msgstr "Sur-échantillonnage"
+
+msgid "Pixel fraction"
+msgstr "Fraction de pixel"
+
+msgid "Samples per pixel"
+msgstr "Échantillons par pixel"
+
+msgid "Accuracy of the overlap computation; 3 is enough in practice"
+msgstr "Finesse du calcul de recouvrement ; 3 suffit en pratique"
+
+msgid "Reference view (id)"
+msgstr "Vue de référence (id)"
+
+msgid "Transforms (6 per frame)"
+msgstr "Transformations (6 par frame)"
+
+msgid "Affine matrices a,b,c,d,e,f; empty = estimated from stars"
+msgstr "Matrices affines a,b,c,d,e,f ; vide = estimées par les étoiles"
+
+#, python-brace-format
+msgid "DrizzleIntegration: {n} values for {count} frames (6 per frame required)"
+msgstr ""
+"DrizzleIntegration : {n} valeurs pour {count} frames (il en faut 6 par "
+"frame)"
+
+msgid "DrizzleIntegration: no frames provided"
+msgstr "DrizzleIntegration : aucune frame fournie"
+
+msgid "Threshold (fraction of peak)"
+msgstr "Seuil (frac. du pic)"
+
+msgid "Mask thickness (px)"
+msgstr "Épaisseur du masque (px)"
+
+msgid "Fuzziness"
+msgstr "Flou des bords"
+
+msgid "Smoothness (σ)"
+msgstr "Lissage (σ)"
+
+msgid "Invert"
+msgstr "Inverser"
+
+msgid "Hue centre (degrees)"
+msgstr "Teinte visée (degrés)"
+
+msgid "Hue half-width (degrees)"
+msgstr "Demi-largeur de teinte (degrés)"
+
+msgid "Hue fuzziness (degrees)"
+msgstr "Flou de teinte (degrés)"
+
+msgid "Minimum saturation"
+msgstr "Saturation minimale"
+
+msgid "Minimum lightness"
+msgstr "Clarté minimale"
+
+msgid "Maximum lightness"
+msgstr "Clarté maximale"
+
+msgid "ColorMask requires a color (RGB) image."
+msgstr "ColorMask nécessite une image couleur (RGB)."
+
+msgid "FITS frames (with WCS)"
+msgstr "Frames FITS (avec WCS)"
+
+msgid "MosaicReproject: no frames provided"
+msgstr "MosaicReproject : aucune frame fournie"
+
+msgid "Object name resolved by Sesame (M31), or 'ra,dec' in degrees"
+msgstr "Nom d'objet résolu par Sesame (M31), ou « ra,dec » en degrés"
+
+msgid "Reference frame (for the field)"
+msgstr "Pose de référence (pour le champ)"
+
+msgid ""
+"A FITS file whose header gives sensor size, pixel size and focal length; "
+"otherwise set the field explicitly"
+msgstr ""
+"Un FITS dont l'en-tête donne la taille du capteur, celle des pixels et la"
+" focale ; sinon, renseignez le champ explicitement"
+
+msgid "Field width (deg)"
+msgstr "Largeur du champ (deg)"
+
+msgid "Field height (deg)"
+msgstr "Hauteur du champ (deg)"
+
+msgid "Tiles across"
+msgstr "Tuiles en largeur"
+
+msgid "Tiles down"
+msgstr "Tuiles en hauteur"
+
+msgid "Overlap (%)"
+msgstr "Recouvrement (%)"
+
+msgid "MosaicPlanner: no target given."
+msgstr "MosaicPlanner : aucune cible donnée."
+
+msgid "MosaicPlanner: give fov_width/fov_height, or a reference frame."
+msgstr "MosaicPlanner : donnez fov_width/fov_height, ou une pose de référence."
+
+#, python-brace-format
+msgid "MosaicPlanner: cannot read the field from {path}."
+msgstr "MosaicPlanner : impossible de lire le champ depuis {path}."
+
+#, python-brace-format
+msgid "MosaicPlanner: {path} lacks XPIXSZ/FOCALLEN/NAXIS to derive the field."
+msgstr ""
+"MosaicPlanner : {path} n'a pas XPIXSZ/FOCALLEN/NAXIS pour en déduire le "
+"champ."
+
+msgid "Number of scales"
+msgstr "Nombre d'échelles"
+
+msgid "Bias per scale"
+msgstr "Biais par échelle"
+
+msgid "Noise threshold (σ, scale 1)"
+msgstr "Seuil de bruit (σ, échelle 1)"
+
+msgid "Number of layers"
+msgstr "Nombre de couches"
+
+msgid "Overdrive (contrast)"
+msgstr "Overdrive (contraste)"
+
+msgid "Preserved detail layers"
+msgstr "Couches de détail préservées"
+
+msgid "Noise threshold"
+msgstr "Seuil de bruit"
+
+msgid "Contrast protection"
+msgstr "Protection du contraste"
+
+msgid "Detail boost"
+msgstr "Gain des détails"
+
+msgid "Scale width (σ)"
+msgstr "Largeur d'échelle (σ)"
+
+msgid "Clip limit"
+msgstr "Clip limit"
+
+msgid "Kernel size (0 = auto)"
+msgstr "Taille noyau (0 = auto)"
+
+#, python-brace-format
+msgid "{who}: view not found ({id!r})"
+msgstr "{who} : vue introuvable ({id!r})"
+
+#, python-brace-format
+msgid ""
+"{who}: view {id!r} is {view_shape}, the image is {shape} — they must "
+"share the same geometry (register them first)."
+msgstr ""
+"{who} : la vue {id!r} est en {view_shape}, l'image en {shape} — il faut "
+"la même géométrie (recale-les d'abord)."
+
+msgid "Ha view"
+msgstr "Vue Hα"
+
+msgid "OIII view"
+msgstr "Vue OIII"
+
+msgid "SII view"
+msgstr "Vue SII"
+
+msgid "Ha target channel"
+msgstr "Canal cible Hα"
+
+msgid "OIII target channel"
+msgstr "Canal cible OIII"
+
+msgid "SII target channel"
+msgstr "Canal cible SII"
+
+msgid "Weighting"
+msgstr "Pondération"
+
+msgid "Narrowband bandwidth (nm)"
+msgstr "Largeur de bande étroite (nm)"
+
+msgid "Broadband bandwidth (nm)"
+msgstr "Largeur de bande large (nm)"
+
+msgid "NBRGBCombination requires a color (RGB) image."
+msgstr "NBRGBCombination nécessite une image couleur (RGB)."
+
+msgid ""
+"NBRGBCombination: no emission line provided. Set at least ha_view, "
+"oiii_view or sii_view (a view identifier)."
+msgstr ""
+"NBRGBCombination : aucune raie fournie. Renseigne au moins ha_view, "
+"oiii_view ou sii_view (l'identifiant d'une vue)."
+
+msgid "Reference channel"
+msgstr "Canal de référence"
+
+msgid "Red channel view"
+msgstr "Vue du canal rouge"
+
+msgid "Green channel view"
+msgstr "Vue du canal vert"
+
+msgid "Blue channel view"
+msgstr "Vue du canal bleu"
+
+msgid "Background threshold (k·σ)"
+msgstr "Seuil de fond (k·σ)"
+
+msgid "Match scale as well as offset"
+msgstr "Aligner l'échelle en plus du décalage"
+
+msgid ""
+"NarrowbandNormalization: set all three views, or none (in which case the "
+"image's three channels are normalized)."
+msgstr ""
+"NarrowbandNormalization : renseigne les trois vues, ou aucune (auquel cas"
+" ce sont les trois canaux de l'image qui sont normalisés)."
+
+msgid ""
+"NarrowbandNormalization: without named views, a 3-channel image is "
+"required."
+msgstr "NarrowbandNormalization : sans vues nommées, il faut une image à 3 canaux."
+
+msgid "Type"
+msgstr "Type"
+
+msgid "Amplitude"
+msgstr "Amplitude"
+
+msgid "Seed"
+msgstr "Graine"
+
+msgid "Octaves"
+msgstr "Octaves"
+
+msgid "Cells (base scale)"
+msgstr "Cellules (échelle de base)"
+
+msgid "Blend"
+msgstr "Mélange"
+
+msgid "Bright magnitude (avoid saturation)"
+msgstr "Mag brillante (éviter saturation)"
+
+msgid "Faint magnitude"
+msgstr "Mag faible"
+
+msgid "Max stars"
+msgstr "Étoiles max"
+
+msgid "Apply (otherwise: measure only)"
+msgstr "Appliquer (sinon : mesurer seulement)"
+
+msgid "PhotometricColorCalibration requires a WCS (run PlateSolve first)."
+msgstr "PhotometricColorCalibration nécessite un WCS (lance PlateSolve)."
+
+msgid "PhotometricColorCalibration requires a color (RGB) image."
+msgstr "PhotometricColorCalibration nécessite une image couleur (RGB)."
+
+msgid "PhotometricColorCalibration: too few catalog stars in the field."
+msgstr "PhotometricColorCalibration : trop peu d'étoiles catalogue dans le champ."
+
+msgid "PhotometricColorCalibration: too few measurable stars."
+msgstr "PhotometricColorCalibration : trop peu d'étoiles mesurables."
+
+msgid "PhotometricColorCalibration requires a view (WCS): execute_on(view)."
+msgstr "PhotometricColorCalibration requiert une vue (WCS) : execute_on(view)."
+
+msgid "WCS required (run PlateSolve first)."
+msgstr "WCS requis (lance PlateSolve)."
+
+msgid "Too few catalog stars in the field."
+msgstr "Trop peu d'étoiles catalogue dans le champ."
+
+msgid "Bright magnitude"
+msgstr "Mag brillante"
+
+msgid "Spectrum source"
+msgstr "Source des spectres"
+
+msgid "Red filter"
+msgstr "Filtre rouge"
+
+msgid "Green filter"
+msgstr "Filtre vert"
+
+msgid "Blue filter"
+msgstr "Filtre bleu"
+
+msgid "Red sensor QE"
+msgstr "Rendement capteur rouge"
+
+msgid "Green sensor QE"
+msgstr "Rendement capteur vert"
+
+msgid "Blue sensor QE"
+msgstr "Rendement capteur bleu"
+
+msgid "White reference"
+msgstr "Référence de blanc"
+
+msgid "Narrowband mode"
+msgstr "Mode bande étroite"
+
+msgid "Red wavelength (nm)"
+msgstr "Longueur d'onde rouge (nm)"
+
+msgid "Red bandwidth (nm)"
+msgstr "Largeur de bande rouge (nm)"
+
+msgid "Green wavelength (nm)"
+msgstr "Longueur d'onde verte (nm)"
+
+msgid "Green bandwidth (nm)"
+msgstr "Largeur de bande verte (nm)"
+
+msgid "Blue wavelength (nm)"
+msgstr "Longueur d'onde bleue (nm)"
+
+msgid "Blue bandwidth (nm)"
+msgstr "Largeur de bande bleue (nm)"
+
+#, python-brace-format
+msgid ""
+"SPCC: white reference {ref!r} does not cover the requested bands — check "
+"the narrowband mode wavelengths."
+msgstr ""
+"SPCC : la référence de blanc {ref!r} ne recouvre pas les bandes demandées"
+" — vérifie les longueurs d'onde du mode bande étroite."
+
+msgid "SPCC requires a color (RGB) image."
+msgstr "SPCC nécessite une image couleur (RGB)."
+
+msgid "SPCC: too few measurable stars."
+msgstr "SPCC : trop peu d'étoiles mesurables."
+
+msgid "SPCC requires a view (WCS): execute_on(view)."
+msgstr "SPCC requiert une vue (WCS) : execute_on(view)."
+
+msgid "Apply the scale (otherwise: measure)"
+msgstr "Appliquer l'échelle (sinon : mesurer)"
+
+msgid "Flux calibration: too few measurable stars."
+msgstr "Flux calibration : trop peu d'étoiles mesurables."
+
+msgid "Flux calibration requires a view (WCS): execute_on(view)."
+msgstr "Flux calibration requiert une vue (WCS) : execute_on(view)."
+
+msgid "Action"
+msgstr "Action"
+
+msgid "Curve family"
+msgstr "Famille de courbe"
+
+msgid "Curve identifier"
+msgstr "Identifiant de la courbe"
+
+msgid "Display name"
+msgstr "Nom affiché"
+
+msgid "Points (wavelength, value, ...)"
+msgstr "Points (longueur d'onde, valeur, ...)"
+
+msgid "FilterManager(action='add'): parameter 'name' required."
+msgstr "FilterManager(action='add') : paramètre 'name' requis."
+
+#, python-brace-format
+msgid ""
+"FilterManager: no user curve {name!r} of kind {kind} (built-in curves "
+"cannot be removed)."
+msgstr ""
+"FilterManager : aucune courbe utilisateur {name!r} en {kind} (les courbes"
+" embarquées ne se suppriment pas)."
+
+#, python-brace-format
+msgid ""
+"AperturePhotometry: the background annulus must be a ring — annulus_outer"
+" ({outer}) must exceed annulus_inner ({inner})."
+msgstr ""
+"AperturePhotometry : l'anneau de fond doit être un anneau — annulus_outer"
+" ({outer}) doit dépasser annulus_inner ({inner})."
+
+msgid "Max sources"
+msgstr "Sources max"
+
+msgid "Magnitude zero point"
+msgstr "Point zéro de magnitude"
+
+msgid "Draw apertures"
+msgstr "Dessiner les ouvertures"
+
+msgid "AperturePhotometry: nothing to export, run the measurement first."
+msgstr "AperturePhotometry : rien à exporter, lance d'abord la mesure."
+
+msgid "Expression (Python)"
+msgstr "Expression (Python)"
+
+msgid "Symbols (preamble lines)"
+msgstr "Symboles (lignes préalables)"
+
+msgid "Rescale output"
+msgstr "Rescale la sortie"
+
+msgid "Truncate"
+msgstr "Borner (truncate)"
+
+msgid "New image"
+msgstr "Nouvelle image"
+
+msgid "Seed (rand/gauss)"
+msgstr "Graine (rand/gauss)"
+
+#, python-brace-format
+msgid "PixelMath: invalid syntax: {error}"
+msgstr "PixelMath : syntaxe invalide : {error}"
+
+#, python-brace-format
+msgid "PixelMath: \"{expr}\": {error}"
+msgstr "PixelMath : « {expr} » : {error}"
+
+#, python-brace-format
+msgid "PixelMath: result of shape {shape} not broadcastable to {target}"
+msgstr "PixelMath : résultat de forme {shape} non diffusable vers {target}"
+
+msgid "Overscan region (BIASSEC)"
+msgstr "Zone d'overscan (BIASSEC)"
+
+msgid "IRAF section, e.g. [4096:4109]; empty = no correction"
+msgstr "Section IRAF, p. ex. [4096:4109] ; vide = pas de correction"
+
+msgid "Useful region (TRIMSEC)"
+msgstr "Zone utile (TRIMSEC)"
+
+msgid "IRAF section that is kept; empty = no trimming"
+msgstr "Section IRAF conservée ; vide = pas de rognage"
+
+msgid "Level estimator"
+msgstr "Estimateur du niveau"
+
+msgid "Correction direction"
+msgstr "Sens de la correction"
+
+msgid "auto: inferred from the shape of the overscan region"
+msgstr "auto : déduit de la forme de la zone d'overscan"
+
+#, python-brace-format
+msgid "Overscan: empty region for {section!r}"
+msgstr "Overscan : zone vide pour {section!r}"
+
+msgid "Subtracting overscan"
+msgstr "Soustraction de l'overscan"
+
+msgid "Cropping to the useful area"
+msgstr "Rognage de la zone utile"
+
+msgid "Hot pixel threshold (σ)"
+msgstr "Seuil chauds (σ)"
+
+msgid "Cold pixel threshold (σ)"
+msgstr "Seuil froids (σ)"
+
+msgid "Defect map (≠0 = defective)"
+msgstr "Carte de défauts (≠0 = défectueux)"
+
+msgid "Median radius"
+msgstr "Rayon du médian"
+
+msgid "Convolution radius (σ)"
+msgstr "Rayon de convolution (σ)"
+
+msgid "Treat pixels ≤0 as dead"
+msgstr "Traiter les pixels ≤0 comme morts"
+
+msgid "Noise layers removed"
+msgstr "Couches de bruit retirées"
+
+msgid "Emission band"
+msgstr "Raie d'émission"
+
+msgid "ha: red site (656 nm); oiii: mean of the two green sites (500 nm)"
+msgstr "ha : site rouge (656 nm) ; oiii : moyenne des deux sites verts (500 nm)"
+
+#, python-brace-format
+msgid ""
+"ExtractDualBand: a raw single-channel CFA image is required, but this one"
+" has {channels} channels. Apply it before Debayer."
+msgstr ""
+"ExtractDualBand : une image CFA brute mono-canal est requise, or celle-ci"
+" a {channels} canaux. Appliquez-le avant Debayer."
+
+msgid "psf_kernel: strictly positive FWHM expected"
+msgstr "psf_kernel : FWHM strictement positives attendues"
+
+msgid "psf_kernel: zero-sum kernel"
+msgstr "psf_kernel : noyau de somme nulle"
+
+msgid "median_psf_image expects a 2D luminance image"
+msgstr "median_psf_image attend une image de luminance 2D"
+
+msgid "Explicit positions"
+msgstr "Positions imposées"
+
+msgid "Maximum radius (pixels)"
+msgstr "Rayon max (pixels)"
+
+#, python-brace-format
+msgid "Reference not found: view {id!r}"
+msgstr "Référence introuvable : vue {id!r}"
+
+msgid "No reference provided (reference_id or reference_path)"
+msgstr "Aucune référence fournie (reference_id ou reference_path)"
+
+msgid "Out-of-field fill"
+msgstr "Remplissage hors champ"
+
+msgid "Value of the areas not observed after registration"
+msgstr "Valeur des zones non observées après recalage"
+
+msgid "StarAlignment: no reference (reference_id or reference_path)"
+msgstr "StarAlignment : aucune référence (reference_id ou reference_path)"
+
+msgid "Matching stars"
+msgstr "Appariement des étoiles"
+
+#, python-brace-format
+msgid "Resampling {n}/{total}"
+msgstr "Rééchantillonnage {n}/{total}"
+
+msgid "Source points [x,y,…]"
+msgstr "Points source [x,y,…]"
+
+msgid "Target points [x,y,…]"
+msgstr "Points cible [x,y,…]"
+
+msgid "Transformation"
+msgstr "Transformation"
+
+msgid "Reference view (output geometry)"
+msgstr "Vue de référence (géométrie de sortie)"
+
+msgid "DynamicAlignment: at least 2 equal source/target point pairs are required."
+msgstr "DynamicAlignment : il faut ≥2 paires de points source/cible égales."
+
+msgid "Subpixel factor"
+msgstr "Facteur sous-pixel"
+
+msgid "Max ORB points"
+msgstr "Points ORB max"
+
+msgid "FeatureAlignment: not enough matchable ORB keypoints."
+msgstr "FeatureAlignment : pas assez de points ORB appariables."
+
+msgid "FeatureAlignment: fewer than 4 matches."
+msgstr "FeatureAlignment : moins de 4 appariements."
+
+msgid "FeatureAlignment: homography could not be estimated."
+msgstr "FeatureAlignment : homographie non estimable."
+
+msgid "PSF source"
+msgstr "Source de la PSF"
+
+msgid "PSF sigma"
+msgstr "PSF sigma"
+
+msgid "Moffat beta"
+msgstr "Bêta du Moffat"
+
+msgid "PSF image (view identifier)"
+msgstr "Image de PSF (identifiant de vue)"
+
+msgid "Star detection threshold (sigma)"
+msgstr "Seuil de détection des étoiles (σ)"
+
+msgid "Regularization (sigma)"
+msgstr "Régularisation (σ)"
+
+msgid "Dark ringing suppression"
+msgstr "Atténuation des anneaux sombres"
+
+msgid "Bright ringing suppression"
+msgstr "Atténuation des anneaux clairs"
+
+msgid "Star protection"
+msgstr "Protection des étoiles"
+
+msgid "Luminance only"
+msgstr "Luminance seule"
+
+msgid ""
+"Deconvolution(psf_mode='measured'): not enough fittable stars in this "
+"field. Lower star_threshold, or switch to psf_mode='parametric'."
+msgstr ""
+"Deconvolution(psf_mode='measured') : pas assez d'étoiles ajustables dans "
+"ce champ. Baisse star_threshold, ou passe en psf_mode='parametric'."
+
+msgid "Deconvolution(psf_mode='external'): psf_view not set"
+msgstr "Deconvolution(psf_mode='external') : psf_view non renseigné"
+
+#, python-brace-format
+msgid "Deconvolution: PSF view not found ({view!r})"
+msgstr "Deconvolution : vue de PSF introuvable ({view!r})"
+
+#, python-brace-format
+msgid "Deconvolution: view {view!r} carries no PSF"
+msgstr "Deconvolution : la vue {view!r} ne porte pas de PSF"
+
+#, python-brace-format
+msgid "Deconvolution — iteration {n}/{total}"
+msgstr "Déconvolution — itération {n}/{total}"
+
+#, python-brace-format
+msgid "Deconvolution — channel {n}/{total}"
+msgstr "Déconvolution — canal {n}/{total}"
+
+msgid "Deconvolution"
+msgstr "Déconvolution"
+
+msgid ""
+"NoiseReduction(method='wavelet') requires PyWavelets — install the astro "
+"extra (pip install 'retina[astro]') or 'pip install PyWavelets'."
+msgstr ""
+"NoiseReduction(method='wavelet') requiert PyWavelets — installe l'extra "
+"astro (pip install 'retina[astro]') ou 'pip install PyWavelets'."
+
+msgid "Size"
+msgstr "Taille"
+
+msgid "Radius"
+msgstr "Rayon"
+
+msgid "Balance (regularization)"
+msgstr "Balance (régularisation)"
+
+msgid "Source X"
+msgstr "Source X"
+
+msgid "Source Y"
+msgstr "Source Y"
+
+msgid "Destination X"
+msgstr "Destination X"
+
+msgid "Destination Y"
+msgstr "Destination Y"
+
+msgid "Softness"
+msgstr "Adoucissement"
+
+msgid "Stroke points [x,y,…] (destination)"
+msgstr "Points du tracé [x,y,…] (destination)"
+
+#, python-brace-format
+msgid "{process_id}: points must hold an even number of values [x,y,…]."
+msgstr "{process_id} : « points » doit contenir un nombre pair de valeurs [x,y,…]."
+
+msgid "Mask map (≠0 = to fill in)"
+msgstr "Carte de masque (≠0 = à combler)"
+
+msgid "Hole threshold (if no map)"
+msgstr "Seuil trous (si pas de carte)"
+
+msgid "Inpainting radius"
+msgstr "Rayon d'inpainting"
+
+msgid "Rotation (°)"
+msgstr "Rotation (°)"
+
+msgid "Rotation mode"
+msgstr "Mode de rotation"
+
+msgid ""
+"after_crop: rotate the cropped region, enlarging the canvas. "
+"rotated_rect: sample a tilted rectangle, output is exactly its size."
+msgstr ""
+"after_crop : tourne la région découpée, en agrandissant le canevas. "
+"rotated_rect : échantillonne un rectangle incliné, la sortie fait "
+"exactement sa taille."
+
+msgid "File"
+msgstr "Fichier"
+
+msgid "Script executed — it does the work, not this instance"
+msgstr "Script exécuté — c'est lui qui fait le travail, pas cette instance"
+
+msgid "Parameters"
+msgstr "Paramètres"
+
+msgid "JSON of the parameters exported by the script (retina.parameters)"
+msgstr "JSON des paramètres exportés par le script (retina.parameters)"
+
+msgid "Digest"
+msgstr "Empreinte"
+
+msgid "SHA-256 of the file when saved; checked on replay"
+msgstr "SHA-256 du fichier à l'enregistrement ; vérifié au rejeu"
+
+msgid ""
+"Script: recursive execution — an instance cannot replay itself from a "
+"script already running."
+msgstr ""
+"Script : exécution récursive — une instance ne peut pas se rejouer depuis"
+" un script déjà en cours."
+
+msgid "Script: no file to execute."
+msgstr "Script : aucun fichier à exécuter."
+
+msgid "Script: no application to execute the file."
+msgstr "Script : aucune application pour exécuter le fichier."
+
+msgid "Script does not transform pixels: it executes a file."
+msgstr "Script ne transforme pas des pixels : il exécute un fichier."
+
+msgid "FWHM (detection)"
+msgstr "FWHM (détection)"
+
+msgid "Masking radius"
+msgstr "Rayon de masquage"
+
+msgid "Model .onnx (StarNet/GraXpert)"
+msgstr "Modèle .onnx (StarNet/GraXpert)"
+
+#, python-brace-format
+msgid "AI command ({input} {output})"
+msgstr "Commande IA ({input} {output})"
+
+msgid "StarRemoval(mode='onnx'): parameter 'model' (.onnx) required."
+msgstr "StarRemoval(mode='onnx') : paramètre 'model' (.onnx) requis."
+
+#, python-brace-format
+msgid "Star removal — tile {n}/{total}"
+msgstr "Retrait d'étoiles — tuile {n}/{total}"
+
+msgid "StarRemoval(mode='external'): parameter 'command' required."
+msgstr "StarRemoval(mode='external') : paramètre 'command' requis."
+
+#, python-brace-format
+msgid "StarRemoval: the external tool did not produce {path}"
+msgstr "StarRemoval : l'outil externe n'a pas produit {path}"
+
+msgid "FWHM"
+msgstr "FWHM"
+
+msgid "Mask radius"
+msgstr "Rayon du masque"
+
+msgid "Starless view"
+msgstr "Vue sans étoiles"
+
+#, python-brace-format
+msgid ""
+"StarReduction(method={method!r}): parameter 'starless' required (the "
+"identifier of a starless view). Otherwise, use method='morphological'."
+msgstr ""
+"StarReduction(method={method!r}) : paramètre 'starless' requis "
+"(l'identifiant d'une vue sans étoiles). Sinon, method='morphological'."
+
+#, python-brace-format
+msgid "StarReduction: starless view not found ({view!r})"
+msgstr "StarReduction : vue starless introuvable ({view!r})"
+
+#, python-brace-format
+msgid ""
+"StarReduction: the starless view is {view_shape}, the image is {shape} — "
+"they must share the same geometry."
+msgstr ""
+"StarReduction : la vue starless est en {view_shape}, l'image en {shape} —"
+" il faut la même géométrie."
+
+msgid "Curve resolution"
+msgstr "Résolution de la courbe"
+
+msgid "Stretch factor"
+msgstr "Facteur d'étirement"
+
+msgid "Black point"
+msgstr "Point noir"
+
+msgid "Target background"
+msgstr "Fond cible"
+
+msgid "Order"
+msgstr "Ordre"
+
+msgid "Stretch factor (ln(D+1))"
+msgstr "Facteur d'étirement (ln(D+1))"
+
+msgid "Local intensity (b)"
+msgstr "Intensité locale (b)"
+
+msgid "Symmetry point (SP)"
+msgstr "Point de symétrie (SP)"
+
+msgid "Protect shadows (LP)"
+msgstr "Protection des ombres (LP)"
+
+msgid "Protect highlights (HP)"
+msgstr "Protection des hautes lumières (HP)"
+
+msgid "Clip type"
+msgstr "Traitement du dépassement"
+
+msgid "Detection threshold (σ)"
+msgstr "Seuil détection (σ)"
+
+msgid "Roundness tolerance"
+msgstr "Tolérance de rondeur"
+
+msgid ""
+"Beyond DAOStarFinder's default (1.0), so that trailed stars are detected "
+"and measured instead of being ignored"
+msgstr ""
+"Au-delà du défaut de DAOStarFinder (1.0), pour que les étoiles filées "
+"soient détectées et mesurées au lieu d'être ignorées"
+
+msgid "PSF model"
+msgstr "Modèle de PSF"
+
+msgid ""
+"gaussian: elliptical Gaussian fitted on each star. moffat: profile with "
+"broader wings, β fitted — closer to the real seeing, a little slower. "
+"moments: fast estimate without fitting, where the FWHM is only a proxy"
+msgstr ""
+"gaussian : gaussienne elliptique ajustée sur chaque étoile. moffat : "
+"profil à ailes plus larges, β ajusté — plus fidèle au seeing réel, un peu"
+" plus lent. moments : estimation rapide sans ajustement, où la FWHM n'est"
+" qu'un proxy"
+
+msgid "Max fits"
+msgstr "Ajustements max"
+
+msgid ""
+"Number of stars fitted per frame, brightest first. A hundred is enough "
+"for a stable median; beyond that you pay without gaining"
+msgstr ""
+"Nombre d'étoiles ajustées par pose, les plus brillantes d'abord. Cent "
+"suffisent à une médiane stable ; au-delà on paie sans gagner"
+
+msgid "Pixel size (µm)"
+msgstr "Taille de pixel (µm)"
+
+msgid ""
+"0 = read from the header (XPIXSZ). With the focal length, gives the FWHM "
+"in arcseconds"
+msgstr ""
+"0 = lue dans l'en-tête (XPIXSZ). Avec la focale, donne la FWHM en "
+"arcsecondes"
+
+msgid "Focal length (mm)"
+msgstr "Focale (mm)"
+
+msgid "0 = read from the header (FOCALLEN)"
+msgstr "0 = lue dans l'en-tête (FOCALLEN)"
+
+msgid "Measurement cache"
+msgstr "Cache de mesures"
+
+msgid ""
+"Reuses the measurements already computed for a given file, from one "
+"session to the next. Adding a night then only measures the new frames"
+msgstr ""
+"Réutilise les mesures déjà calculées pour un même fichier, d'une session "
+"à l'autre. Ajouter une nuit ne remesure alors que les nouvelles poses"
+
+msgid "Approval expression"
+msgstr "Expression d'approbation"
+
+msgid "Python; empty = everything is approved. E.g.: eccentricity < 0.6"
+msgstr "Python ; vide = tout est approuvé. Ex. : eccentricity < 0.6"
+
+msgid "Weighting expression"
+msgstr "Expression de pondération"
+
+msgid "Python; empty = the default weighting formula"
+msgstr "Python ; vide = la formule de pondération par défaut"
+
+msgid "Minimum weight"
+msgstr "Poids minimal"
+
+msgid ""
+"Fraction of the best score in the batch below which the frame is "
+"rejected; 0 to reject nothing"
+msgstr ""
+"Fraction du meilleur score du lot sous laquelle la frame est écartée ; 0 "
+"pour ne rien écarter"
+
+msgid "Manual rejects"
+msgstr "Rejets manuels"
+
+msgid ""
+"Frames excluded from stacking by hand: they are still calibrated and "
+"registered, but carry no weight in the integration"
+msgstr ""
+"Frames écartées à la main de l'empilement : elles restent calibrées et "
+"recalées, mais ne pèsent rien dans l'intégration"
+
+#, python-brace-format
+msgid "SubframeSelector: invalid expression — {errors}"
+msgstr "SubframeSelector : expression invalide — {errors}"
+
+#, python-brace-format
+msgid "Measurement {n}/{total}"
+msgstr "Mesure {n}/{total}"
+
+msgid "Measurements complete"
+msgstr "Mesures terminées"
+
+msgid "Bits per channel"
+msgstr "Bits par canal"
+
+msgid "Width"
+msgstr "Largeur"
+
+msgid "Height"
+msgstr "Hauteur"
+
+msgid "Channels"
+msgstr "Canaux"
+
+msgid "Fill value"
+msgstr "Valeur de remplissage"
+
+msgid "New identifier"
+msgstr "Nouvel identifiant"
+
+msgid "Keyword"
+msgstr "Mot-clé"
+
+msgid "Value"
+msgstr "Valeur"
+
+msgid "Comment"
+msgstr "Commentaire"
+
+msgid "Wavelet"
+msgstr "Ondelette"
+
+msgid "Levels"
+msgstr "Niveaux"
+
+msgid "Threshold (k × MAD)"
+msgstr "Seuil (k × MAD)"
+
+msgid "Approximation gain"
+msgstr "Gain approximation"
+
+msgid "Detail gain"
+msgstr "Gain détails"
+
+#~ msgid "Catalogue model"
+#~ msgstr "Modèle du catalogue"
+
+#~ msgid "Select a process to display its documentation."
+#~ msgstr "Sélectionnez un process pour afficher sa documentation."
+

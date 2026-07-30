@@ -1,0 +1,718 @@
+/* Workbench shell.
+ *
+ * A fixed CSS grid rather than a global dockview: the activity bar and the exclusivity of the
+ * sidebar are VS Code behaviors, not docking. Making them movable would be offering the user a
+ * way to break the structure of the application. VS Code itself has a fixed shell and uses its
+ * tab system only for the center area — we do the same.
+ */
+
+@import '@vscode/codicons/dist/codicon.css';
+@import 'dockview-core/dist/styles/dockview.css';
+
+.workbench {
+  height: 100%;
+  display: grid;
+  grid-template-areas:
+    'title    title   title  title'
+    'activity sidebar center right'
+    'activity sidebar bottom bottom'
+    'status   status  status status';
+  grid-template-columns: 48px var(--sidebar-width, 260px) 1fr var(--right-width, 300px);
+  grid-template-rows: var(--title-height, 35px) 1fr var(--bottom-height, 180px) 22px;
+  overflow: hidden;
+}
+
+.workbench[data-sidebar='hidden'] {
+  grid-template-columns: 48px 0 1fr var(--right-width, 300px);
+}
+.workbench[data-right='hidden'] {
+  grid-template-columns: 48px var(--sidebar-width, 260px) 1fr 0;
+}
+.workbench[data-sidebar='hidden'][data-right='hidden'] {
+  grid-template-columns: 48px 0 1fr 0;
+}
+/* The tracks are rewritten in full here, and not through `--bottom-height`: that variable is
+ * set as an *inline* style by Workbench, so a redefinition in CSS would not reach it.
+ * `--title-height`, by contrast, is not inline — hence the asymmetry below, which is intended. */
+.workbench[data-bottom='hidden'] {
+  grid-template-rows: var(--title-height, 35px) 1fr 0 22px;
+}
+.workbench[data-titlebar='hidden'] {
+  --title-height: 0px;
+}
+
+/* --- activity bar --- */
+.activity-bar {
+  grid-area: activity;
+  background: var(--vscode-activityBar-background);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 4px;
+}
+.activity-item {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  color: var(--vscode-activityBar-inactiveForeground);
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-size: 22px;
+}
+.activity-item:hover {
+  color: var(--vscode-activityBar-foreground);
+}
+.activity-item[aria-current='true'] {
+  color: var(--vscode-activityBar-foreground);
+}
+/* the left outline is the VS Code mark of the active panel */
+.activity-item[aria-current='true']::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--vscode-activityBar-activeBorder);
+}
+.activity-badge {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  border-radius: 8px;
+  background: var(--vscode-activityBarBadge-background);
+  color: var(--vscode-activityBarBadge-foreground);
+  font: 9px/16px var(--retina-font-ui);
+  text-align: center;
+}
+
+/* --- sidebar --- */
+.sidebar {
+  grid-area: sidebar;
+  background: var(--vscode-sideBar-background);
+  border-right: 1px solid var(--vscode-sideBar-border);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.panel-title {
+  flex: 0 0 35px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 12px;
+  color: var(--vscode-sideBarTitle-foreground);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.panel-body {
+  flex: 1;
+  overflow: auto;
+  padding: 4px 0;
+}
+
+/* --- center area --- */
+.center {
+  grid-area: center;
+  background: var(--vscode-editor-background);
+  overflow: hidden;
+  position: relative;
+}
+
+/* --- right zone --- */
+.right-dock {
+  grid-area: right;
+  background: var(--vscode-sideBar-background);
+  border-left: 1px solid var(--vscode-sideBar-border);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* --- bottom zone --- */
+.bottom {
+  grid-area: bottom;
+  background: var(--vscode-panel-background);
+  border-top: 1px solid var(--vscode-panel-border);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.bottom-tabs {
+  flex: 0 0 35px;
+  display: flex;
+  align-items: stretch;
+  gap: 2px;
+  padding: 0 8px;
+}
+.bottom-tab {
+  border: none;
+  background: none;
+  color: var(--vscode-panelTitle-inactiveForeground);
+  font: 600 11px/1 var(--retina-font-ui);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 0 8px;
+  cursor: pointer;
+  border-bottom: 1px solid transparent;
+}
+.bottom-tab[aria-selected='true'] {
+  color: var(--vscode-panelTitle-activeForeground);
+  border-bottom-color: var(--vscode-panelTitle-activeBorder);
+}
+
+/* --- resize handles --- */
+.splitter {
+  position: absolute;
+  z-index: 5;
+  background: transparent;
+}
+.splitter:hover,
+.splitter[data-dragging='true'] {
+  background: var(--vscode-focusBorder);
+}
+.splitter-v {
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  cursor: col-resize;
+}
+.splitter-h {
+  left: 0;
+  right: 0;
+  height: 4px;
+  cursor: row-resize;
+}
+
+/* --- status bar --- */
+.status-bar {
+  grid-area: status;
+  background: var(--vscode-statusBar-background);
+  color: var(--vscode-statusBar-foreground);
+  display: flex;
+  align-items: center;
+  font: 11px/1 var(--retina-font-mono);
+}
+.status-item {
+  padding: 0 8px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+}
+button.status-item {
+  border: none;
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+button.status-item:hover {
+  background: var(--vscode-statusBarItem-hoverBackground);
+}
+
+/* --- panel lists --- */
+.tree-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 12px;
+  cursor: pointer;
+  font-size: 13px;
+  white-space: nowrap;
+  border: none;
+  background: none;
+  color: inherit;
+  width: 100%;
+  text-align: left;
+}
+.tree-row:hover {
+  background: var(--vscode-list-hoverBackground);
+}
+.tree-row[aria-selected='true'] {
+  background: var(--vscode-list-activeSelectionBackground);
+  color: var(--vscode-list-activeSelectionForeground);
+}
+/* Active row of the keyboard navigation (aria-activedescendant) — distinct from the
+   selection: one can traverse without activating. */
+.tree-row[data-active],
+.tree-group[data-active] {
+  outline: 1px solid var(--vscode-focusBorder);
+  outline-offset: -1px;
+}
+.tree-row .dim {
+  color: var(--vscode-descriptionForeground);
+  font-size: 11px;
+}
+.tree-group {
+  padding: 6px 12px 2px;
+  color: var(--vscode-descriptionForeground);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* --- command palette --- */
+.palette-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(0, 0, 0, 0.35);
+  display: grid;
+  justify-items: center;
+  align-items: start;
+  padding-top: 100px;
+}
+.palette {
+  width: min(640px, 90vw);
+  background: var(--vscode-editorWidget-background);
+  border: 1px solid var(--vscode-editorWidget-border);
+  border-radius: 4px;
+  box-shadow: 0 8px 24px var(--vscode-widget-shadow);
+  overflow: hidden;
+}
+.palette input {
+  width: 100%;
+  border: none;
+  outline: none;
+  background: var(--vscode-input-background);
+  color: var(--vscode-input-foreground);
+  padding: 8px 10px;
+  font: 13px var(--retina-font-ui);
+  border-bottom: 1px solid var(--vscode-editorWidget-border);
+}
+.palette-list {
+  max-height: 380px;
+  overflow-y: auto;
+}
+.palette-item {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px;
+  padding: 4px 10px;
+  cursor: pointer;
+}
+.palette-item[aria-selected='true'] {
+  background: var(--vscode-list-activeSelectionBackground);
+}
+.palette-item .python {
+  grid-column: 1 / -1;
+  font: italic 11px var(--retina-font-mono);
+  color: var(--vscode-descriptionForeground);
+}
+.palette-item .shortcut {
+  color: var(--vscode-descriptionForeground);
+  font: 11px var(--retina-font-mono);
+}
+
+/* --- dockview: wired to our tokens rather than to its built-in theme --- */
+.dockview-theme-dark {
+  --dv-background-color: var(--vscode-editor-background);
+  --dv-paneview-active-outline-color: var(--vscode-focusBorder);
+  --dv-tabs-and-actions-container-background-color: var(--vscode-tab-border);
+  --dv-activegroup-visiblepanel-tab-background-color: var(--vscode-tab-activeBackground);
+  --dv-activegroup-visiblepanel-tab-color: var(--vscode-tab-activeForeground);
+  --dv-inactivegroup-visiblepanel-tab-background-color: var(--vscode-tab-inactiveBackground);
+  --dv-inactivegroup-visiblepanel-tab-color: var(--vscode-tab-inactiveForeground);
+  --dv-tab-divider-color: var(--vscode-tab-border);
+  --dv-separator-border: var(--vscode-panel-border);
+}
+
+/* --- title bar (menus + command center + toggles + window chrome) --- */
+.title-bar {
+  grid-area: title;
+  display: flex;
+  align-items: stretch;
+  gap: 4px;
+  background: var(--vscode-titleBar-activeBackground);
+  color: var(--vscode-titleBar-activeForeground);
+  border-bottom: 1px solid var(--vscode-titleBar-border);
+  font-size: var(--retina-font-size-small);
+  user-select: none;
+  overflow: hidden;
+}
+.title-logo {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  align-self: center;
+  margin: 0 6px 0 8px;
+  flex: 0 0 auto;
+}
+/* Drag surface. `flex: 1` on each side of the command center keeps it centered even when the
+ * menu bar is wider than the toggles. */
+.title-drag {
+  flex: 1 1 0;
+  min-width: 8px;
+}
+
+/* --- menu bar --- */
+.menubar {
+  display: flex;
+  align-items: stretch;
+  flex: 0 0 auto;
+  /* Above the scrim (90): without this, the scrim would intercept hovering over the titles and
+   * the VS Code gesture — with a menu open, hover a neighbor to switch to it — would be
+   * impossible. */
+  position: relative;
+  z-index: 92;
+}
+.menubar-item {
+  padding: 0 8px;
+  background: none;
+  border: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.menubar-item:hover,
+.menubar-item[data-open='true'] {
+  background: var(--vscode-menubar-selectionBackground);
+  color: var(--vscode-menubar-selectionForeground);
+}
+
+/* Dismiss scrim: same device as the palette, without the tint (a menu must not darken the
+ * application). */
+.menu-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+}
+.menu-dropdown {
+  z-index: 91;
+  margin: 0;
+  padding: 4px 0;
+  list-style: none;
+  min-width: 220px;
+  max-height: min(70vh, 640px);
+  overflow-y: auto;
+  background: var(--vscode-menu-background);
+  color: var(--vscode-menu-foreground);
+  border: 1px solid var(--vscode-menu-border);
+  border-radius: 4px;
+  box-shadow: 0 4px 16px var(--vscode-widget-shadow);
+  outline: none;
+}
+.menu-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 3px 12px 3px 20px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.menu-item[data-active='true'] {
+  background: var(--vscode-menu-selectionBackground);
+  color: var(--vscode-menu-selectionForeground);
+}
+.menu-label {
+  flex: 1;
+}
+.menu-shortcut {
+  opacity: 0.7;
+  font-size: var(--retina-font-size-small);
+}
+.menu-arrow {
+  font-size: 12px;
+  opacity: 0.8;
+}
+.menu-separator {
+  height: 1px;
+  margin: 4px 0;
+  background: var(--vscode-menu-separatorBackground);
+}
+/* Submenus are positioned `fixed` by the component, from the rect of their item. A
+ * `position: absolute; left: 100%` would be simpler but would be **clipped** by the parent
+ * dropdown's `overflow-y: auto` — a non-visible overflow clips its positioned descendants, and
+ * the Process menu needs that overflow (26 categories). */
+
+/* --- command center --- */
+.command-center {
+  align-self: center;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 22px;
+  width: min(38vw, 560px);
+  padding: 0 10px;
+  background: var(--vscode-commandCenter-background);
+  color: var(--vscode-commandCenter-foreground);
+  border: 1px solid var(--vscode-commandCenter-border);
+  border-radius: 6px;
+  font: inherit;
+  cursor: pointer;
+  flex: 0 1 auto;
+}
+.command-center:hover {
+  background: var(--vscode-commandCenter-activeBackground);
+  border-color: var(--vscode-commandCenter-activeBorder);
+  color: var(--vscode-commandCenter-activeForeground);
+}
+.command-center-label {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: center;
+}
+.command-center-label[data-empty='true'] {
+  color: var(--vscode-commandCenter-inactiveForeground);
+}
+/* Name of the current project, right of the label — dimmed: it is a landmark, not the subject. */
+.command-center-project {
+  flex: 0 0 auto;
+  max-width: 40%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--vscode-descriptionForeground);
+  border-left: 1px solid var(--vscode-commandCenter-border);
+  padding-left: 8px;
+}
+
+/* --- zone toggles --- */
+.title-actions {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 0 4px;
+  flex: 0 0 auto;
+}
+.title-action {
+  width: 28px;
+  height: 24px;
+  display: grid;
+  place-items: center;
+  background: none;
+  border: none;
+  border-radius: 4px;
+  color: inherit;
+  cursor: pointer;
+  font-size: 16px;
+}
+.title-action:hover {
+  background: var(--vscode-toolbar-hoverBackground);
+}
+.title-action[data-open='false'] {
+  opacity: 0.6;
+}
+
+/* --- window buttons --- */
+.window-controls {
+  display: flex;
+  flex: 0 0 auto;
+}
+.window-control {
+  width: 46px;
+  display: grid;
+  place-items: center;
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  font-size: 14px;
+}
+.window-control:hover {
+  background: var(--vscode-toolbar-hoverBackground);
+}
+.window-control.close:hover {
+  background: var(--retina-windowControl-closeHoverBackground);
+  color: #ffffff;
+}
+
+/* --- resize handles (undecorated window) ---
+ * WebView2 prevents WM_NCHITTEST from reaching the parent window: the hit-test is redone here.
+ * z-index above everything, otherwise an edge panel would cover them. */
+.resize-handle {
+  position: fixed;
+  z-index: 200;
+}
+.resize-handle[data-dir='n'] { top: 0; left: 6px; right: 6px; height: 5px; cursor: ns-resize; }
+.resize-handle[data-dir='s'] { bottom: 0; left: 6px; right: 6px; height: 5px; cursor: ns-resize; }
+.resize-handle[data-dir='w'] { left: 0; top: 6px; bottom: 6px; width: 5px; cursor: ew-resize; }
+.resize-handle[data-dir='e'] { right: 0; top: 6px; bottom: 6px; width: 5px; cursor: ew-resize; }
+.resize-handle[data-dir='nw'] { top: 0; left: 0; width: 6px; height: 6px; cursor: nwse-resize; }
+.resize-handle[data-dir='se'] { bottom: 0; right: 0; width: 6px; height: 6px; cursor: nwse-resize; }
+.resize-handle[data-dir='ne'] { top: 0; right: 0; width: 6px; height: 6px; cursor: nesw-resize; }
+.resize-handle[data-dir='sw'] { bottom: 0; left: 0; width: 6px; height: 6px; cursor: nesw-resize; }
+
+/* --- process icons (Tabler SVGs served by /api/icons) ---
+ * A mask rather than an `<img>`: the paths are in `currentColor`, so the icon follows the text
+ * color — theme, disabled state, selected row. See shell/TablerIcon.tsx. */
+.tabler-icon {
+  display: inline-block;
+  flex: 0 0 auto;
+  background-color: currentColor;
+  -webkit-mask: var(--tabler-icon) center / contain no-repeat;
+  mask: var(--tabler-icon) center / contain no-repeat;
+}
+
+/* --- form controls ---
+ *
+ * The color tokens have existed from the start (`--vscode-button-*`, `--vscode-input-*`), but
+ * nothing applied them: buttons and fields rendered as system controls, light gray on a dark
+ * shell. Worse, `.btn` was used in ten places without existing anywhere — a ghost class, hence
+ * with no effect.
+ *
+ * The selectors target the elements **and** `.btn`, so as to catch both cases at once without
+ * having to revisit each component. The panels that already set an inline style (StfPanel,
+ * ProcessPanel) naturally win — inline specificity prevails. */
+
+.btn,
+button.btn {
+  background: var(--vscode-button-secondaryBackground);
+  color: var(--vscode-button-secondaryForeground);
+  border: none;
+  border-radius: 2px;
+  padding: 4px 10px;
+  font: 12px var(--retina-font-ui);
+  cursor: pointer;
+}
+.btn:hover:not(:disabled) {
+  background: var(--vscode-button-secondaryHoverBackground);
+}
+/* Primary action of a screen: one per section, otherwise the accent no longer means anything. */
+.btn-primary {
+  background: var(--vscode-button-background);
+  color: var(--vscode-button-foreground);
+}
+.btn-primary:hover:not(:disabled) {
+  background: var(--vscode-button-hoverBackground);
+}
+.btn:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+/* Input fields. `input[type=checkbox|radio|range]` is excluded: giving them a text field's
+ * background and border would make them unrecognizable. */
+input:not([type='checkbox']):not([type='radio']):not([type='range']),
+select,
+textarea {
+  background: var(--vscode-input-background);
+  color: var(--vscode-input-foreground);
+  border: 1px solid var(--vscode-input-border);
+  border-radius: 2px;
+  padding: 3px 6px;
+  font: 12px var(--retina-font-ui);
+  outline: none;
+}
+input::placeholder,
+textarea::placeholder {
+  color: var(--vscode-input-placeholderForeground);
+}
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+.btn:focus-visible {
+  outline: 1px solid var(--vscode-focusBorder);
+  outline-offset: -1px;
+}
+/* Field whose content is rejected by the domain — see the selector's expressions. */
+input[aria-invalid='true'] {
+  border-color: var(--vscode-inputValidation-errorBorder);
+}
+input:disabled,
+select:disabled {
+  opacity: 0.5;
+}
+input[type='range'],
+input[type='checkbox'] {
+  accent-color: var(--vscode-button-background);
+  cursor: pointer;
+}
+
+/* --- keyboard-focusable surfaces ---
+ * The viewport and the Blink panel take focus in order to receive their shortcuts. Without a
+ * visual cue, nothing says the keystroke is going to be heard. */
+[data-focus-ring]:focus-visible {
+  outline: 1px solid var(--vscode-focusBorder);
+  outline-offset: -1px;
+}
+
+/* --- data tables (frame selector, FITS header) --- */
+.data-table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 12px;
+}
+.data-table th {
+  text-align: left;
+  font-weight: 600;
+  color: var(--vscode-descriptionForeground);
+  padding: 3px 8px;
+  white-space: nowrap;
+}
+.data-table td {
+  padding: 3px 8px;
+  white-space: nowrap;
+}
+.data-table tbody tr {
+  border-top: 1px solid var(--vscode-panel-border);
+}
+.data-table tbody tr[tabindex]:hover {
+  background: var(--vscode-list-hoverBackground);
+}
+.data-table tbody tr[aria-selected='true'] {
+  background: var(--vscode-list-activeSelectionBackground);
+}
+.data-table tbody tr:focus-visible {
+  outline: 1px solid var(--vscode-focusBorder);
+  outline-offset: -1px;
+}
+
+/* --- context menu (ui/ContextMenu.tsx) ------------------------------------ */
+/* Reuses the visual vocabulary of the title bar menus: a right-click must not look as though
+   it came from another application. */
+.context-menu {
+  min-width: 200px;
+  padding: 4px 0;
+  background: var(--vscode-menu-background, #252526);
+  color: var(--vscode-menu-foreground, #cccccc);
+  border: 1px solid var(--vscode-menu-border, #454545);
+  border-radius: 3px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45);
+  font-size: 12px;
+}
+.context-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 4px 12px;
+  background: none;
+  border: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.context-menu-item:hover:not(:disabled),
+.context-menu-item:focus-visible:not(:disabled) {
+  background: var(--vscode-menu-selectionBackground, #04395e);
+  color: var(--vscode-menu-selectionForeground, #ffffff);
+  outline: none;
+}
+.context-menu-item:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+.context-menu-item[data-danger='true'] {
+  color: var(--vscode-charts-red, #f14c4c);
+}
+.context-menu-separator {
+  height: 1px;
+  margin: 4px 0;
+  background: var(--vscode-menu-separatorBackground, #454545);
+}

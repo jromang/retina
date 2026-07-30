@@ -1,0 +1,208 @@
+/* Python console — transcript as a document, Monaco prompt.
+ *
+ * This file exists because the panel used to be styled entirely with `style={{}}`: two button
+ * blocks copied over, a per-block-type color table in JavaScript, and nothing hoverable. The
+ * rules therefore live here, as for the rest of the shell, and the component carries only
+ * classes.
+ *
+ * No hard-coded color: everything comes from tokens.css (repository rule).
+ */
+
+.console {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+}
+
+/* --- toolbar --- */
+.console-toolbar {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 2px;
+  padding: 2px 8px 2px 10px;
+}
+
+.console-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  border: none;
+  border-radius: 5px;
+  background: none;
+  color: var(--vscode-foreground);
+  font-size: 14px;
+  cursor: pointer;
+}
+.console-action:hover {
+  background: var(--vscode-toolbar-hoverBackground);
+}
+.console-action:active {
+  background: var(--vscode-toolbar-activeBackground);
+}
+.console-action:focus-visible {
+  outline: 1px solid var(--vscode-focusBorder);
+  outline-offset: -1px;
+}
+.console-action.is-danger {
+  color: var(--vscode-errorForeground);
+}
+
+/* --- transcript --- */
+.console-scroll {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  position: relative;
+}
+
+.console-transcript {
+  padding: 2px 10px 6px;
+  font: 12px/1.5 var(--retina-font-mono);
+  user-select: text;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* Two columns: the gutter (`>>>`, `...`, `Out[n]:`) and the content. A grid rather than a
+ * float, so that multi-line input stays aligned under itself. */
+.console-block {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: 8px;
+  color: var(--vscode-foreground);
+}
+.console-block.is-stderr,
+.console-block.is-error {
+  color: var(--vscode-errorForeground);
+}
+.console-block.is-result {
+  color: var(--vscode-charts-blue);
+}
+.console-block.is-echo {
+  color: var(--retina-echo-foreground);
+}
+
+.console-gutter {
+  color: var(--vscode-charts-green);
+  user-select: none;
+  text-align: right;
+  white-space: pre;
+}
+.console-block.is-result .console-gutter {
+  color: var(--vscode-descriptionForeground);
+}
+
+/* An output block has no gutter: it spans both columns. */
+.console-body {
+  grid-column: 2;
+  min-width: 0;
+}
+.console-body.is-full {
+  grid-column: 1 / -1;
+}
+
+/* Clicking an echo line copies it back into the prompt: one learns the API by clicking in the
+ * interface, then recovers the code to script it. */
+.console-echo {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: none;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  white-space: pre-wrap;
+  cursor: pointer;
+  border-radius: 3px;
+}
+.console-echo:hover {
+  background: var(--vscode-list-hoverBackground);
+}
+.console-echo:focus-visible {
+  outline: 1px solid var(--vscode-focusBorder);
+  outline-offset: -1px;
+}
+.console-echo-prefix {
+  user-select: none;
+}
+
+/* A long traceback is collapsed: one wants the last line, not thirty. */
+.console-collapse {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: none;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.console-collapse:hover {
+  text-decoration: underline;
+}
+.console-collapse:focus-visible {
+  outline: 1px solid var(--vscode-focusBorder);
+  outline-offset: -1px;
+}
+
+/* --- jump back to the bottom of the transcript --- */
+.console-jump-bottom {
+  position: absolute;
+  right: 16px;
+  bottom: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border: 1px solid var(--vscode-editorWidget-border);
+  border-radius: 50%;
+  background: var(--vscode-editorWidget-background);
+  color: var(--vscode-foreground);
+  font-size: 14px;
+  cursor: pointer;
+}
+.console-jump-bottom:hover {
+  background: var(--vscode-toolbar-hoverBackground);
+}
+
+/* --- prompt --- */
+.console-input-row {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: flex-start;
+  border-top: 1px solid var(--vscode-panel-border);
+}
+.console-input-row.is-busy {
+  opacity: 0.6;
+}
+/* Fallback `min-height`: Monaco is created before `resize()` has measured the first line, and
+ * a container of zero height would make it miss its initial layout. */
+.console-input {
+  flex: 1;
+  min-width: 0;
+  min-height: 24px;
+}
+
+/* The `>>>` and `...` markers are Monaco's line numbers: it alone can keep them aligned with
+ * the model's lines, including when a long line wraps. The rule is carried here — hence scoped
+ * to the prompt — so as not to tint green the real line numbers of the script editor, which
+ * shares the theme. */
+.console-input .monaco-editor .line-numbers {
+  color: var(--vscode-charts-green);
+}
+
+.console-notice {
+  flex: 0 0 auto;
+  padding: 2px 10px;
+  color: var(--vscode-descriptionForeground);
+  font-size: var(--retina-font-size-small);
+}

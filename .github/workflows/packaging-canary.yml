@@ -1,0 +1,18 @@
+# The MSI depends on four things that rot without telling anyone: SourceForge (ASTAP),
+# python.org (the embedded runtime), the BeeWare support template, and WiX. Better to learn
+# that on a Monday than on release day.
+name: Packaging canary
+
+on:
+  schedule:
+    - cron: '0 6 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  canary:
+    uses: ./.github/workflows/release-windows.yml
+    with:
+      publish: false

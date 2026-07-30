@@ -1,0 +1,210 @@
+/* Theme tokens — names taken from VS Code, values from Dark+.
+ *
+ * Absolute project rule: NO hard-coded color in a component. Everything goes through these
+ * variables. That is what will make loading a VS Code theme (JSON) trivial later on: a
+ * ThemeService will only have to rewrite these properties on :root.
+ *
+ * The domain tokens, which have no VS Code equivalent, are prefixed --retina-*.
+ */
+
+:root {
+  color-scheme: dark;
+
+  /* --- base --- */
+  --vscode-foreground: #cccccc;
+  --vscode-descriptionForeground: #9d9d9d;
+  --vscode-disabledForeground: #6b6b6b;
+  --vscode-errorForeground: #f14c4c;
+  --vscode-focusBorder: #007fd4;
+  --vscode-contrastBorder: transparent;
+  --vscode-widget-border: #303031;
+  --vscode-widget-shadow: rgba(0, 0, 0, 0.36);
+
+  /* --- editor / center area --- */
+  --vscode-editor-background: #1e1e1e;
+  --vscode-editor-foreground: #d4d4d4;
+  --vscode-editorWidget-background: #252526;
+  --vscode-editorWidget-border: #454545;
+
+  /* --- shell --- */
+  --vscode-activityBar-background: #333333;
+  --vscode-activityBar-foreground: #ffffff;
+  --vscode-activityBar-inactiveForeground: rgba(255, 255, 255, 0.4);
+  --vscode-activityBar-activeBorder: #ffffff;
+  --vscode-activityBarBadge-background: #007acc;
+  --vscode-activityBarBadge-foreground: #ffffff;
+
+  --vscode-sideBar-background: #252526;
+  --vscode-sideBar-foreground: #cccccc;
+  --vscode-sideBar-border: #303031;
+  --vscode-sideBarTitle-foreground: #bbbbbb;
+  --vscode-sideBarSectionHeader-background: #00000000;
+  --vscode-sideBarSectionHeader-border: #cccccc33;
+
+  --vscode-statusBar-background: #007acc;
+  --vscode-statusBar-foreground: #ffffff;
+  --vscode-statusBar-border: #00000000;
+  --vscode-statusBarItem-hoverBackground: rgba(255, 255, 255, 0.12);
+  --vscode-statusBarItem-errorBackground: #c72e0f;
+  --vscode-statusBarItem-warningBackground: #725102;
+
+  --vscode-titleBar-activeBackground: #3c3c3c;
+  --vscode-titleBar-activeForeground: #cccccc;
+  --vscode-titleBar-inactiveBackground: #3c3c3c99;
+  --vscode-titleBar-inactiveForeground: #cccccc99;
+  --vscode-titleBar-border: #00000000;
+
+  /* --- command center (the clickable bar in the middle of the title bar) --- */
+  --vscode-commandCenter-foreground: #cccccc;
+  --vscode-commandCenter-activeForeground: #cccccc;
+  --vscode-commandCenter-inactiveForeground: #cccccc80;
+  --vscode-commandCenter-background: #ffffff0d;
+  --vscode-commandCenter-activeBackground: #ffffff1a;
+  --vscode-commandCenter-border: #cccccc33;
+  --vscode-commandCenter-activeBorder: #cccccc80;
+  --vscode-commandCenter-inactiveBorder: #cccccc26;
+
+  /* --- menu bar and drop-down menus --- */
+  --vscode-menubar-selectionForeground: #cccccc;
+  --vscode-menubar-selectionBackground: #ffffff1a;
+  --vscode-menu-foreground: #cccccc;
+  --vscode-menu-background: #1f1f1f;
+  --vscode-menu-border: #454545;
+  --vscode-menu-selectionForeground: #ffffff;
+  --vscode-menu-selectionBackground: #0078d4;
+  --vscode-menu-separatorBackground: #454545;
+
+  --vscode-toolbar-hoverBackground: #5a5d5e50;
+  --vscode-toolbar-activeBackground: #63666750;
+
+  /* Red of the "close" button on hover. VS Code hard-codes it in its CSS; since the project
+   * rule forbids hard-coded color in a component, it becomes a domain token. */
+  --retina-windowControl-closeHoverBackground: #c42b1c;
+
+  --vscode-panel-background: #1e1e1e;
+  --vscode-panel-border: #80808059;
+  --vscode-panelTitle-activeForeground: #e7e7e7;
+  --vscode-panelTitle-activeBorder: #e7e7e7;
+  --vscode-panelTitle-inactiveForeground: #e7e7e799;
+
+  /* --- tabs --- */
+  --vscode-tab-activeBackground: #1e1e1e;
+  --vscode-tab-activeForeground: #ffffff;
+  --vscode-tab-inactiveBackground: #2d2d2d;
+  --vscode-tab-inactiveForeground: #ffffff80;
+  --vscode-tab-border: #252526;
+  --vscode-tab-activeBorderTop: #007acc;
+  --vscode-tab-hoverBackground: #1e1e1e;
+
+  /* --- lists / trees --- */
+  --vscode-list-activeSelectionBackground: #04395e;
+  --vscode-list-activeSelectionForeground: #ffffff;
+  --vscode-list-inactiveSelectionBackground: #37373d;
+  --vscode-list-hoverBackground: #2a2d2e;
+  --vscode-list-focusOutline: #007fd4;
+  --vscode-list-highlightForeground: #2aaaff;
+
+  /* --- controls --- */
+  --vscode-button-background: #0e639c;
+  --vscode-button-foreground: #ffffff;
+  --vscode-button-hoverBackground: #1177bb;
+  --vscode-button-secondaryBackground: #3a3d41;
+  --vscode-button-secondaryForeground: #ffffff;
+  --vscode-button-secondaryHoverBackground: #45494e;
+
+  --vscode-input-background: #3c3c3c;
+  --vscode-input-foreground: #cccccc;
+  --vscode-input-border: #3c3c3c;
+  --vscode-input-placeholderForeground: #a6a6a6;
+  --vscode-inputValidation-errorBorder: #be1100;
+
+  --vscode-dropdown-background: #3c3c3c;
+  --vscode-dropdown-foreground: #f0f0f0;
+  --vscode-dropdown-border: #3c3c3c;
+
+  --vscode-checkbox-background: #3c3c3c;
+  --vscode-checkbox-border: #3c3c3c;
+
+  --vscode-scrollbarSlider-background: #79797966;
+  --vscode-scrollbarSlider-hoverBackground: #646464b3;
+  --vscode-scrollbarSlider-activeBackground: #bfbfbf66;
+
+  --vscode-progressBar-background: #0e70c0;
+  --vscode-badge-background: #4d4d4d;
+  --vscode-badge-foreground: #ffffff;
+
+  --vscode-textLink-foreground: #3794ff;
+  --vscode-textLink-activeForeground: #3794ff;
+  --vscode-textPreformat-foreground: #d7ba7d;
+
+  --vscode-charts-green: #4ec9b0;
+  --vscode-charts-yellow: #cca700;
+  --vscode-charts-red: #f14c4c;
+  --vscode-charts-blue: #4a9eff;
+
+  /* --- Retina domain tokens (no VS Code equivalent) --- */
+  --retina-viewport-background: #101014;   /* canvas background, kept from the VisPy viewport */
+  --retina-drop-legal: #33e5ff;            /* legality outline when dragging an instance */
+  --retina-drop-illegal: #f14c4c;
+  --retina-preview-outline: #ffd479;
+  --retina-preview-frozen: #7ad17a;
+  --retina-stf-shadows: #4a9eff;
+  --retina-stf-midtones: #4ec9b0;
+  --retina-stf-highlights: #ff6a6a;
+  --retina-loupe-ring: #888888;
+  --retina-echo-foreground: #6a9955;       /* the console's "# ⟵ GUI: …" lines */
+
+  /* --- Python syntax highlighting (Dark+ values) ---
+     They serve twice: the `rules` of the `retina-dark` Monaco theme (script editor, console
+     prompt) and `monaco.editor.colorize`, which tints the transcript without instantiating an
+     editor — the `.mtk*` classes it produces are global, hence valid outside an editor.
+     Monaco already inherits from vs-dark; naming them here does not change the appearance, but
+     makes the highlighting adjustable by rewriting `:root`, like the rest of the theme.
+
+     No `--retina-syntax-identifier`: the Monarch tokenizer emits `identifier` for *every* word
+     that is not a keyword, so tinting it would color the whole of the code. Dark+ tells calls
+     and parameters apart only through semantic highlighting, out of reach of a purely lexical
+     tokenizer. */
+  --retina-syntax-keyword: #569cd6;
+  --retina-syntax-string: #ce9178;
+  --retina-syntax-number: #b5cea8;
+  --retina-syntax-comment: #6a9955;
+  --retina-syntax-type: #4ec9b0;
+  --retina-syntax-delimiter: #dcdcdc;
+
+  /* --- typography --- */
+  --retina-font-ui: -apple-system, "Segoe UI", system-ui, sans-serif;
+  --retina-font-mono: "Cascadia Code", Consolas, "Courier New", monospace;
+  --retina-font-size: 13px;
+  --retina-font-size-small: 11px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
+body {
+  background: var(--vscode-editor-background);
+  color: var(--vscode-foreground);
+  font: var(--retina-font-size) / 1.4 var(--retina-font-ui);
+  user-select: none;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--vscode-scrollbarSlider-background);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--vscode-scrollbarSlider-hoverBackground);
+}

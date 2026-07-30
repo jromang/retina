@@ -1,0 +1,34 @@
+# name: Johnson-Cousins R
+# kind: filter
+# channel: red
+# manufacturer: Standard Johnson photometric series
+# source: https://gitlab.com/free-astro/siril-spcc-database/-/blob/main/mono_filters/Johnson_photometric.json
+# origin: M. S. Bessell 1990 PASP 102 1181 (DOI 10.1086/132749) Table 2
+# license: GPL-3.0-or-later
+wavelength_nm,value
+400,0
+550,0
+560,0.23
+570,0.74
+580,0.91
+590,0.98
+600,1
+610,0.98
+620,0.96
+630,0.93
+640,0.9
+650,0.86
+660,0.81
+670,0.78
+680,0.72
+690,0.67
+700,0.61
+710,0.56
+720,0.51
+730,0.46
+740,0.4
+750,0.35
+800,0.14
+850,0.03
+900,0
+1000,0

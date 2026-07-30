@@ -1,0 +1,175 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+    paths-ignore: ['**.md', 'assets/**']
+  pull_request:
+    branches: [master]
+    paths-ignore: ['**.md', 'assets/**']
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+env:
+  # Harmless on 3.11, required on 3.14: the core is built abi3-py311 and PyO3 0.24 does not
+  # yet name 3.14 explicitly.
+  PYO3_USE_ABI3_FORWARD_COMPATIBILITY: '1'
+  # The suite pins the language itself, but a stray LANG on a runner would still change what
+  # a server-string assertion sees.
+  RETINA_LANGUAGE: en
+  PIP_DISABLE_PIP_VERSION_CHECK: '1'
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.14' }
+      - run: pip install ruff
+      - run: ruff check python tests scripts
+
+  rust:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with: { components: rustfmt, clippy }
+      - uses: Swatinem/rust-cache@v2
+      - run: cargo fmt --all --check
+      # retina_core only: it never links, so `pyo3/extension-module`'s missing libpython
+      # symbols are a non-issue. retina_shell needs GTK/WebKit system libraries and is
+      # compiled for real by the Windows release job instead.
+      - run: cargo clippy -p retina_core --all-targets -- -D warnings
+
+  web:
+    runs-on: ubuntu-latest
+    defaults: { run: { working-directory: web } }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      # `npm ci` rather than `install`: CI must fail on a drifted lockfile.
+      # scripts/build_dist.py deliberately uses `install` for the opposite reason.
+      - run: npm ci
+      - run: npm run typecheck      # paraglide compile + tsc --noEmit
+      - run: npm test               # paraglide compile + vitest run
+
+  pytest:
+    name: pytest (py${{ matrix.python }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # The floor declared by requires-python, and the version actually developed and shipped.
+        # The abi3-py311 core is identical across everything in between.
+        python: ['3.11', '3.14']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+          cache: pip
+          cache-dependency-path: pyproject.toml
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+        with: { shared-key: core-linux }
+
+      # `pip install -e .` drives the maturin backend, which builds retina._core and drops the
+      # extension into python/retina/. No separate `maturin develop` is needed here, which
+      # matters because `maturin develop` refuses to run outside a virtualenv.
+      - name: Install
+        run: |
+          python -m pip install -U pip
+          pip install -e '.[web,astro,project,xisf,ai,dev]'
+
+      # Without this, one yanked wheel turns ~40 tests into silent skips and CI stays green.
+      - name: Assert the reference environment is complete
+        run: |
+          python - <<'PY'
+          import importlib.util
+          mods = ["numpy", "scipy", "astropy", "skimage", "photutils", "ccdproc", "astroalign",
+                  "astroscrappy", "colour_demosaicing", "astroquery", "matplotlib", "reproject",
+                  "sep", "pywt", "rawpy", "cv2", "sklearn", "tifffile", "imageio", "jplephem",
+                  "pillow_jxl", "h5py", "xisf", "aiohttp", "IPython", "onnxruntime", "babel",
+                  "PIL", "asteval", "yaml", "markdown", "pygments"]
+          missing = [m for m in mods if importlib.util.find_spec(m) is None]
+          assert not missing, f"reference CI environment incomplete: {missing}"
+          print(f"{len(mods)} reference modules present")
+          PY
+
+      - name: Assert the Rust core is present
+        run: python -c "from retina import _core; print(_core)"
+
+      # -rs prints the skip reasons, which is how drift the assertion above missed gets noticed.
+      - name: pytest
+        run: pytest -q -rs -m "not gpu" --durations=15
+
+  pytest-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.14', cache: pip, cache-dependency-path: pyproject.toml }
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+        with: { shared-key: core-windows }
+      # `astro-msvc` is `astro` without `astrometry`, which does not compile under MSVC --
+      # the very reason ASTAP exists on Windows. The briefcase `requires` list points at the
+      # same extra, so the mirror is one list rather than a prose invariant.
+      - run: pip install -e '.[web,astro-msvc,project,xisf,ai,dev]'
+      - run: pytest -q -rs -m "not gpu"
+
+  e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.14', cache: pip, cache-dependency-path: pyproject.toml }
+      - uses: actions/setup-node@v4
+        with: { node-version: '22', cache: npm, cache-dependency-path: web/package-lock.json }
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+        with: { shared-key: core-linux }
+
+      # A real .venv at ./.venv is not decoration: playwright.config.ts resolves
+      # .venv/bin/python before falling back to `python`.
+      - name: venv and install
+        run: |
+          python -m venv .venv
+          echo "$PWD/.venv/bin" >> "$GITHUB_PATH"
+          echo "VIRTUAL_ENV=$PWD/.venv" >> "$GITHUB_ENV"
+          ./.venv/bin/pip install -U pip
+          ./.venv/bin/pip install -e '.[web,astro,project,xisf,ai,dev]'
+
+      # resources/webui/ is gitignored, so without this the server has nothing to serve.
+      - name: Build the frontend
+        run: npm ci && npm run build
+        working-directory: web
+
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('web/package-lock.json') }}
+
+      - run: npx playwright install --with-deps chromium
+        working-directory: web
+      - run: npx playwright test
+        working-directory: web
+
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-traces
+          path: |
+            web/test-results/
+            web/playwright-report/
+          retention-days: 7

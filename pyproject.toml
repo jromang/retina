@@ -1,0 +1,489 @@
+[build-system]
+requires = ["maturin>=1.5,<2"]
+build-backend = "maturin"
+
+[project]
+name = "retina"
+version = "0.0.1"
+description = "Retina — open-source, fully scriptable astrophotography image processing"
+readme = "README.md"
+requires-python = ">=3.11"
+# PEP 639 form: SPDX expression + files. The old `{ text = ... }` table is deprecated, and
+# briefcase refuses to package without `license-files` (it copies the license into the bundle).
+license = "GPL-3.0-or-later"
+license-files = ["LICENSE"]
+authors = [{ name = "Jean-Francois Romang", email = "jromang@protonmail.com" }]
+keywords = ["astrophotography", "astronomy", "image-processing", "fits", "xisf", "deconvolution"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Web Environment",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Rust",
+    "Topic :: Scientific/Engineering :: Astronomy",
+    "Topic :: Scientific/Engineering :: Image Processing",
+]
+
+urls = { Homepage = "https://github.com/jromang/retina", Repository = "https://github.com/jromang/retina", Issues = "https://github.com/jromang/retina/issues" }
+dependencies = [
+    "numpy>=1.24",
+    "astropy>=6.0",
+    "asteval>=1.0",  # sandboxed Python evaluation for PixelMath (no home-grown language)
+    "PyYAML>=6.0",   # frontmatter of the process docs (headless reading, without a shell)
+]
+
+[project.optional-dependencies]
+# Web shell (VS Code-style TypeScript frontend) — a plain CLIENT of the scriptable API, and the
+# project's only shell since the Qt shell was removed. Optional: `import retina` must not pull
+# it in (checked by tests/server/test_headless_parity.py).
+web = [
+    "aiohttp>=3.11",   # a single server for HTTP + WebSocket, on loopback
+    "ipython>=8",      # console: embedded InteractiveShell (completion, history, magics)
+    "markdown>=3.5",           # Markdown→HTML rendering of the process docs
+    "pymdown-extensions>=10.0",  # arithmatex extension (LaTeX math → KaTeX)
+    "pygments>=2.15",          # syntax highlighting of the doc's code blocks
+    "pillow>=10",              # MCP server: renders a view as PNG so the agent can see it
+]
+# Astro ecosystem (calibration, stacking, background, stars, deconvolution…). Wrapped as Process.
+astro = [
+    "scipy>=1.11",
+    "scikit-image>=0.22",
+    "photutils>=1.10",
+    "ccdproc>=2.4",
+    "astroalign>=2.5",
+    "astroscrappy>=1.1",
+    "colour-demosaicing>=0.2",
+    "astroquery>=0.4",  # online plate-solving (Astrometry.net) + catalogs
+    "astrometry>=4.0",  # OFFLINE plate-solving (astrometry.net engine, pure Python)
+    "matplotlib>=3.7",  # required by colour; otherwise a Mock pollutes sys.modules
+    "pillow>=10",       # rendering of catalog annotation markers and labels
+    "reproject>=0.13",  # WCS-based mosaicking (reproject_interp / reproject_and_coadd)
+    "sep>=1.2",         # very fast background + source detection (Source-Extractor)
+    "PyWavelets>=1.4",  # decimated/undecimated wavelets (WaveletDenoise, denoise_wavelet)
+    "rawpy>=0.19",      # camera RAW loading (.cr2/.nef/.arw/.dng…)
+    "opencv-python-headless>=4.8",  # fast NLM, inpaint, seamless clone, ORB (headless variant)
+    "scikit-learn>=1.3",  # PCA/ICA: component separation / channel decorrelation
+    # These three used to arrive **transitively** through scikit-image, and io/raster.py imports
+    # them directly: a dependency resolution that stopped pulling them in would break TIFF/PNG
+    # export silently. We declare what we consume.
+    "tifffile>=2023.7",  # 32-bit float TIFF (the only raster format that preserves our data)
+    "imageio>=2.31",     # 8-bit PNG/JPEG/BMP/WebP
+    "jplephem>=2.21",    # JPL DE kernels (EphemerisGenerator, kernel="de440s")
+    # JPEG XL: 6 MB, and wheels for cp310→cp314 on macOS (x86_64 + arm64), manylinux
+    # (x86_64/aarch64/i686), musllinux and Windows (32/64/arm64) — better coverage than several
+    # packages already listed here. A separate extra was not justified, and above all it would
+    # have prevented **opening** a .jxl received from someone else, which is more of a nuisance
+    # than not being able to write one.
+    "pillow-jxl-plugin>=1.2",
+]
+# `astro` minus `astrometry`, which does not compile under MSVC -- the very reason ASTAP exists
+# on Windows. Two consumers point here rather than each keeping their own copy: the Windows CI
+# job, and the briefcase `requires` list further down. tests/test_packaging_manifest.py asserts
+# they stay in step, because the invariant used to be a paragraph and paragraphs drift.
+astro-msvc = [
+    "scipy>=1.11",
+    "scikit-image>=0.22",
+    "photutils>=1.10",
+    "ccdproc>=2.4",
+    "astroalign>=2.5",
+    "astroscrappy>=1.1",
+    "colour-demosaicing>=0.2",
+    "astroquery>=0.4",
+    "matplotlib>=3.7",
+    "pillow>=10",
+    "reproject>=0.13",
+    "sep>=1.2",
+    "PyWavelets>=1.4",
+    "rawpy>=0.19",
+    "opencv-python-headless>=4.8",
+    "scikit-learn>=1.3",
+    "tifffile>=2023.7",
+    "imageio>=2.31",
+    "jplephem>=2.21",
+    "pillow-jxl-plugin>=1.2",
+]
+# AI star removal (StarNet/GraXpert ONNX models).
+ai = ["onnxruntime>=1.16"]
+# Optional GPU acceleration (NVIDIA). The Rust core remains the reference CPU path, and every
+# ported process falls back on it silently when CuPy is missing (cf. backend/xp.py).
+#
+# **Why an extra and not a dependency of `astro`**: the CuPy wheel is tied to a **CUDA branch**
+# (two distinct packages), and no PEP 508 marker allows conditioning on the driver version — pip
+# therefore cannot choose on our behalf. It moreover exists **only** for Linux (x86_64, aarch64)
+# and Windows amd64: putting it in the install line would make `pip install` fail on macOS, plain
+# and simple.
+#
+# `cuda` = CUDA 13, the current branch (and the only one covering Blackwell cards, sm_120);
+# `cuda12` remains for an older driver.
+cuda = ["cupy-cuda13x>=14"]
+cuda12 = ["cupy-cuda12x>=13"]
+# Native XISF format.
+xisf = ["xisf>=0.9"]
+# Projects (.retina): a single HDF5 file per project — windows, previews, masks and **all** the
+# history states, chunked and compressed. Lazy import: `import retina` must not pull in h5py
+# (checked by tests/server/test_headless_parity.py).
+project = ["h5py>=3.10"]
+# Babel is NOT a runtime dependency: the domain translates with `gettext`, which is in the
+# standard library, and falls back on English when a catalog is missing. Babel serves only to
+# extract and compile the catalogs (`scripts/update_translations.py`), in development.
+dev = ["pytest>=8", "pytest-asyncio>=0.24", "ruff>=0.5", "mypy>=1.10", "babel>=2.14"]
+# Packaging toolchain. Kept apart from `dev`: it pulls in a heavy tool nobody needs in order to
+# develop or run the tests. See the [tool.briefcase] section for the pre-steps.
+packaging = ["briefcase>=0.3.20"]
+
+[project.scripts]
+retina = "retina.run:main"
+
+# Bundled processes, exposed through entry points (plugin model). A third-party package can add
+# its own processes to this same group.
+[project.entry-points."retina.processes"]
+GaussianConvolution = "retina.processes.convolution:GaussianConvolution"
+HistogramTransformation = "retina.processes.histogram:HistogramTransformation"
+CurvesTransformation = "retina.processes.curves:CurvesTransformation"
+PixelMath = "retina.processes.pixelmath:PixelMath"
+ChannelExtraction = "retina.processes.channels:ChannelExtraction"
+ChannelCombination = "retina.processes.channels:ChannelCombination"
+Invert = "retina.processes.channels:Invert"
+Rescale = "retina.processes.channels:Rescale"
+Binarize = "retina.processes.channels:Binarize"
+AberrationInspector = "retina.processes.analysis:AberrationInspector"
+FWHMEccentricity = "retina.processes.analysis:FWHMEccentricity"
+NoiseEvaluation = "retina.processes.analysis:NoiseEvaluation"
+AIDeconvolution = "retina.processes.ai:AIDeconvolution"
+AIDenoise = "retina.processes.ai:AIDenoise"
+Deconvolution = "retina.processes.restore:Deconvolution"
+NoiseReduction = "retina.processes.restore:NoiseReduction"
+MorphologicalTransformation = "retina.processes.restore:MorphologicalTransformation"
+UnsharpMask = "retina.processes.restore:UnsharpMask"
+BackgroundExtraction = "retina.processes.background:BackgroundExtraction"
+DynamicBackgroundExtraction = "retina.processes.dbe:DynamicBackgroundExtraction"
+BackgroundNeutralization = "retina.processes.background:BackgroundNeutralization"
+StarMask = "retina.processes.stars:StarMask"
+StarReduction = "retina.processes.stars:StarReduction"
+ColorMask = "retina.processes.masks:ColorMask"
+ConeSearch = "retina.processes.catalogs:ConeSearch"
+CosmicClip = "retina.processes.cosmetic:CosmicClip"
+Debayer = "retina.processes.debayer:Debayer"
+ImageCalibration = "retina.processes.calibration:ImageCalibration"
+Integration = "retina.processes.integration:Integration"
+StarAlignment = "retina.processes.registration:StarAlignment"
+Statistics = "retina.processes.statistics:Statistics"
+MultiscaleLinearTransform = "retina.processes.multiscale:MultiscaleLinearTransform"
+LocalHistogramEqualization = "retina.processes.multiscale:LocalHistogramEqualization"
+StarRemoval = "retina.processes.starremoval:StarRemoval"
+PlateSolve = "retina.processes.astrometry:PlateSolve"
+Annotation = "retina.processes.astrometry:Annotation"
+CatalogAnnotation = "retina.processes.astrometry:CatalogAnnotation"
+PhotometricColorCalibration = "retina.processes.photometric:PhotometricColorCalibration"
+FilterManager = "retina.processes.photometric:FilterManager"
+AperturePhotometry = "retina.processes.photometry:AperturePhotometry"
+LightCurve = "retina.processes.lightcurve:LightCurve"
+LinearDefectDetection = "retina.processes.linearpattern:LinearDefectDetection"
+LinearPatternSubtraction = "retina.processes.linearpattern:LinearPatternSubtraction"
+NBRGBCombination = "retina.processes.narrowband:NBRGBCombination"
+NarrowbandNormalization = "retina.processes.narrowband:NarrowbandNormalization"
+# --- P0/P1: closing the feature gap with the reference implementation ---
+Convolution = "retina.processes.convolution:Convolution"
+SCNR = "retina.processes.color:SCNR"
+ConvertToGrayscale = "retina.processes.color:ConvertToGrayscale"
+ConvertToRGBColor = "retina.processes.color:ConvertToRGBColor"
+ColorSaturation = "retina.processes.color:ColorSaturation"
+LinearFit = "retina.processes.color:LinearFit"
+ColorCalibration = "retina.processes.color:ColorCalibration"
+LRGBCombination = "retina.processes.color:LRGBCombination"
+RGBWorkingSpace = "retina.processes.color:RGBWorkingSpace"
+ArcsinhStretch = "retina.processes.stretch:ArcsinhStretch"
+GeneralizedHyperbolicStretch = "retina.processes.stretch:GeneralizedHyperbolicStretch"
+AutoHistogram = "retina.processes.stretch:AutoHistogram"
+ExponentialTransformation = "retina.processes.stretch:ExponentialTransformation"
+MaskedStretch = "retina.processes.stretch:MaskedStretch"
+RangeSelection = "retina.processes.masks:RangeSelection"
+Crop = "retina.processes.geometry:Crop"
+Resample = "retina.processes.geometry:Resample"
+IntegerResample = "retina.processes.geometry:IntegerResample"
+Rotation = "retina.processes.geometry:Rotation"
+FastRotation = "retina.processes.geometry:FastRotation"
+MultiscaleMedianTransform = "retina.processes.multiscale:MultiscaleMedianTransform"
+HDRMultiscaleTransform = "retina.processes.multiscale:HDRMultiscaleTransform"
+# --- P2: preprocessing & integration ---
+CosmeticCorrection = "retina.processes.preprocess:CosmeticCorrection"
+DefectMap = "retina.processes.preprocess:DefectMap"
+Superbias = "retina.processes.preprocess:Superbias"
+SplitCFA = "retina.processes.preprocess:SplitCFA"
+MergeCFA = "retina.processes.preprocess:MergeCFA"
+ExtractDualBand = "retina.processes.preprocess:ExtractDualBand"
+LocalNormalization = "retina.processes.localnorm:LocalNormalization"
+DrizzleIntegration = "retina.processes.localnorm:DrizzleIntegration"
+SubframeSelector = "retina.processes.subframe:SubframeSelector"
+# --- P3: denoising, gradients, PSF, restoration, Fourier ---
+TGVDenoise = "retina.processes.denoise:TGVDenoise"
+ACDNR = "retina.processes.denoise:ACDNR"
+GradientCorrection = "retina.processes.gradient:GradientCorrection"
+MultiscaleGradientCorrection = "retina.processes.gradient:MultiscaleGradientCorrection"
+GradientMergeMosaic = "retina.processes.gradient:GradientMergeMosaic"
+SurveyReference = "retina.processes.gradient:SurveyReference"
+DynamicPSF = "retina.processes.psf:DynamicPSF"
+RestorationFilter = "retina.processes.restore:RestorationFilter"
+FourierTransform = "retina.processes.fourier:FourierTransform"
+InverseFourierTransform = "retina.processes.fourier:InverseFourierTransform"
+# --- P4: noise, retouching, HDR, comet, utilities ---
+NoiseGenerator = "retina.processes.noise:NoiseGenerator"
+SimplexNoise = "retina.processes.noise:SimplexNoise"
+CloneStamp = "retina.processes.retouch:CloneStamp"
+DynamicCrop = "retina.processes.retouch:DynamicCrop"
+HDRComposition = "retina.processes.hdr:HDRComposition"
+FastIntegration = "retina.processes.hdr:FastIntegration"
+LarsonSekanina = "retina.processes.comet:LarsonSekanina"
+CometAlignment = "retina.processes.comet:CometAlignment"
+SampleFormatConversion = "retina.processes.utility:SampleFormatConversion"
+NewImage = "retina.processes.utility:NewImage"
+ImageIdentifier = "retina.processes.utility:ImageIdentifier"
+FITSHeader = "retina.processes.utility:FITSHeader"
+# --- Tier 1-3: manual registration, SPCC, ICC, ephemerides ---
+DynamicAlignment = "retina.processes.registration:DynamicAlignment"
+SpectrophotometricColorCalibration = "retina.processes.photometric:SpectrophotometricColorCalibration"
+SpectrophotometricFluxCalibration = "retina.processes.photometric:SpectrophotometricFluxCalibration"
+B3Estimator = "retina.processes.estimation:B3Estimator"
+Blink = "retina.processes.inspection:Blink"
+AssignICCProfile = "retina.processes.icc:AssignICCProfile"
+ICCProfileTransformation = "retina.processes.icc:ICCProfileTransformation"
+ColorManagementSetup = "retina.processes.icc:ColorManagementSetup"
+EphemerisGenerator = "retina.processes.ephemeris:EphemerisGenerator"
+# --- Extending the catalog from the Python libraries ---
+# Tier A: new processes, zero new dependencies (libraries already imported)
+RollingBallBackground = "retina.processes.background:RollingBallBackground"
+NonLocalMeansDenoise = "retina.processes.denoise:NonLocalMeansDenoise"
+PhaseCorrelationAlignment = "retina.processes.registration:PhaseCorrelationAlignment"
+HistogramMatching = "retina.processes.color:HistogramMatching"
+SourceExtraction = "retina.processes.detection:SourceExtraction"
+PixelInterpolation = "retina.processes.preprocess:PixelInterpolation"
+RadialProfileMeasurement = "retina.processes.psf:RadialProfileMeasurement"
+GalaxyModel = "retina.processes.galaxy:GalaxyModel"
+SatelliteTrailDetection = "retina.processes.masks:SatelliteTrailDetection"
+RickerWaveletEnhance = "retina.processes.multiscale:RickerWaveletEnhance"
+# Tier B: libraries installed but unused (reproject, sep)
+MosaicPlanner = "retina.processes.mosaic:MosaicPlanner"
+MosaicReproject = "retina.processes.mosaic:MosaicReproject"
+SEPBackground = "retina.processes.detection:SEPBackground"
+SEPSourceExtraction = "retina.processes.detection:SEPSourceExtraction"
+# Tier C: new libraries (PyWavelets, OpenCV, scikit-learn)
+WaveletDenoise = "retina.processes.wavelet:WaveletDenoise"
+WaveletTransform = "retina.processes.wavelet:WaveletTransform"
+FastNLMeansDenoise = "retina.processes.denoise:FastNLMeansDenoise"
+Inpaint = "retina.processes.retouch:Inpaint"
+SeamlessClone = "retina.processes.retouch:SeamlessClone"
+FeatureAlignment = "retina.processes.registration:FeatureAlignment"
+ComponentSeparation = "retina.processes.decompose:ComponentSeparation"
+# --- Final gap closing: adaptive stretch, gradient-domain HDR, catalogs ---
+AdaptiveStretch = "retina.processes.stretch:AdaptiveStretch"
+MultiscaleAdaptiveStretch = "retina.processes.multiscale:MultiscaleAdaptiveStretch"
+GradientHDRCompression = "retina.processes.hdr:GradientHDRCompression"
+GradientHDRComposition = "retina.processes.hdr:GradientHDRComposition"
+GaiaCatalog = "retina.processes.catalogs:GaiaCatalog"
+APASSCatalog = "retina.processes.catalogs:APASSCatalog"
+# --- The last small remaining gaps ---
+ChannelMatch = "retina.processes.channels:ChannelMatch"
+CreateAlphaChannels = "retina.processes.alpha:CreateAlphaChannels"
+ExtractAlphaChannels = "retina.processes.alpha:ExtractAlphaChannels"
+FindingChart = "retina.processes.astrometry:FindingChart"
+# --- Previously overlooked: registered by `load_builtin()` but absent from here, hence
+#     invisible in an installed wheel where the registry is populated through entry points.
+AutoCrop = "retina.processes.geometry:AutoCrop"
+Overscan = "retina.processes.preprocess:Overscan"
+Script = "retina.processes.script:Script"
+
+[tool.maturin]
+python-source = "python"
+manifest-path = "crates/retina_core/Cargo.toml"
+module-name = "retina._core"
+features = ["pyo3/extension-module"]
+# Non-.py package data: process docs (Markdown), viewer assets (KaTeX/CSS) and SVG icons —
+# embedded in the wheel so that everything works offline.
+include = [
+    { path = "python/retina/resources/**/*", format = ["sdist", "wheel"] },
+]
+
+# ---------------------------------------------------------------------------
+# Application packaging (briefcase). Briefcase has NO pre-build hook: the non-Python artifacts
+# must exist BEFORE `briefcase create`. Three steps, in this order:
+#   1. python scripts/build_dist.py       # Vite frontend → resources/webui/, shell → retina/shell/
+#   2. python scripts/fetch_astap.py      # fills vendor/astap/<platform> (bundled via `sources`)
+#   3. maturin develop --release          # drops retina/_core.pyd INTO the source tree
+# then:  briefcase create && briefcase build && briefcase package
+#
+# A single mechanism carries everything: `sources = ["python/retina"]`. The three non-Python
+# artifacts (frontend, native shell, Rust core) live *inside* `python/retina/`, so no additional
+# packaging rule is necessary — this is deliberate, do not move them elsewhere.
+# `maturin develop` (and not `build`) precisely for that: `build` produces a wheel, which
+# briefcase would not know where to pick up. `_core` is built as abi3-py311, hence compatible
+# with the Python briefcase embeds whatever its version, as long as it is ≥ 3.11.
+#
+# Verified end to end on Windows (2026-07): a **272 MB** MSI (≈790 MB installed, in
+# `%LOCALAPPDATA%\Programs\<author>\Retina\`), and the installed executable starts the server and
+# its native window. The entry point is `python -m retina`, imposed by briefcase
+# (`AppConfig.main_module()` returns `module_name` hard-coded) — hence `python/retina/__main__.py`.
+#
+# The smoke test that counts is NOT "the window opens": it is applying a process from each family
+# in the **installed** app, through its MCP server (persistent token from
+# `%APPDATA%\retina\mcp-token`, `X-Retina-Token` header, `open_images` / `apply_process` /
+# `execute_python` tools). That is what revealed that the bundle started without its astro
+# ecosystem.
+# ---------------------------------------------------------------------------
+[tool.briefcase]
+project_name = "Retina"
+bundle = "org.retina"
+version = "0.0.1"
+url = "https://github.com/jromang/retina"
+license = "GPL-3.0-or-later"
+author = "jromang"
+author_email = "jromang@protonmail.com"
+
+[tool.briefcase.app.retina]
+formal_name = "Retina"
+description = "Astrophotography image processing, fully scriptable in Python"
+sources = ["python/retina"]
+# Briefcase completes the extension according to the platform: `.ico` (Windows), `.icns`
+# (macOS), `-<size>.png` (Linux). All three forms are produced by `scripts/gen_icons.py`.
+# Without this line, the template drops its own default icon.
+icon = "python/retina/resources/branding/retina"
+# The entry point of the packaged application is `python -m retina`, that is,
+# `python/retina/__main__.py`. This is NOT configurable: `AppConfig.main_module()` returns
+# `module_name` hard-coded. Hence the existence of `__main__.py`, which delegates to the web
+# shell.
+# The domain, plus the web shell (server + IPython console + doc rendering). No native GUI
+# dependency: the UI is HTML served by aiohttp and displayed by the webview.
+#
+# **The astro ecosystem is part of the bundle, and that is not negotiable.** The processes import
+# scipy/skimage/photutils *lazily*, inside their method bodies: without those wheels, the
+# application starts, displays all of its processes… and each one fails with a
+# `ModuleNotFoundError` the moment it is executed. A bundle that only knows how to open itself is
+# not a bundle. The price is size (~2× the MSI); paying it is the only choice consistent with a
+# distribution aimed at users who do not have a Python toolchain.
+requires = [
+    "numpy>=1.24", "astropy>=6.0", "asteval>=1.0", "PyYAML>=6.0", "xisf>=0.9",
+    "aiohttp>=3.11", "ipython>=8",
+    "markdown>=3.5", "pymdown-extensions>=10.0", "pygments>=2.15",
+    "pillow>=10",
+    # .retina projects (HDF5). Without it, opening or saving a project raises a RuntimeError.
+    "h5py>=3.10",
+    # --- astro ecosystem: mirror of the [astro] extra, with one exception ---
+    # `astrometry` is deliberately ABSENT from it: the package does not compile under MSVC. On
+    # Windows it is ASTAP that provides offline plate-solving (the .windows section below); the
+    # .linux / .macOS sections reintroduce it.
+    "scipy>=1.11", "scikit-image>=0.22", "photutils>=1.10", "ccdproc>=2.4",
+    "astroalign>=2.5", "astroscrappy>=1.1", "colour-demosaicing>=0.2",
+    "astroquery>=0.4", "matplotlib>=3.7", "reproject>=0.13", "sep>=1.2",
+    "PyWavelets>=1.4", "rawpy>=0.19", "opencv-python-headless>=4.8",
+    "scikit-learn>=1.3", "tifffile>=2023.7", "imageio>=2.31", "jplephem>=2.21",
+    "pillow-jxl-plugin>=1.2",
+]
+
+[tool.briefcase.app.retina.windows]
+# ASTAP = OFFLINE astrometric solver on Windows. The vendor/astap source is copied verbatim
+# into the bundle (populated beforehand by scripts/fetch_astap.py). _find_astap() locates it
+# next to the retina package in the packaged app.
+sources = ["vendor/astap"]
+
+# Version of the Python runtime embedded in the MSI. Without this line, briefcase takes the
+# `support_revision` of its template (4 → Python 3.14.4), INDEPENDENTLY of the dev Python: the
+# MSI thus embedded 3.14.4 while the venv was on 3.14.6. It is therefore pinned here, so that the
+# distributed version is declared rather than inherited by accident.
+#
+# 3.14.6 is also what moves OpenSSL off the 3.0 branch: `libssl-3.dll`/`libcrypto-3.dll` come
+# from the SAME zip as `python314.dll`, and CPython 3.14.6 is built against OpenSSL 3.5.7 (the
+# LTS branch), whereas 3.14.5 was still on 3.0.20. A single number governs both — so THIS is the
+# line to move at the next Python *or* OpenSSL CVE.
+#
+# The URL built is python.org/ftp/python/3.14.6/python-3.14.6-embed-amd64.zip: the `3.14` comes
+# from the Python that RUNS briefcase, the `6` from here. Keep the dev venv on the same minor.
+# Pitfall: briefcase does not re-download as long as `build/retina/windows/` exists — it has to
+# be deleted (or renamed) before `briefcase create windows`, otherwise moving this number changes
+# NOTHING and the MSI produced looks fixed without being so. (`create -r` does not exist in
+# 0.4.4.)
+# The generated `briefcase.toml` keeps displaying the template's `support_revision`: that is
+# normal, the pin here wins at download time. The verification that is authoritative is the
+# ProductVersion of the DLLs in `build/retina/windows/app/src/`.
+# Windows only: elsewhere the support package is a BeeWare artifact (`…-support.b<N>.tar.gz`)
+# whose revision is nothing like a python.org micro version — putting "6" there would break
+# Linux/macOS.
+support_revision = "6"
+
+# Off Windows, the `astrometry` package (astrometry.net engine, pure Python) compiles and
+# provides offline plate-solving without ASTAP. Briefcase accumulates the app + platform
+# `requires`, so these two lines add to the list above instead of replacing it.
+[tool.briefcase.app.retina.linux]
+requires = ["astrometry>=4.0"]
+
+[tool.briefcase.app.retina.macOS]
+requires = ["astrometry>=4.0"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+# The recipes are executed by retina.run with `app` and `retina` injected into the namespace:
+# they are not importable modules, so they are excluded from static linting.
+extend-exclude = ["tests/recipes"]
+
+[tool.ruff.lint]
+# Characters the codebase uses on purpose, so RUF001-003 stay on. Em dash and arrow are load
+# bearing in the docstrings; the rest are mathematical notation in the algorithm comments.
+allowed-confusables = [
+    "—", "–", "→", "·", "×", "≈", "≥", "≤", "−", "′",        # punctuation and notation
+    "σ", "α", "β", "µ", "λ", "Σ", "Δ",                        # Greek, in the algorithm prose
+]
+# An EXPLICIT selection, and that matters: without it, ruff applies its defaults, which change
+# from one version to the next. Moving to ruff 0.16 thus surfaced ~300 diagnostics at once on
+# unchanged code (413 rules enabled instead of the 4 historical families). Pinning the rule set
+# makes upgrading ruff free of surprises.
+select = [
+    "E",    # pycodestyle — errors
+    "W",    # pycodestyle — warnings
+    "F",    # pyflakes — real defects (undefined names, dead imports)
+    "I",    # isort — import ordering
+    "UP",   # pyupgrade — idioms obsolete with respect to requires-python
+    "B",    # flake8-bugbear — classic traps
+    "C4",   # comprehensions
+    "SIM",  # readable simplifications
+    "RUF",  # ruff's own rules
+]
+ignore = [
+    # `parameters = [Parameter(...), ...]` is a process's **parameter table**: a class schema,
+    # shared and never mutated (verified: no mutation anywhere in the repository). Annotating it
+    # `ClassVar` in all 115 processes would be 120 lines of noise to document an intent the
+    # object model already states.
+    "RUF012",
+    # `int(round(x))` remains necessary: `round()` on a numpy scalar returns a numpy scalar, not
+    # an `int`. The proposed "simplification" would change the return type.
+    "RUF046",
+    # RUF001/002/003 ("ambiguous" Unicode) are deliberately NOT ignored. They hunt homoglyphs —
+    # the Cyrillic "а" disguised as a Latin "a" — and, now that the source is English
+    # throughout, they double as a permanent guard against French typography creeping back into
+    # a literal, a docstring or a comment. The punctuation the codebase legitimately uses is
+    # declared in `allowed-confusables` below instead of switching the rules off.
+]
+
+# The recipes and test scripts allow themselves shortcuts the package does not.
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["B017"]  # `pytest.raises(Exception)` is sometimes the exact contract to check
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+# The web shell tests are asynchronous (aiohttp client); auto mode avoids having to decorate
+# every test. The rest of the suite, which is synchronous, is unaffected.
+asyncio_mode = "auto"
+# `gpu`: numerical parity against the REAL CuPy. These tests skip themselves without a card
+# (importorskip + getDeviceCount); the marker exists to run or exclude them on demand
+# (`pytest -m gpu`, `pytest -m "not gpu"`).
+markers = ["gpu: requires a CUDA GPU and CuPy installed"]
+asyncio_default_fixture_loop_scope = "function"
+filterwarnings = [
+    # third-party dependency noise (colour-demosaicing imports a deprecated scipy API)
+    "ignore:.*scipy.ndimage.filters.*:DeprecationWarning",
+    "ignore::UserWarning:colour",
+    # `Completer.complete` has been announced as deprecated since IPython 6.0 (2017) and is
+    # still there in 9.x; its replacement `completions()` is *provisional*. See
+    # server/console.py.
+    "ignore:.*is pending deprecation since IPython.*:PendingDeprecationWarning",
+]

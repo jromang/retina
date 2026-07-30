@@ -1,0 +1,16 @@
+[package]
+name = "retina_core"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[lib]
+name = "retina_core"
+# cdylib -> the Python extension module (retina._core); rlib -> allow Rust unit tests
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+pyo3 = { version = "0.24", features = ["extension-module", "abi3-py311"] }
+numpy = "0.24"
+ndarray = "0.16"
+rayon = "1"

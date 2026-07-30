@@ -1,0 +1,31 @@
+[package]
+name = "retina_shell"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "Native shell for Retina: one window, one webview, the URL of the Python server"
+
+[[bin]]
+name = "retina_shell"
+path = "src/main.rs"
+
+[dependencies]
+# tao = window + event loop; wry = webview (WebView2 on Windows).
+# These are the two building blocks Tauri itself is built on. We use them directly:
+# see the header comment of src/main.rs.
+tao = "0.35"
+wry = "0.55"
+# Native file dialogs. The HTML picker will not do: the files live on the Python server's side,
+# and it is a PATH that must be transmitted, not an uploaded payload.
+rfd = "0.15"
+serde_json = "1"
+# The user's locale. tao does not expose it, and reading it ourselves would require the
+# environment variables on Unix AND GetUserDefaultLocaleName on Windows: this crate does only
+# that, with no dependencies. The shell returns the raw tag ("fr-FR"); the frontend decides.
+sys-locale = "0.3"
+
+# No [profile.release] here: Cargo ignores it outside the root package, and lifting it to the
+# workspace would apply it to retina_core too — where `panic = "abort"` would break PyO3 (which
+# needs stack unwinding to turn a panic into a Python exception) and where `opt-level = "z"`
+# would penalize the image operators. The default release profile is more than enough for a
+# shell of a few hundred lines.
