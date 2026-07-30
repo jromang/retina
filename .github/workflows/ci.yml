@@ -99,7 +99,7 @@ jobs:
           mods = ["numpy", "scipy", "astropy", "skimage", "photutils", "ccdproc", "astroalign",
                   "astroscrappy", "colour_demosaicing", "astroquery", "matplotlib", "reproject",
                   "sep", "pywt", "rawpy", "cv2", "sklearn", "tifffile", "imageio", "jplephem",
-                  "pillow_jxl", "h5py", "xisf", "aiohttp", "IPython", "onnxruntime", "babel",
+                  "pillow_jxl", "h5py", "xisf", "aiohttp", "IPython", "onnxruntime", "onnx", "babel",
                   "PIL", "asteval", "yaml", "markdown", "pygments"]
           missing = [m for m in mods if importlib.util.find_spec(m) is None]
           assert not missing, f"reference CI environment incomplete: {missing}"

@@ -137,7 +137,9 @@ fn parse_args() -> Result<Args, String> {
                 icon = Some(it.next().ok_or("--icon expects a path")?);
             }
             "-h" | "--help" => {
-                return Err("usage: retina_shell <url> [--title <title>] [--icon <file.ico>]".into());
+                return Err(
+                    "usage: retina_shell <url> [--title <title>] [--icon <file.ico>]".into(),
+                );
             }
             other if other.starts_with("--") => {
                 return Err(format!("unknown option: {other}"));
@@ -183,9 +185,18 @@ fn handle_ipc(window: &Window, webview: &wry::WebView, body: &str) -> bool {
             return false;
         }
     };
-    let id = request.get("id").and_then(serde_json::Value::as_i64).unwrap_or(0);
-    let cmd = request.get("cmd").and_then(serde_json::Value::as_str).unwrap_or("");
-    let args = request.get("args").cloned().unwrap_or(serde_json::Value::Null);
+    let id = request
+        .get("id")
+        .and_then(serde_json::Value::as_i64)
+        .unwrap_or(0);
+    let cmd = request
+        .get("cmd")
+        .and_then(serde_json::Value::as_str)
+        .unwrap_or("");
+    let args = request
+        .get("args")
+        .cloned()
+        .unwrap_or(serde_json::Value::Null);
 
     let mut quit = false;
     let result = match cmd {
@@ -207,7 +218,11 @@ fn handle_ipc(window: &Window, webview: &wry::WebView, body: &str) -> bool {
             serde_json::Value::Bool(true)
         }
         "window_resize" => {
-            match args.get("direction").and_then(serde_json::Value::as_str).and_then(resize_dir) {
+            match args
+                .get("direction")
+                .and_then(serde_json::Value::as_str)
+                .and_then(resize_dir)
+            {
                 Some(direction) => {
                     let _ = window.drag_resize_window(direction);
                     serde_json::Value::Bool(true)
@@ -270,7 +285,10 @@ fn dialog(args: &serde_json::Value) -> rfd::FileDialog {
     }
     if let Some(filters) = args.get("filters").and_then(serde_json::Value::as_array) {
         for filter in filters {
-            let name = filter.get("name").and_then(serde_json::Value::as_str).unwrap_or("Files");
+            let name = filter
+                .get("name")
+                .and_then(serde_json::Value::as_str)
+                .unwrap_or("Files");
             let extensions: Vec<&str> = filter
                 .get("extensions")
                 .and_then(serde_json::Value::as_array)
@@ -289,7 +307,11 @@ fn pick(args: &serde_json::Value, multiple: bool) -> serde_json::Value {
     if multiple {
         let paths = dialog
             .pick_files()
-            .map(|list| list.iter().map(|p| p.to_string_lossy().to_string()).collect::<Vec<_>>())
+            .map(|list| {
+                list.iter()
+                    .map(|p| p.to_string_lossy().to_string())
+                    .collect::<Vec<_>>()
+            })
             .unwrap_or_default();
         serde_json::json!(paths)
     } else {
@@ -352,7 +374,8 @@ fn profile_dir() -> Option<std::path::PathBuf> {
         std::env::var_os("XDG_DATA_HOME")
             .map(std::path::PathBuf::from)
             .or_else(|| {
-                std::env::var_os("HOME").map(|home| std::path::PathBuf::from(home).join(".local/share"))
+                std::env::var_os("HOME")
+                    .map(|home| std::path::PathBuf::from(home).join(".local/share"))
             })
     };
     let dir = base?.join("Retina").join("webview");
@@ -385,7 +408,8 @@ fn window_icon(path: Option<&str>) -> Option<tao::window::Icon> {
 
 /// Pushes a state event to the page (see `__retinaShellEvent` in `INIT_SCRIPT`).
 fn notify_page(webview: &wry::WebView, detail: &str) {
-    let script = format!("window.__retinaShellEvent&&window.__retinaShellEvent('window-state',{detail})");
+    let script =
+        format!("window.__retinaShellEvent&&window.__retinaShellEvent('window-state',{detail})");
     let _ = webview.evaluate_script(&script);
 }
 

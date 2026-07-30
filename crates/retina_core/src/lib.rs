@@ -175,7 +175,14 @@ fn bdiv_y(p: &[f64], i: usize, j: usize, w: usize, h: usize) -> f64 {
 }
 
 /// One complete run of the TGV² primal-dual on an (h, w) channel held in a flat Vec.
-fn tgv_channel(f: &[f64], h: usize, w: usize, alpha1: f64, alpha0: f64, iterations: u32) -> Vec<f64> {
+fn tgv_channel(
+    f: &[f64],
+    h: usize,
+    w: usize,
+    alpha1: f64,
+    alpha0: f64,
+    iterations: u32,
+) -> Vec<f64> {
     let n = h * w;
     let tau = 1.0 / 12.0f64.sqrt();
     let sigma = tau;
@@ -227,8 +234,8 @@ fn tgv_channel(f: &[f64], h: usize, w: usize, alpha1: f64, alpha0: f64, iteratio
                     let mut vyy = qyy_row[j] + sigma * fgrad_y(&wyb, i, j, w, h);
                     let mut vxy = qxy_row[j]
                         + sigma * 0.5 * (fgrad_y(&wxb, i, j, w, h) + fgrad_x(&wyb, i, j, w));
-                    let nq = (1.0f64)
-                        .max((vxx * vxx + vyy * vyy + 2.0 * vxy * vxy).sqrt() / alpha0);
+                    let nq =
+                        (1.0f64).max((vxx * vxx + vyy * vyy + 2.0 * vxy * vxy).sqrt() / alpha0);
                     vxx /= nq;
                     vyy /= nq;
                     vxy /= nq;
@@ -245,24 +252,26 @@ fn tgv_channel(f: &[f64], h: usize, w: usize, alpha1: f64, alpha0: f64, iteratio
             .zip(wxb2.par_chunks_mut(w))
             .zip(wyb2.par_chunks_mut(w))
             .enumerate()
-            .for_each(|(i, (((((u_row, wx_row), wy_row), ub_row), wxb_row), wyb_row))| {
-                for j in 0..w {
-                    let idx = i * w + j;
-                    let div_p = bdiv_x(&px, i, j, w) + bdiv_y(&py, i, j, w, h);
-                    let un = (u[idx] + tau * div_p + tau * f[idx]) / (1.0 + tau);
-                    // (E^T q) — div = -adjoint of ∇, same signs as the numpy path
-                    let sym_x = bdiv_x(&qxx, i, j, w) + 0.5 * bdiv_y(&qxy, i, j, w, h);
-                    let sym_y = bdiv_y(&qyy, i, j, w, h) + 0.5 * bdiv_x(&qxy, i, j, w);
-                    let wxn = wx[idx] + tau * (px[idx] + sym_x);
-                    let wyn = wy[idx] + tau * (py[idx] + sym_y);
-                    u_row[j] = un;
-                    wx_row[j] = wxn;
-                    wy_row[j] = wyn;
-                    ub_row[j] = 2.0 * un - u[idx];
-                    wxb_row[j] = 2.0 * wxn - wx[idx];
-                    wyb_row[j] = 2.0 * wyn - wy[idx];
-                }
-            });
+            .for_each(
+                |(i, (((((u_row, wx_row), wy_row), ub_row), wxb_row), wyb_row))| {
+                    for j in 0..w {
+                        let idx = i * w + j;
+                        let div_p = bdiv_x(&px, i, j, w) + bdiv_y(&py, i, j, w, h);
+                        let un = (u[idx] + tau * div_p + tau * f[idx]) / (1.0 + tau);
+                        // (E^T q) — div = -adjoint of ∇, same signs as the numpy path
+                        let sym_x = bdiv_x(&qxx, i, j, w) + 0.5 * bdiv_y(&qxy, i, j, w, h);
+                        let sym_y = bdiv_y(&qyy, i, j, w, h) + 0.5 * bdiv_x(&qxy, i, j, w);
+                        let wxn = wx[idx] + tau * (px[idx] + sym_x);
+                        let wyn = wy[idx] + tau * (py[idx] + sym_y);
+                        u_row[j] = un;
+                        wx_row[j] = wxn;
+                        wy_row[j] = wyn;
+                        ub_row[j] = 2.0 * un - u[idx];
+                        wxb_row[j] = 2.0 * wxn - wx[idx];
+                        wyb_row[j] = 2.0 * wyn - wy[idx];
+                    }
+                },
+            );
         std::mem::swap(&mut u, &mut u2);
         std::mem::swap(&mut wx, &mut wx2);
         std::mem::swap(&mut wy, &mut wy2);

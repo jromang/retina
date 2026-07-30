@@ -25,12 +25,21 @@ async def test_access_refused_without_a_token(client):
 
 
 async def test_token_by_header_then_cookie(client):
-    """The header authenticates, and the response sets the cookie the assets will need."""
+    """The header authenticates, and the response sets the cookie the assets will need.
+
+    The cookie is only asserted when the frontend is actually built. Without it, ``/`` raises
+    ``HTTPServiceUnavailable`` (``server/core.py``), and a handler that *raises* never returns
+    through the middleware that attaches the cookie. That is a defensible asymmetry — with no
+    frontend there are no asset requests needing the cookie — but the test used to assume a
+    built frontend without saying so, and only ever ran where one existed. CI, which does not
+    build it for the Python job, is what surfaced the assumption.
+    """
     token = client.retina.token
     resp = await client.get("/", headers={HEADER_NAME: token})
     # 200 if the frontend is built, 503 otherwise — either way, auth went through
     assert resp.status in (200, 503)
-    assert resp.cookies[COOKIE_NAME].value == token
+    if resp.status == 200:
+        assert resp.cookies[COOKIE_NAME].value == token
 
 
 async def test_invalid_token_refused(client):

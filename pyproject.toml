@@ -104,8 +104,12 @@ astro-msvc = [
     "jplephem>=2.21",
     "pillow-jxl-plugin>=1.2",
 ]
-# AI star removal (StarNet/GraXpert ONNX models).
-ai = ["onnxruntime>=1.16"]
+# AI star removal, denoising and deconvolution (StarNet/GraXpert ONNX models).
+# `onnx` is not needed at runtime -- onnxruntime loads the model -- but the tests build tiny
+# models on the fly to exercise the runtime without downloading 218 MB. Without it, 14 tests
+# skip silently, which is exactly the failure mode the CI environment assertion exists to
+# catch: it did, on the first run.
+ai = ["onnxruntime>=1.16", "onnx>=1.15"]
 # Optional GPU acceleration (NVIDIA). The Rust core remains the reference CPU path, and every
 # ported process falls back on it silently when CuPy is missing (cf. backend/xp.py).
 #
