@@ -189,6 +189,17 @@ class Report:
 # ---------------------------------------------------------------------------
 
 
+def relative(path: Path) -> str:
+    """Repository-relative path with forward slashes, on every platform.
+
+    `Path.relative_to` yields backslashes on Windows, so `rel.startswith("web/e2e/")` silently
+    stopped matching there -- and the e2e specs, whose French assertions are a product test,
+    were reported as offenders. The exemption lists are written with `/`; this is what makes
+    them mean the same thing on both platforms.
+    """
+    return path.relative_to(ROOT).as_posix()
+
+
 def tracked_files() -> list[Path]:
     out = subprocess.run(
         ["git", "ls-files"], cwd=ROOT, capture_output=True, text=True, check=True
@@ -305,7 +316,7 @@ def strip_allowed(text: str) -> str:
 
 
 def probe_text(path: Path, report: Report) -> None:
-    rel = str(path.relative_to(ROOT))
+    rel = relative(path)
     try:
         source = path.read_text(encoding="utf-8")
     except (UnicodeDecodeError, OSError):
@@ -333,7 +344,7 @@ def probe_text(path: Path, report: Report) -> None:
 
 def probe_identifiers(path: Path, report: Report) -> None:
     """Walk the AST for French identifiers — the probe with no textual signature."""
-    rel = str(path.relative_to(ROOT))
+    rel = relative(path)
     try:
         tree = ast.parse(path.read_text(encoding="utf-8"))
     except (SyntaxError, UnicodeDecodeError, OSError):
@@ -377,7 +388,7 @@ def main() -> int:
 
     report = Report()
     for path in tracked_files():
-        rel = str(path.relative_to(ROOT))
+        rel = relative(path)
         if args.path and args.path not in rel:
             continue
         probe_text(path, report)
