@@ -12,6 +12,8 @@ Paragraphs drift — this one had already drifted once. Here it is a test.
 
 from __future__ import annotations
 
+import json
+import re
 import tomllib
 from pathlib import Path
 
@@ -87,8 +89,31 @@ def test_the_briefcase_identity_is_declared(key):
 
 
 def test_the_versions_agree():
-    """Three manifests carry a version; a release is cut from the briefcase one."""
-    assert PYPROJECT["project"]["version"] == PYPROJECT["tool"]["briefcase"]["version"]
+    """Five places carry the version; a release is cut from the briefcase one.
+
+    This used to compare two of them, and the other three drifted -- Cargo.toml and
+    web/package.json sat at 0.0.0 while the rest had moved to 0.0.1, and nothing said so. The
+    Rust one is what the shell binary reports and what a Windows file-properties dialog shows;
+    ``retina.__version__`` is what a user reads in the console.
+    """
+    expected = PYPROJECT["project"]["version"]
+    found = {"[project]": expected, "[tool.briefcase]": PYPROJECT["tool"]["briefcase"]["version"]}
+
+    cargo = tomllib.loads((ROOT / "Cargo.toml").read_text(encoding="utf-8"))
+    found["Cargo.toml"] = cargo["workspace"]["package"]["version"]
+    found["web/package.json"] = json.loads(
+        (ROOT / "web" / "package.json").read_text(encoding="utf-8")
+    )["version"]
+
+    init = (ROOT / "python" / "retina" / "__init__.py").read_text(encoding="utf-8")
+    match = re.search(r'^__version__ = "([^"]+)"', init, re.MULTILINE)
+    assert match, "retina/__init__.py no longer declares __version__"
+    found["retina.__version__"] = match.group(1)
+
+    disagreeing = {where: value for where, value in found.items() if value != expected}
+    assert not disagreeing, (
+        f"[project] version is {expected}, but: {disagreeing}"
+    )
 
 
 def test_the_embedded_runtime_is_pinned():

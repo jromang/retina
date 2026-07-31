@@ -4,7 +4,7 @@ build-backend = "maturin"
 
 [project]
 name = "retina"
-version = "0.0.1"
+version = "0.0.2"
 description = "Retina — open-source, fully scriptable astrophotography image processing"
 readme = "README.md"
 requires-python = ">=3.11"
@@ -347,7 +347,7 @@ include = [
 [tool.briefcase]
 project_name = "Retina"
 bundle = "org.retina"
-version = "0.0.1"
+version = "0.0.2"
 url = "https://github.com/jromang/retina"
 license = "GPL-3.0-or-later"
 author = "jromang"
