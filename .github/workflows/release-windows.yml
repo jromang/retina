@@ -120,11 +120,14 @@ jobs:
           if (-not $pyd) { throw "_core .pyd not found in python/retina/" }
           Write-Host $pyd.FullName
 
-      # This is the one machine where the ASTAP plumbing test does not self-skip.
+      # This is the one machine where the ASTAP plumbing test does not self-skip: everywhere
+      # else `_find_astap()` returns None. Narrowed to that single test on purpose -- this job
+      # installs the build tooling, not the astro extras, so the rest of the file would fail on
+      # a missing PIL. Which it did, the first time this step ever ran.
       - name: ASTAP plumbing test
         run: |
           python -m pip install pytest pytest-asyncio
-          pytest tests/test_astrometry.py -q -rs
+          pytest tests/test_astrometry.py -q -rs -k astap_plumbing
 
       - name: Cache the briefcase toolchain (WiX + the CPython embed archive)
         uses: actions/cache@v4
