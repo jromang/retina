@@ -42,7 +42,7 @@ web = [
     "aiohttp>=3.11",   # a single server for HTTP + WebSocket, on loopback
     "ipython>=8",      # console: embedded InteractiveShell (completion, history, magics)
     "markdown>=3.5",           # Markdown→HTML rendering of the process docs
-    "pymdown-extensions>=10.0",  # arithmatex extension (LaTeX math → KaTeX)
+    "pymdown-extensions>=11.0.1",  # arithmatex extension (LaTeX math → KaTeX)
     "pygments>=2.15",          # syntax highlighting of the doc's code blocks
     "pillow>=10",              # MCP server: renders a view as PNG so the agent can see it
 ]
@@ -372,7 +372,7 @@ icon = "python/retina/resources/branding/retina"
 requires = [
     "numpy>=1.24", "astropy>=6.0", "asteval>=1.0", "PyYAML>=6.0", "xisf>=0.9",
     "aiohttp>=3.11", "ipython>=8",
-    "markdown>=3.5", "pymdown-extensions>=10.0", "pygments>=2.15",
+    "markdown>=3.5", "pymdown-extensions>=11.0.1", "pygments>=2.15",
     "pillow>=10",
     # .retina projects (HDF5). Without it, opening or saving a project raises a RuntimeError.
     "h5py>=3.10",
