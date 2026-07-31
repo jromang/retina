@@ -127,7 +127,7 @@ ai = ["onnxruntime>=1.16"]
 # feature, not lag. Nothing here can test a CUDA 12 stack anyway -- the development machine runs
 # cupy-cuda13x -- so raising it would trade a reachable configuration for an unverified claim.
 cuda = ["cupy-cuda13x>=14"]
-cuda12 = ["cupy-cuda12x>=13"]
+cuda12 = ["cupy-cuda12x>=14.1.1"]
 # Native XISF format.
 xisf = ["xisf>=0.9"]
 # Projects (.retina): a single HDF5 file per project — windows, previews, masks and **all** the
