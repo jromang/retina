@@ -181,7 +181,6 @@ jobs:
 
       # The MSI is already compressed; re-zipping it costs minutes and saves nothing.
       - uses: actions/upload-artifact@v4
-        id: upload
         with:
           name: retina-msi
           path: |
@@ -197,41 +196,8 @@ jobs:
           path: logs/
           retention-days: 7
 
-      # Inert until SIGNPATH_API_TOKEN exists: the Foundation's free programme requires a
-      # public repository and a prior release, so the first MSI ships unsigned with its
-      # checksums. The four SIGNPATH_* variables are handed out with the approval; set them
-      # under Settings -> Secrets and variables -> Actions (token as a secret, the rest as
-      # variables) and this step starts working with no edit here.
-      - name: Sign the MSI
-        id: sign
-        if: ${{ secrets.SIGNPATH_API_TOKEN != '' }}
-        uses: signpath/github-action-submit-signing-request@v1
-        with:
-          api-token: ${{ secrets.SIGNPATH_API_TOKEN }}
-          organization-id: ${{ vars.SIGNPATH_ORGANIZATION_ID }}
-          project-slug: ${{ vars.SIGNPATH_PROJECT_SLUG }}
-          signing-policy-slug: ${{ vars.SIGNPATH_SIGNING_POLICY_SLUG }}
-          artifact-configuration-slug: ${{ vars.SIGNPATH_ARTIFACT_CONFIGURATION_SLUG }}
-          github-artifact-id: ${{ steps.upload.outputs.artifact-id }}
-          wait-for-completion: true
-          output-artifact-directory: dist-signed
-
-      # The checksums published alongside the release must describe what people download, so
-      # they are recomputed over the signed artifact -- signing changes the bytes.
-      - name: Checksums of the signed MSI
-        if: steps.sign.outcome == 'success'
-        shell: pwsh
-        run: |
-          Remove-Item dist\SHA256SUMS.txt -ErrorAction SilentlyContinue
-          Copy-Item dist-signed\*.msi dist\ -Force
-          Get-ChildItem dist\*.msi | ForEach-Object {
-            $hash = (Get-FileHash $_ -Algorithm SHA256).Hash.ToLower()
-            "$hash  $($_.Name)" | Out-File -Append -Encoding ascii dist\SHA256SUMS.txt
-            Write-Host "$hash  $($_.Name)"
-          }
-
       # draft: true is deliberate. The MSI is unsigned, so it deserves one human look --
-      # and a download to see what SmartScreen actually says -- before it is permanent.
+      # and a download, to see what SmartScreen actually says -- before it is permanent.
       - name: Draft GitHub Release
         if: startsWith(github.ref, 'refs/tags/v') || inputs.publish
         uses: softprops/action-gh-release@v2
