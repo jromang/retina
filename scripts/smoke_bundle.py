@@ -55,17 +55,32 @@ IGNORED_ROOTS = {
 IGNORED_ROOTS |= set(sys.stdlib_module_names)
 
 
-def find_runtime(tree: Path) -> tuple[Path, Path, Path]:
-    """Locate ``(interpreter, app_dir, app_packages_dir)`` inside a briefcase build tree."""
-    candidates = list(tree.rglob("python.exe")) + list(tree.rglob("bin/python3"))
-    if not candidates:
-        raise SystemExit(f"no bundled interpreter under {tree}")
-    interpreter = candidates[0]
-    src = interpreter.parent
+def find_runtime(tree: Path) -> tuple[Path | None, Path, Path]:
+    """Locate ``(interpreter, app_dir, app_packages_dir)`` inside a briefcase build tree.
+
+    The interpreter is optional, and on Windows it is normally absent: briefcase ships the
+    embedded distribution's ``pythonXY.dll`` and a stub ``.exe`` that launches the app, not a
+    general-purpose ``python.exe``. When there is none, the caller falls back to the current
+    interpreter with the bundle's directories on ``sys.path`` -- which still answers the
+    question this script exists for, "is every wheel present", though not "does this
+    interpreter load them".
+    """
+    packages = next(
+        (p for p in tree.rglob("app_packages") if p.is_dir()), None
+    )
+    if packages is None:
+        listing = "\n  ".join(str(p.relative_to(tree)) for p in sorted(tree.rglob("*"))[:60])
+        raise SystemExit(f"app_packages/ not found under {tree}. Tree:\n  {listing}")
+    src = packages.parent
     app = next((p for p in (src / "app", tree / "app") if p.is_dir()), None)
-    packages = next((p for p in (src / "app_packages", tree / "app_packages") if p.is_dir()), None)
-    if app is None or packages is None:
-        raise SystemExit(f"app/ or app_packages/ not found under {src}")
+    if app is None:
+        raise SystemExit(f"app/ not found next to {packages}")
+
+    interpreter = next(
+        (p for p in (*src.glob("python.exe"), *src.glob("bin/python3"),
+                     *tree.rglob("python.exe"), *tree.rglob("bin/python3"))),
+        None,
+    )
     return interpreter, app, packages
 
 
@@ -223,9 +238,18 @@ def main() -> int:
         return run_inside(Path(args.app), Path(args.packages))
 
     interpreter, app, packages = find_runtime(Path(args.tree))
-    print(f"[smoke] interpreter : {interpreter}")
     print(f"[smoke] app         : {app}")
     print(f"[smoke] app_packages: {packages}")
+
+    if interpreter is None:
+        # Windows: briefcase ships pythonXY.dll and a stub launcher, no python.exe. Fall back
+        # to this interpreter with the bundle on sys.path. That still answers "is every wheel
+        # present", which is the failure this script exists to catch; what it no longer proves
+        # is that the *bundled* interpreter can load them.
+        print("[smoke] no bundled interpreter; running in-process against the bundle")
+        return run_inside(app, packages)
+
+    print(f"[smoke] interpreter : {interpreter}")
     return subprocess.run(
         [str(interpreter), str(Path(__file__).resolve()), "--tree", args.tree,
          "--inside", "--app", str(app), "--packages", str(packages)],
