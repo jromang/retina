@@ -60,7 +60,7 @@ astro = [
     "matplotlib>=3.7",  # required by colour; otherwise a Mock pollutes sys.modules
     "pillow>=10",       # rendering of catalog annotation markers and labels
     "reproject>=0.13",  # WCS-based mosaicking (reproject_interp / reproject_and_coadd)
-    "sep>=1.2",         # very fast background + source detection (Source-Extractor)
+    "sep>=1.4.1",         # very fast background + source detection (Source-Extractor)
     "PyWavelets>=1.4",  # decimated/undecimated wavelets (WaveletDenoise, denoise_wavelet)
     "rawpy>=0.19",      # camera RAW loading (.cr2/.nef/.arw/.dng…)
     "opencv-python-headless>=4.8",  # fast NLM, inpaint, seamless clone, ORB (headless variant)
@@ -94,7 +94,7 @@ astro-msvc = [
     "matplotlib>=3.7",
     "pillow>=10",
     "reproject>=0.13",
-    "sep>=1.2",
+    "sep>=1.4.1",
     "PyWavelets>=1.4",
     "rawpy>=0.19",
     "opencv-python-headless>=4.8",
@@ -382,7 +382,7 @@ requires = [
     # .linux / .macOS sections reintroduce it.
     "scipy>=1.11", "scikit-image>=0.22", "photutils>=1.10", "ccdproc>=2.4",
     "astroalign>=2.5", "astroscrappy>=1.1", "colour-demosaicing>=0.2",
-    "astroquery>=0.4", "matplotlib>=3.7", "reproject>=0.13", "sep>=1.2",
+    "astroquery>=0.4", "matplotlib>=3.7", "reproject>=0.13", "sep>=1.4.1",
     "PyWavelets>=1.4", "rawpy>=0.19", "opencv-python-headless>=4.8",
     "scikit-learn>=1.3", "tifffile>=2023.7", "imageio>=2.31", "jplephem>=2.21",
     "pillow-jxl-plugin>=1.2",
