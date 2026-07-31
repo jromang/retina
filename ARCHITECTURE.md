@@ -491,6 +491,25 @@ this necessary.
   inside an editor and marked `localShortcut` (F5 runs the script there, applies the last process
   elsewhere).
 
+### Build-chain versions worth knowing
+
+- **Monaco is imported subpath by subpath**, and 0.56 added an `exports` map that made every
+  `monaco-editor/esm/vs/...` path resolve to nothing. Nineteen of the twenty imports there are
+  side-effect only — the contributions that supply Ctrl+F, folding and hover — so the build
+  stayed green while the features disappeared. `noUncheckedSideEffectImports` is on in
+  `tsconfig.json` for that reason, and the e2e exercise Ctrl+F and Ctrl+/ for the part typing
+  cannot prove. The per-language entry point is `languages/definitions/<lang>/register`; the
+  `basic-languages` replacement pulls all ninety languages at once.
+- **Vite stays at 7.** Under 8 the asset graph loads differently and two pointer-gesture e2e
+  break — the crop drawn with the mouse moves the frame instead of drawing it. Both are timing
+  fragilities on our side rather than Vite bugs, but they are a piece of work, not a bump, and
+  Vite 7 carries no advisory. Do not merge the Vite 8 Dependabot pull request without running
+  `npx playwright test` and reading this paragraph.
+- **The Monaco theme reads *computed* CSS variables**, so it gets whatever the minifier emitted.
+  `styles/tokens.css` writes `#cccccc`; a minifier may hand back `#ccc`, which Monaco rejects
+  with `Illegal value for token color`. `readToken` expands the shorthand — do not "simplify" it
+  back to a bare `replace('#', '')`.
+
 ### Security posture
 
 The server listens on loopback and drives the whole application, including arbitrary Python

@@ -49,10 +49,19 @@ interface CompletionResponse {
 }
 
 
-/** Theme derived from the same CSS variables as the rest of the shell. */
+/** Theme derived from the same CSS variables as the rest of the shell.
+ *
+ * Monaco wants exactly six hex digits and throws `Illegal value for token color` otherwise.
+ * The variables are written `#cccccc` in `styles/tokens.css`, but what is read here is the
+ * *computed* value, and a CSS minifier is free to shorten it to `#ccc` -- Vite 8's does. So
+ * expand the shorthand rather than trusting the stylesheet to survive the build.
+ */
 function readToken(name: string, fallback: string): string {
   const value = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
-  return (value || fallback).replace('#', '');
+  const hex = (value || fallback).replace('#', '');
+  return /^[0-9a-fA-F]{3}$/.test(hex)
+    ? hex.split('').map((digit) => digit + digit).join('')
+    : hex;
 }
 
 export function setupMonaco(): typeof monaco {

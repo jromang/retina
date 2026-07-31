@@ -873,12 +873,28 @@ test('the source code of an instance opens as a script', async ({ page }) => {
  * it fail.
  */
 async function imageToCanvas(page: Page, x: number, y: number): Promise<{ x: number; y: number }> {
-  const snapshot = await rpc<{
-    active_window: string | null;
-    windows: Array<{ id: string; viewport: { zoom: number; center: [number, number] } }>;
-  }>(page, 'state.snapshot');
-  const vp = snapshot.windows.find((w) => w.id === snapshot.active_window)!.viewport;
-  const box = (await page.locator('canvas:visible').first().boundingBox())!;
+  // Read the viewport until two consecutive reads agree. The paragraph above says why the
+  // geometry moves on its own; what it did not say is that reading it **once** races that
+  // movement, so the mapping can be computed from a zoom that no longer holds when the click
+  // lands -- silently, a few percent off.
+  const readViewport = async () => {
+    const snapshot = await rpc<{
+      active_window: string | null;
+      windows: Array<{ id: string; viewport: { zoom: number; center: [number, number] } }>;
+    }>(page, 'state.snapshot');
+    return snapshot.windows.find((w) => w.id === snapshot.active_window)!.viewport;
+  };
+  const readBox = async () => (await page.locator('canvas:visible').first().boundingBox())!;
+  let vp = await readViewport();
+  let box = await readBox();
+  for (let settle = 0; settle < 20; settle++) {
+    const [againVp, againBox] = [await readViewport(), await readBox()];
+    if (againVp.zoom === vp.zoom && againVp.center[0] === vp.center[0]
+      && againVp.center[1] === vp.center[1]
+      && againBox.x === box.x && againBox.y === box.y
+      && againBox.width === box.width && againBox.height === box.height) break;
+    [vp, box] = [againVp, againBox];
+  }
   return {
     x: box.x + (x - vp.center[0]) * vp.zoom + box.width / 2,
     y: box.y + (y - vp.center[1]) * vp.zoom + box.height / 2,

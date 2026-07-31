@@ -1,4 +1,7 @@
-import { defineConfig } from 'vite';
+// From `vitest/config`, not `vite`: the `test` block below is not part of Vite's own config
+// type. Vitest 3 augmented it globally, which made the plain `vite` import work by accident;
+// TypeScript 7 rejects the excess property that TypeScript 5 let through on the overload.
+import { defineConfig } from 'vitest/config';
 import preact from '@preact/preset-vite';
 import { paraglideVitePlugin } from '@inlang/paraglide-js';
 
