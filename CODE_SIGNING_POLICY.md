@@ -53,6 +53,9 @@ step, and are scoped to a dedicated CI identity that cannot sign interactively.
 
 ## Privacy
 
+> This program will not transfer any information to other networked systems unless
+> specifically requested by the user or the person installing or operating it.
+
 **Retina collects no data.** It does not phone home, does not report telemetry, does not
 transmit usage statistics, and has no analytics of any kind. Images and projects stay on the
 machine that opens them.

@@ -81,13 +81,23 @@ python -m retina.pipeline /data/M31   # automated pre-processing, headless
 
 ### Windows installer
 
-Each release ships an MSI. It is **not code-signed** yet, so Windows SmartScreen will warn on
-first run: choose *More info* → *Run anyway*. Verify the download against the
-`SHA256SUMS.txt` published alongside it — noting that MSI packaging is not bit-for-bit
-reproducible, so a checksum identifies an artifact rather than a version.
+Each release ships an MSI, published on the
+[releases page](https://github.com/jromang/retina/releases).
 
-How releases are built, and what the software does with your data, is described in
-[CODE_SIGNING_POLICY.md](CODE_SIGNING_POLICY.md).
+### Code signing
+
+Free code signing provided by [SignPath.io](https://signpath.io/), certificate by
+[SignPath Foundation](https://signpath.org/).
+
+> Signing is pending: the v0.0.1 MSI published above is **not yet signed**, so Windows
+> SmartScreen will warn on first run — choose *More info* → *Run anyway*. Verify the download
+> against the `SHA256SUMS.txt` published alongside it, noting that MSI packaging is not
+> bit-for-bit reproducible: a checksum identifies an artifact, not a version.
+
+How releases are built, who can authorize a signature, and what the software does with your
+data are described in [CODE_SIGNING_POLICY.md](CODE_SIGNING_POLICY.md). In short: this program
+will not transfer any information to other networked systems unless specifically requested by
+the user or the person installing or operating it.
 
 ## Running the tests
 

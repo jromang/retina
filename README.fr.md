@@ -83,13 +83,25 @@ python -m retina.pipeline /data/M31   # pré-traitement automatisé, headless
 
 ### Installateur Windows
 
-Chaque release fournit un MSI. Il n'est **pas encore signé**, donc SmartScreen avertit au
-premier lancement : choisir *Informations complémentaires* → *Exécuter quand même*. Vérifier le
-téléchargement avec le fichier `SHA256SUMS.txt` publié à côté — en sachant qu'un MSI n'est pas
-reproductible au bit près : une empreinte identifie un artefact, pas une version.
+Chaque release fournit un MSI, publié sur la
+[page des releases](https://github.com/jromang/retina/releases).
 
-La façon dont les releases sont construites, et ce que le logiciel fait de vos données, est
-décrite dans [CODE_SIGNING_POLICY.md](CODE_SIGNING_POLICY.md) (en anglais).
+### Signature du code
+
+Signature de code fournie gratuitement par [SignPath.io](https://signpath.io/), certificat de
+la [SignPath Foundation](https://signpath.org/).
+*(Formulation d'attribution imposée : « Free code signing provided by SignPath.io, certificate
+by SignPath Foundation ».)*
+
+> Signature en cours d'obtention : le MSI v0.0.1 publié ci-dessus n'est **pas encore signé**,
+> donc SmartScreen avertit au premier lancement — choisir *Informations complémentaires* →
+> *Exécuter quand même*. Vérifier le téléchargement avec le `SHA256SUMS.txt` publié à côté, en
+> sachant qu'un MSI n'est pas reproductible au bit près : une empreinte identifie un artefact,
+> pas une version.
+
+La façon dont les releases sont construites, qui peut autoriser une signature, et ce que le
+logiciel fait de vos données sont décrits dans
+[CODE_SIGNING_POLICY.md](CODE_SIGNING_POLICY.md) (en anglais).
 
 ## Lancer les tests
 
