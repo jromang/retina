@@ -674,6 +674,19 @@ test('a script is written, run, and its output lands in the console', async ({ p
   await expect(editor).toBeVisible();
   await editor.click();
   await page.keyboard.type("print('bonjour depuis un script')");
+  // Two of the nineteen side-effect imports of `console/monaco.ts`, exercised for real. They
+  // are imported for their registration alone, so a path that stops resolving costs nothing at
+  // build time and silently removes the feature -- which is what monaco 0.56 did to every
+  // `monaco-editor/esm/vs/...` path when it added an exports map. Ctrl+F stands for the twelve
+  // contributions no other test touches.
+  await page.keyboard.press('Control+f');
+  await expect(page.locator('.script-tab .find-widget')).toBeVisible();
+  await page.keyboard.press('Escape');
+  await editor.click();
+  await page.keyboard.press('Control+/');
+  await expect(page.locator('.script-tab .monaco-editor')).toContainText('#');
+  await page.keyboard.press('Control+/');
+
   await page.keyboard.press('F5');
 
   await expect(page.locator('.bottom')).toContainText('bonjour depuis un script');

@@ -13,8 +13,8 @@ path = "src/main.rs"
 # tao = window + event loop; wry = webview (WebView2 on Windows).
 # These are the two building blocks Tauri itself is built on. We use them directly:
 # see the header comment of src/main.rs.
-tao = "0.35"
-wry = "0.55"
+tao = "0.36"
+wry = "0.56"
 # Native file dialogs. The HTML picker will not do: the files live on the Python server's side,
 # and it is a PATH that must be transmitted, not an uploaded payload.
 rfd = "0.15"

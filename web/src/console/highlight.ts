@@ -9,7 +9,10 @@
 // absence: the console opens and is used before it is loaded, and returning plain text in the
 // meantime is better than delaying the display.
 
-type MonacoApi = typeof import('monaco-editor');
+// From `./monaco`, not from the package root: since 0.56 the root and `editor/editor.api` are
+// two distinct declarations, and the value we are handed comes from the latter. One file holds
+// the subpath.
+type MonacoApi = typeof import('./monaco').monaco;
 
 let api: MonacoApi | null = null;
 

@@ -37,8 +37,10 @@ import {
 } from './scripts';
 import { editorLine, parseTraceback } from './traceback';
 
-type Monaco = typeof import('monaco-editor');
-type TextModel = import('monaco-editor').editor.ITextModel;
+// From `../console/monaco`, not the package root: since 0.56 the root and
+// `editor/editor.api` are distinct declarations, and the value comes from the latter.
+type Monaco = typeof import('../console/monaco').monaco;
+type TextModel = import('../console/monaco').monaco.editor.ITextModel;
 
 const models = new Map<string, TextModel>();
 
@@ -66,7 +68,7 @@ function modelFor(monaco: Monaco, id: string): TextModel {
 
 export function ScriptTab({ id }: { id: string }) {
   const hostRef = useRef<HTMLDivElement>(null);
-  const editorRef = useRef<import('monaco-editor').editor.IStandaloneCodeEditor | null>(null);
+  const editorRef = useRef<import('../console/monaco').monaco.editor.IStandaloneCodeEditor | null>(null);
   const [position, setPosition] = useState({ lineNumber: 1, column: 1 });
   const [notice, setNotice] = useState<string | null>(null);
   const doc = openScripts.value.find((entry) => entry.id === id);

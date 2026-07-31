@@ -19,17 +19,20 @@
     "@preact/signals": "^2.0.1",
     "@vscode/codicons": "^0.0.46-24",
     "dockview-core": "^4.13.1",
-    "monaco-editor": "^0.54.0",
+    "monaco-editor": "^0.56.0",
     "preact": "^10.27.2"
   },
   "devDependencies": {
     "@inlang/paraglide-js": "^2.23.0",
     "@inlang/plugin-message-format": "^4.4.0",
-    "@playwright/test": "^1.62.0",
+    "@playwright/test": "^1.62.1",
     "@preact/preset-vite": "^2.10.2",
     "typescript": "^5.9.3",
     "vite": "^7.1.7",
     "vitest": "^3.2.4"
+  },
+  "overrides": {
+    "dompurify": "^3.4.12"
   },
   "allowScripts": {
     "esbuild@0.28.1": true

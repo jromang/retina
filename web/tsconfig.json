@@ -18,6 +18,13 @@
     "exactOptionalPropertyTypes": true,
     "verbatimModuleSyntax": true,
 
+    // Side-effect imports are unresolved by default, and monaco.ts is nineteen of them: the
+    // contributions that give the console its Ctrl+F, its folding and its hover. Monaco 0.56
+    // added an exports map that invalidated every `monaco-editor/esm/vs/...` path, and only the
+    // single type-bearing import failed the build -- the other nineteen would have resolved to
+    // nothing at runtime, which is this file's own documented worst failure mode.
+    "noUncheckedSideEffectImports": true,
+
     "isolatedModules": true,
     "resolveJsonModule": true,
     "skipLibCheck": true,

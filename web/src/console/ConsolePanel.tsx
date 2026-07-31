@@ -236,7 +236,7 @@ export function ConsolePanel() {
     };
   }, []);
 
-  function mountEditor(host: HTMLDivElement, monaco: typeof import('monaco-editor')) {
+  function mountEditor(host: HTMLDivElement, monaco: typeof import('./monaco').monaco) {
     const editor = monaco.editor.create(host, {
       value: '',
       language: 'python',

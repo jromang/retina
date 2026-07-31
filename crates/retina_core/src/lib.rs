@@ -1,7 +1,7 @@
 //! retina._core — compiled image operators (hot path) exposed to Python through PyO3.
 //!
 //! Key architectural point (cf. ARCHITECTURE.md): the heavy operations release the GIL
-//! (`Python::allow_threads`) and parallelize across cores (rayon), so that the GUI never freezes
+//! (`Python::detach`) and parallelize across cores (rayon), so that the GUI never freezes
 //! and Python multithreading is real.
 
 use ndarray::{Array2, Array3};
@@ -110,7 +110,7 @@ fn gaussian_convolve<'py>(
         return Ok(out.into_pyarray(py));
     }
 
-    let result = py.allow_threads(move || {
+    let result = py.detach(move || {
         let k = gaussian_kernel(sigma);
         let tmp = convolve_h(&input, h, w, c, &k);
         convolve_v(&tmp, h, w, c, &k)
@@ -301,7 +301,7 @@ fn tgv_denoise<'py>(
         ));
     }
     let input: Vec<f64> = view.iter().copied().collect();
-    let result = py.allow_threads(move || tgv_channel(&input, h, w, alpha1, alpha0, iterations));
+    let result = py.detach(move || tgv_channel(&input, h, w, alpha1, alpha0, iterations));
     let out = Array2::from_shape_vec((h, w), result)
         .map_err(|e| pyo3::exceptions::PyValueError::new_err(e.to_string()))?;
     Ok(out.into_pyarray(py))

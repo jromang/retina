@@ -13,26 +13,29 @@
 // **live** objects (`app.active_view` is a View, not an inferred type). No static analyzer can
 // do that, and that is exactly the point of a console attached to the state.
 
-import * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
-import 'monaco-editor/esm/vs/basic-languages/python/python.contribution';
-import 'monaco-editor/esm/vs/editor/contrib/suggest/browser/suggestController';
-import 'monaco-editor/esm/vs/editor/contrib/bracketMatching/browser/bracketMatching';
-import 'monaco-editor/esm/vs/editor/contrib/wordOperations/browser/wordOperations';
-import 'monaco-editor/esm/vs/editor/contrib/comment/browser/comment';
-import 'monaco-editor/esm/vs/editor/contrib/find/browser/findController';
-import 'monaco-editor/esm/vs/editor/contrib/folding/browser/folding';
-import 'monaco-editor/esm/vs/editor/contrib/hover/browser/hoverContribution';
-import 'monaco-editor/esm/vs/editor/contrib/parameterHints/browser/parameterHints';
-import 'monaco-editor/esm/vs/editor/contrib/multicursor/browser/multicursor';
-import 'monaco-editor/esm/vs/editor/contrib/linesOperations/browser/linesOperations';
-import 'monaco-editor/esm/vs/editor/contrib/smartSelect/browser/smartSelect';
-import 'monaco-editor/esm/vs/editor/contrib/indentation/browser/indentation';
-import 'monaco-editor/esm/vs/editor/contrib/contextmenu/browser/contextmenu';
-import 'monaco-editor/esm/vs/editor/contrib/clipboard/browser/clipboard';
-import 'monaco-editor/esm/vs/editor/contrib/gotoError/browser/gotoError';
-import 'monaco-editor/esm/vs/editor/contrib/wordHighlighter/browser/wordHighlighter';
-import 'monaco-editor/esm/vs/editor/standalone/browser/quickAccess/standaloneGotoLineQuickAccess';
-import EditorWorker from 'monaco-editor/esm/vs/editor/editor.worker?worker';
+import * as monaco from 'monaco-editor/editor/editor.api';
+// 0.56 moved the per-language entry points under `languages/definitions/`; the old
+// `basic-languages/<lang>/<lang>.contribution` is gone and its replacement pulls all ~90
+// languages at once. This one still registers Python alone, tokenizer lazily loaded.
+import 'monaco-editor/languages/definitions/python/register';
+import 'monaco-editor/editor/contrib/suggest/browser/suggestController';
+import 'monaco-editor/editor/contrib/bracketMatching/browser/bracketMatching';
+import 'monaco-editor/editor/contrib/wordOperations/browser/wordOperations';
+import 'monaco-editor/editor/contrib/comment/browser/comment';
+import 'monaco-editor/editor/contrib/find/browser/findController';
+import 'monaco-editor/editor/contrib/folding/browser/folding';
+import 'monaco-editor/editor/contrib/hover/browser/hoverContribution';
+import 'monaco-editor/editor/contrib/parameterHints/browser/parameterHints';
+import 'monaco-editor/editor/contrib/multicursor/browser/multicursor';
+import 'monaco-editor/editor/contrib/linesOperations/browser/linesOperations';
+import 'monaco-editor/editor/contrib/smartSelect/browser/smartSelect';
+import 'monaco-editor/editor/contrib/indentation/browser/indentation';
+import 'monaco-editor/editor/contrib/contextmenu/browser/contextmenu';
+import 'monaco-editor/editor/contrib/clipboard/browser/clipboard';
+import 'monaco-editor/editor/contrib/gotoError/browser/gotoError';
+import 'monaco-editor/editor/contrib/wordHighlighter/browser/wordHighlighter';
+import 'monaco-editor/editor/standalone/browser/quickAccess/standaloneGotoLineQuickAccess';
+import EditorWorker from 'monaco-editor/editor/editor.worker?worker';
 
 import { client } from '../api/client';
 import { callContext, inspectAt, splitParameters } from './inspect';
