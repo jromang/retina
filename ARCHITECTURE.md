@@ -871,9 +871,8 @@ pip install -e '.[web,xisf,astro,project,dev]'
 # line above would make `pip install` fail outright on macOS.
 pip install -e '.[cuda]'      # CUDA 13 (Blackwell included); '.[cuda12]' for an older driver
 
-# Build and install the Rust core. On Python 3.14, PyO3 builds through abi3 and needs the
-# forward-compatibility flag until it references 3.14 explicitly.
-PYO3_USE_ABI3_FORWARD_COMPATIBILITY=1 maturin develop --release
+# Build and install the Rust core (abi3-py311: one wheel for every supported Python).
+maturin develop --release
 
 pytest -q                                        # domain + server, headless
 pytest -m "not gpu" -q                           # skip the CuPy parity tests
@@ -920,7 +919,7 @@ python scripts/profile_hotspots.py --gpu
 # --- packaging: the three ordered pre-steps, then briefcase ---
 python scripts/build_dist.py                  # 1. frontend → resources/webui/, shell → retina/shell/
 python scripts/fetch_astap.py                 # 2. (Windows) ASTAP + D05 database → vendor/astap/
-PYO3_USE_ABI3_FORWARD_COMPATIBILITY=1 maturin develop --release   # 3. retina/_core into the tree
+maturin develop --release                      # 3. retina/_core into the tree
 briefcase create && briefcase build && briefcase package
 ```
 

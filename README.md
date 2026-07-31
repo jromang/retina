@@ -55,8 +55,8 @@ python -m venv .venv && source .venv/bin/activate
 pip install maturin
 pip install -e '.[web,xisf,astro,project,dev]'
 
-# Build the native core. On Python 3.14 the abi3 forward-compat flag is required:
-PYO3_USE_ABI3_FORWARD_COMPATIBILITY=1 maturin develop --release
+# Build the native core.
+maturin develop --release
 
 # Build the frontend into the Python package.
 cd web && npm install && npm run build && cd ..

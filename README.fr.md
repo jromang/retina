@@ -58,8 +58,8 @@ python -m venv .venv && source .venv/bin/activate.fish
 pip install maturin
 pip install -e '.[web,xisf,astro,project,dev]'
 
-# Cœur natif. Sous Python 3.14, le drapeau de compatibilité abi3 est nécessaire :
-PYO3_USE_ABI3_FORWARD_COMPATIBILITY=1 maturin develop --release
+# Cœur natif.
+maturin develop --release
 
 # Frontend, construit dans le paquet Python.
 cd web && npm install && npm run build && cd ..
