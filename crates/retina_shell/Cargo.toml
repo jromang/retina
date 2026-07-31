@@ -17,7 +17,7 @@ tao = "0.36"
 wry = "0.56"
 # Native file dialogs. The HTML picker will not do: the files live on the Python server's side,
 # and it is a PATH that must be transmitted, not an uploaded payload.
-rfd = "0.15"
+rfd = "0.17"
 serde_json = "1"
 # The user's locale. tao does not expose it, and reading it ourselves would require the
 # environment variables on Unix AND GetUserDefaultLocaleName on Windows: this crate does only
