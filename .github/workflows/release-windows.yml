@@ -82,7 +82,7 @@ jobs:
       # Pre-step 2 of 3: ~105 MB from SourceForge, which is not always cooperative.
       - name: Cache the ASTAP bundle
         id: astap
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: vendor/astap
           key: astap-win64-d05-${{ hashFiles('scripts/fetch_astap.py') }}
@@ -130,7 +130,7 @@ jobs:
           pytest tests/test_astrometry.py -q -rs -k astap_plumbing
 
       - name: Cache the briefcase toolchain (WiX + the CPython embed archive)
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: ~\AppData\Local\BeeWare
           key: beeware-${{ runner.os }}-${{ hashFiles('pyproject.toml') }}
