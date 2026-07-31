@@ -19,7 +19,7 @@
     "@preact/signals": "^2.0.1",
     "@vscode/codicons": "^0.0.46-24",
     "dockview-core": "^4.13.1",
-    "monaco-editor": "^0.54.0",
+    "monaco-editor": "^0.56.0",
     "preact": "^10.27.2"
   },
   "devDependencies": {
