@@ -58,10 +58,16 @@ def test_the_bundle_carries_the_whole_astro_ecosystem():
     )
 
 
-def test_the_bundle_carries_the_web_shell_and_projects():
-    """The bundle serves its own UI and opens .retina projects; both need their wheels."""
+def test_the_bundle_carries_the_web_shell_projects_and_ai():
+    """The bundle serves its own UI, opens .retina projects, and runs the AI processes.
+
+    ``ai`` is on this list because it was NOT, and the omission survived every static check:
+    onnxruntime was in the extra and absent from the bundle, so the AI processes appeared in
+    the catalog of the packaged app and would have died on first use. The bundle smoke test
+    caught it on a real build; this is the cheaper check that would have caught it sooner.
+    """
     required = _names(BRIEFCASE["requires"])
-    for extra in ("web", "project", "xisf"):
+    for extra in ("web", "project", "xisf", "ai"):
         missing = _names(EXTRAS[extra]) - required
         assert missing == set(), f"[{extra}] packages absent from the bundle: {sorted(missing)}"
 
