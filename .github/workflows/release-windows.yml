@@ -200,7 +200,7 @@ jobs:
       # and a download, to see what SmartScreen actually says -- before it is permanent.
       - name: Draft GitHub Release
         if: startsWith(github.ref, 'refs/tags/v') || inputs.publish
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           files: |
             dist/*.msi
