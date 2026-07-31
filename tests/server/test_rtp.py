@@ -19,10 +19,18 @@ async def _fetch(client, path: str):
     return await client.get(path, headers={"X-Retina-Token": client.retina.token})
 
 
-async def _wait_ready(session, timeout: float = 10.0) -> dict:
+async def _wait_ready(session, generation: int | None = None, timeout: float = 10.0) -> dict:
+    """Wait for an ``rtp.ready``, optionally for one precise generation.
+
+    Waiting for *any* ready event is a race as soon as a test issues more than one request:
+    a first computation that lands before the second request arrives publishes its own ready,
+    and the caller returns holding a generation it was not waiting for.
+    """
     deadline = asyncio.get_running_loop().time() + timeout
     while asyncio.get_running_loop().time() < deadline:
         events = session.of("rtp.ready")
+        if generation is not None:
+            events = [event for event in events if event["generation"] == generation]
         if events:
             return events[-1]
         await asyncio.sleep(0.05)
@@ -81,7 +89,7 @@ async def test_a_stale_generation_is_refused(client, session, domain):
     second = await session.call(
         "rtp.request", process_id="GaussianConvolution", params={"sigma": 1.0}, view="Test01"
     )
-    await _wait_ready(session)
+    await _wait_ready(session, second["generation"])
 
     assert second["generation"] > first["generation"]
     stale = await _fetch(client, f"/api/rtp.f16?gen={first['generation']}")
@@ -102,9 +110,9 @@ async def test_a_burst_publishes_only_the_last_one(client, session, domain):
             view="Test01",
         )
         generations.append(result["generation"])
-    await _wait_ready(session)
-
     last = generations[-1]
+    await _wait_ready(session, last)
+
     assert (await _fetch(client, f"/api/rtp.f16?gen={last}")).status == 200
     for stale in generations[:-1]:
         assert (await _fetch(client, f"/api/rtp.f16?gen={stale}")).status == 409
@@ -225,7 +233,7 @@ async def test_changing_view_reuses_the_slot(session, client, domain):
     second = await session.call(
         "rtp.request", process_id="Invert", params={}, view=pv.id, owner="Invert"
     )
-    ready = await _wait_ready(session)
+    ready = await _wait_ready(session, second["generation"])
 
     assert client.retina.rtp.owners() == ["Invert"]
     assert ready["view"] == pv.id
