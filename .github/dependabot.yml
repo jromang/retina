@@ -1,11 +1,52 @@
+# Version updates. CVE *alerts* are a separate, repository-level setting (Settings > Advanced
+# Security); they come from the dependency graph, which GitHub builds from the manifests on its
+# own and does not need an entry here.
+#
+# One rule throughout: group minor and patch, leave majors ungrouped. A batch of patch bumps is
+# read once and merged; a major has to be read on its own, and ungrouped is already that
+# behaviour -- so it costs no list of package names, and there is none to drift.
 version: 2
 updates:
   - package-ecosystem: github-actions
     directory: /
     schedule: { interval: weekly }
+    groups:
+      actions:
+        patterns: ["*"]
+        update-types: [minor, patch]
+
+  # Cargo.lock and package-lock.json are committed, so these two resolve to exact versions: an
+  # advisory matches a version we actually build, not a range that might contain it.
   - package-ecosystem: cargo
     directory: /
     schedule: { interval: weekly }
+    groups:
+      cargo:
+        patterns: ["*"]
+        update-types: [minor, patch]
+
   - package-ecosystem: npm
     directory: /web
     schedule: { interval: weekly }
+    open-pull-requests-limit: 5
+    groups:
+      # Where the rule earns its keep: dockview-core owns the zone/panel model and
+      # monaco-editor the console and the script editor, so a major on either is a shell
+      # rewrite, not a dependency bump.
+      frontend:
+        patterns: ["*"]
+        update-types: [minor, patch]
+
+  # The Python surface, which is the largest one and was missing. Expect few pull requests: the
+  # dependencies are declared as open lower bounds (`numpy>=1.24`), which every new release
+  # already satisfies, so there is nothing for Dependabot to rewrite. It is worth declaring
+  # anyway -- the day a bound has to become an upper one to dodge a broken release, this is what
+  # reopens it afterwards.
+  - package-ecosystem: pip
+    directory: /
+    schedule: { interval: weekly }
+    open-pull-requests-limit: 5
+    groups:
+      python:
+        patterns: ["*"]
+        update-types: [minor, patch]
