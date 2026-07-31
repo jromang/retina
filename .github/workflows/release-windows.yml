@@ -33,7 +33,7 @@ jobs:
       PYO3_USE_ABI3_FORWARD_COMPATIBILITY: '1'
       PIP_DISABLE_PIP_VERSION_CHECK: '1'
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       # LOAD-BEARING. Briefcase builds the embedded-runtime URL from the minor version of *this*
       # interpreter plus `support_revision` in pyproject.toml: 3.14 comes from here, the .6 from
