@@ -1,7 +1,6 @@
 # Retina
 
-**Open-source astrophotography image processing, fully scriptable in Python, with a
-VS Code-style interface.**
+**Open-source astrophotography image processing, fully scriptable in Python.
 
 Retina calibrates, registers, integrates and processes astronomical images. Its core is a
 Python library that runs headless; the interface is one of its clients, not its owner.
