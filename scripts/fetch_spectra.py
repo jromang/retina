@@ -42,6 +42,8 @@ import urllib.parse
 import urllib.request
 from pathlib import Path
 
+from _console import configure as _configure_console
+
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / "python" / "retina" / "resources" / "spectra"
 
@@ -190,6 +192,7 @@ def list_upstream() -> int:
 
 
 def main() -> int:
+    _configure_console()
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--list", action="store_true",
                          help="list what exists upstream, write nothing")

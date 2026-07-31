@@ -32,6 +32,8 @@ import subprocess
 import sys
 from pathlib import Path
 
+from _console import configure as _configure_console
+
 ROOT = Path(__file__).resolve().parent.parent
 I18N = ROOT / "python" / "retina" / "resources" / "i18n"
 POT = I18N / "retina.pot"
@@ -114,6 +116,7 @@ def check() -> int:
 
 
 def main() -> int:
+    _configure_console()
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--check", action="store_true",
                         help="writes nothing; exits with an error if strings remain untranslated")

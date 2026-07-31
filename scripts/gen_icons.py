@@ -30,6 +30,8 @@ from __future__ import annotations
 import sys
 from pathlib import Path
 
+from _console import configure as _configure_console
+
 ROOT = Path(__file__).resolve().parents[1]
 BRANDING = ROOT / "python" / "retina" / "resources" / "branding"
 SOURCE = BRANDING / "logo-avex.png"
@@ -61,6 +63,7 @@ def _square(source: Path):
 
 
 def main() -> int:
+    _configure_console()
     try:
         from PIL import Image  # noqa: F401  — imported for the error message alone
     except ImportError:

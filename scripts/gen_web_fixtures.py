@@ -26,6 +26,7 @@ import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "python"))
 
+from _console import configure as _configure_console
 from retina.model.image import Image
 from retina.model.stf import ChannelSTF
 from retina.model.viewport_state import ViewportState
@@ -197,6 +198,7 @@ def ghs() -> dict:
 
 
 def main() -> int:
+    _configure_console()
     if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(encoding="utf-8", errors="replace")
     OUT.mkdir(parents=True, exist_ok=True)

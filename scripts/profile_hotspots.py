@@ -50,6 +50,7 @@ import pstats
 import time
 
 import numpy as np
+from _console import configure as _configure_console
 
 
 def make_field(mpx: float, channels: int = 1, seed: int = 7) -> np.ndarray:
@@ -233,6 +234,7 @@ def ratio_threshold() -> None:
 
 
 def main() -> None:
+    _configure_console()
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--mpx", type=float, default=24.0,
                         help="size of the test image in megapixels (default 24)")

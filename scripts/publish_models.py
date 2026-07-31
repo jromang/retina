@@ -49,6 +49,8 @@ import urllib.request
 import zipfile
 from pathlib import Path
 
+from _console import configure as _configure_console
+
 ROOT = Path(__file__).resolve().parent.parent
 MANIFEST = ROOT / "python" / "retina" / "resources" / "models" / "manifest.json"
 
@@ -215,6 +217,7 @@ def _write_manifest(harvest: list[dict]) -> None:
 
 
 def main() -> int:
+    _configure_console()
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--manifest-only", action="store_true",
                          help="rewrite the manifest from the models already online, without "

@@ -69,7 +69,21 @@ def _download_and_extract(sf_path: str, out_dir: Path) -> None:
             zf.extractall(out_dir)
 
 
+def _configure_console() -> None:
+    """The Windows console speaks cp1252: an arrow in a message would kill the script.
+
+    The same precaution as `scripts/build_dist.py` and `retina.web`. It was missing here, and
+    the consequence was worse than cosmetic: the download completed, then the closing `print`
+    raised UnicodeEncodeError on its own arrow, so the script exited non-zero having done all
+    its work. CI is what surfaced it -- nothing on Linux, or in a UTF-8 console, could.
+    """
+    for stream in (sys.stdout, sys.stderr):
+        if hasattr(stream, "reconfigure"):
+            stream.reconfigure(encoding="utf-8", errors="replace")
+
+
 def main() -> int:
+    _configure_console()
     default_plat = {"win32": "win64", "darwin": "macos"}.get(sys.platform, "linux")
     ap = argparse.ArgumentParser(description="Download the ASTAP bundle into vendor/astap/")
     ap.add_argument("--platform", choices=sorted(CLI), default=default_plat)
