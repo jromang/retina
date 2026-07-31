@@ -83,9 +83,13 @@ python -m retina.pipeline /data/M31   # pré-traitement automatisé, headless
 
 ### Installateur Windows
 
-Chaque release fournit un MSI. Il n'est **pas signé**, donc SmartScreen avertit au premier
-lancement : choisir *Informations complémentaires* → *Exécuter quand même*. Vérifier le
-téléchargement avec le fichier `SHA256SUMS.txt` publié à côté.
+Chaque release fournit un MSI. Il n'est **pas encore signé**, donc SmartScreen avertit au
+premier lancement : choisir *Informations complémentaires* → *Exécuter quand même*. Vérifier le
+téléchargement avec le fichier `SHA256SUMS.txt` publié à côté — en sachant qu'un MSI n'est pas
+reproductible au bit près : une empreinte identifie un artefact, pas une version.
+
+La façon dont les releases sont construites, et ce que le logiciel fait de vos données, est
+décrite dans [CODE_SIGNING_POLICY.md](CODE_SIGNING_POLICY.md) (en anglais).
 
 ## Lancer les tests
 

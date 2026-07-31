@@ -81,9 +81,13 @@ python -m retina.pipeline /data/M31   # automated pre-processing, headless
 
 ### Windows installer
 
-Each release ships an MSI. It is **not code-signed**, so Windows SmartScreen will warn on
+Each release ships an MSI. It is **not code-signed** yet, so Windows SmartScreen will warn on
 first run: choose *More info* → *Run anyway*. Verify the download against the
-`SHA256SUMS.txt` published alongside it.
+`SHA256SUMS.txt` published alongside it — noting that MSI packaging is not bit-for-bit
+reproducible, so a checksum identifies an artifact rather than a version.
+
+How releases are built, and what the software does with your data, is described in
+[CODE_SIGNING_POLICY.md](CODE_SIGNING_POLICY.md).
 
 ## Running the tests
 
