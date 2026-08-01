@@ -167,17 +167,36 @@ global versus active view. `Process.cache_values` lets a process **exclude** par
 cache fingerprint when they only change a judgement, not a computation — see `SubframeSelector` in
 § 6.
 
-**`Parameter`** descriptors come in `real`, `int`, `bool`, `enum`, `str`, plus table and block
-forms for variable-length and raw data. Each has a **stable id**, which is the serialization key —
-renaming one breaks every stored recipe and project. `visible_when` gives conditional visibility
-in the auto-generated form; it is pure UI convenience, the value still travels at execution time.
-**The GUI generates its panel from this schema alone.** There is no hand-written process panel.
+**`Parameter`** descriptors come in `real`, `int`, `bool`, `enum`, `str`, `view`, plus table and
+block forms for variable-length and raw data. Each has a **stable id**, which is the serialization
+key — renaming one breaks every stored recipe and project. `visible_when` gives conditional
+visibility in the auto-generated form; it is pure UI convenience, the value still travels at
+execution time. **The GUI generates its panel from this schema alone.** There is no hand-written
+process panel.
+
+`view` deserves a word, because it is a type that adds no behaviour. To the domain it *is* a
+`str` — same coercion, same serialization, same replay, and a headless script assigns a plain
+identifier. What it states is what the string designates, and that is enough for the generated
+form to offer the open views. The 28 parameters concerned were free text, so combining SHO meant
+recalling three identifiers from memory — and a typo did not fail, the domain falling back on the
+current image. A test walks the labels and refuses a parameter that names a view without carrying
+the type.
+
+When choices are only knowable at run time — the AI models installed, the 54 spectral curves plus
+whatever the user dropped in `config_dir()/spectra` — the class answers
+`parameter_choices(param_id)`, which the server consults on **every** projection of the schema. A
+static `choices` tuple would be frozen at import.
 
 **`STF`** never touches pixels. Per channel: `[midtones, shadows, highlights, low_range,
 high_range]`, applied through the Midtones Transfer Function. `Image.compute_auto_stretch()`
 derives one from robust statistics (median + MAD). `HistogramTransformation` shares the same
 model, which is what makes "apply the current screen stretch permanently" a one-liner rather than
-a special case.
+a special case — `app.apply_stf()` is that line: it builds the process from the view's STF,
+applies it through `app.apply` (so it is an ordinary, undoable history entry echoing the process
+itself), then resets the STF, without which the stretch would be displayed a second time on top
+of the pixels that now carry it. The auto-stretch being computed **per channel**,
+`HistogramTransformation` carries an optional flat list of per-channel triples; empty — the
+default — means the three scalars on every channel, which is what it always did.
 
 ### `History` and `ProcessContainer` — `python/retina/process/container.py`
 
@@ -719,6 +738,20 @@ commands; not signed in → `/login` guidance; ready) via `claude --version` and
 
 **FITS** through `astropy.io.fits`, WCS included. **Camera RAW** through `rawpy`. Raster export
 (TIFF float32, PNG, JPEG, JPEG 2000, WebP, JPEG XL) in `io/raster.py`.
+
+**One dispatch point**, `io.save_image`, which `app.save` delegates to rather than duplicating —
+it did, and the duplicate knew FITS and XISF only, so a processed image could not leave as a PNG
+while `io.raster.save_raster` sat there with no caller. The extensions are grouped in `retina.io`
+(`ASTRO_EXT`, `FLOAT_RASTER_EXT`, `BYTE_RASTER_EXT`) and **published in the `hello` handshake**:
+the frontend builds its file dialogs from that instead of a list of its own, which had already
+drifted.
+
+The byte group carries a warning worth stating, because it is the difference between what the
+screen shows and what a file holds. A linear image has its sky background around 1e-3, so an
+8-bit export of one is black — while the viewport, applying the screen transfer function, shows a
+nebula. `app.save(path, stretch=True)` bakes the STF into **the exported copy only**, and the
+interface asks which was meant when the target quantizes and a non-identity STF is displayed.
+FITS, XISF and float TIFF never ask: they carry the linear data faithfully.
 
 **XISF** is the native interchange target. It is an open, documented specification, independent of
 any single implementation
