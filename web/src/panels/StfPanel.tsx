@@ -257,7 +257,11 @@ export function StfPanel() {
             values had to be read here and typed back into a HistogramTransformation form —
             the domain has known how to build that process from an STF all along, and nothing
             called it. Disabled on the identity: baking it would push a history entry that
-            changes nothing. */}
+            changes nothing.
+
+            "Apply to pixels" and not "Apply": a process form's own button is already called
+            that, and next to Auto/Reset the bare verb does not say apply *what*, nor that it
+            is the one gesture here that touches the image. */}
         <button
           style={button}
           title={m.panel_stf_apply_tip()}

@@ -375,7 +375,7 @@
   "panel_selector": "Frame selection",
   "panel_settings": "Settings",
   "panel_stf": "STF",
-  "panel_stf_apply": "Apply",
+  "panel_stf_apply": "Apply to pixels",
   "panel_stf_apply_tip": "Write the screen stretch into the pixels (HistogramTransformation) — undoable",
   "panel_stf_auto": "Auto",
   "panel_stf_auto_tip": "Auto-stretch from the median and the MADN",

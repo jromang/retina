@@ -375,7 +375,7 @@
   "panel_selector": "Sélection de frames",
   "panel_settings": "Préférences",
   "panel_stf": "STF",
-  "panel_stf_apply": "Appliquer",
+  "panel_stf_apply": "Appliquer aux pixels",
   "panel_stf_apply_tip": "Inscrire l'étirement d'écran dans les pixels (HistogramTransformation) — annulable",
   "panel_stf_auto": "Auto",
   "panel_stf_auto_tip": "Auto-étirement depuis la médiane et le MADN",
