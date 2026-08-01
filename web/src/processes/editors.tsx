@@ -9,6 +9,7 @@ import { useEffect, useMemo, useRef, useState } from 'preact/hooks';
 
 import { askPath } from '../shell/native';
 import type { FieldProps } from './fields';
+import { fieldTitle } from './fieldTitle';
 import { m } from '../paraglide/messages';
 
 // --- PixelMath ---------------------------------------------------------------
@@ -68,7 +69,7 @@ export function MonacoField({ param, value, onChange }: FieldProps) {
   return (
     <div
       ref={hostRef}
-      title={param.tooltip}
+      title={fieldTitle(param)}
       style={{
         height: `${CODE_HEIGHT}px`,
         border: '1px solid var(--vscode-input-border)',

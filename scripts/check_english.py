@@ -65,6 +65,9 @@ STRING_LITERALS_EXEMPT = (
     "scripts/gen_process_docs.py",  # emits the French half of resources/doc/*/fr.md
     "tests/test_i18n.py",
     "tests/pipeline/test_plan.py",
+    # Asserts that the explorer's search matches the French keywords the documentation serves:
+    # the fixture has to be French for the assertion to mean anything.
+    "web/tests/processRows.test.ts",
     "web/e2e/",
     "web/src/shell/keybindings.ts",
 )

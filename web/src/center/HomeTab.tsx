@@ -24,6 +24,7 @@ import {
 import { folder as pipelineFolder, preset as pipelinePreset, scan as pipelineScan }
   from '../pipeline/model';
 import { requestActivate } from '../shell/layoutClient';
+import { startTour } from '../shell/Tour';
 import { askPath } from '../shell/native';
 import { GETTING_STARTED, openGuide } from './docTarget';
 
@@ -270,6 +271,20 @@ export function HomeTab() {
                   title={m.home_guide_tip()}
                 >
                   <i class="codicon codicon-compass" aria-hidden="true" /> {m.home_guide()}
+                </button>
+              </li>
+              <li>
+                {/* The tour ran once, at the first launch, and then existed only as a palette
+                    command — so the one gesture that shows where things are was, after that
+                    day, findable only by someone who no longer needed it. */}
+                <button
+                  type="button"
+                  class="btn"
+                  style={{ width: '100%' }}
+                  onClick={() => startTour()}
+                  title={m.home_tour_tip()}
+                >
+                  <i class="codicon codicon-lightbulb" aria-hidden="true" /> {m.home_tour()}
                 </button>
               </li>
               <li>

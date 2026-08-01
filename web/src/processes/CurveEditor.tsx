@@ -13,6 +13,7 @@ import { useEffect, useRef, useState } from 'preact/hooks';
 
 import { fillBackground, prepare, token } from '../ui/canvas';
 import type { FieldProps } from './fields';
+import { fieldTitle } from './fieldTitle';
 import { m } from '../paraglide/messages';
 
 const HEIGHT = 200;
@@ -152,7 +153,7 @@ export function CurveEditor({ param, value, onChange }: FieldProps) {
     <div style={{ display: 'grid', gap: '3px' }}>
       <canvas
         ref={canvasRef}
-        title={`${param.tooltip}\n${m.curve_editor_hint()}`}
+        title={`${fieldTitle(param)}\n${m.curve_editor_hint()}`}
         style={{ width: '100%', height: `${HEIGHT}px`, cursor: 'crosshair', touchAction: 'none' }}
         onPointerDown={(event) => {
           const point = at(event as PointerEvent);

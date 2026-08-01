@@ -17,6 +17,7 @@ import type { ParameterMeta } from '../api/types';
 import { askPath } from '../shell/native';
 import { windows } from '../state/store';
 import { CurveEditor } from './CurveEditor';
+import { fieldTitle } from './fieldTitle';
 import { MonacoField, PathListEditor } from './editors';
 
 export interface FieldProps {
@@ -110,7 +111,7 @@ export function NumberField({ param, value, onChange }: FieldProps) {
         type="text"
         inputMode="decimal"
         value={display}
-        title={`${param.tooltip}\n${m.field_scrub_hint()}`}
+        title={`${fieldTitle(param)}\n${m.field_scrub_hint()}`}
         style={{ ...inputStyle, cursor: 'ew-resize' }}
         onPointerDown={onPointerDown}
         onPointerMove={onPointerMove}
@@ -154,7 +155,7 @@ export function BoolField({ param, value, onChange }: FieldProps) {
     <input
       type="checkbox"
       checked={Boolean(value)}
-      title={param.tooltip}
+      title={fieldTitle(param)}
       onChange={(e) => onChange((e.target as HTMLInputElement).checked)}
     />
   );
@@ -165,7 +166,7 @@ export function StrField({ param, value, onChange }: FieldProps) {
     <input
       type="text"
       value={String(value ?? '')}
-      title={param.tooltip}
+      title={fieldTitle(param)}
       style={inputStyle}
       onInput={(e) => onChange((e.target as HTMLInputElement).value)}
     />
@@ -176,7 +177,7 @@ export function EnumField({ param, value, onChange }: FieldProps) {
   return (
     <select
       value={String(value ?? '')}
-      title={param.tooltip}
+      title={fieldTitle(param)}
       style={{ ...inputStyle, font: '12px var(--retina-font-ui)' }}
       onChange={(e) => onChange((e.target as HTMLSelectElement).value)}
     >
@@ -213,7 +214,7 @@ export function ViewField({ param, value, onChange }: FieldProps) {
   return (
     <select
       value={current}
-      title={param.tooltip}
+      title={fieldTitle(param)}
       style={{ ...inputStyle, font: '12px var(--retina-font-ui)' }}
       onChange={(e) => onChange((e.target as HTMLSelectElement).value)}
     >
@@ -305,7 +306,7 @@ export function ListField({ param, value, onChange }: FieldProps) {
     <textarea
       rows={Math.min(8, Math.max(2, items.length + 1))}
       value={items.join('\n')}
-      title={`${param.tooltip}\n${m.field_one_per_line()}`}
+      title={`${fieldTitle(param)}\n${m.field_one_per_line()}`}
       style={{ ...inputStyle, resize: 'vertical' }}
       onBlur={(e) => {
         const lines = (e.target as HTMLTextAreaElement).value
@@ -325,7 +326,7 @@ export function TextField({ param, value, onChange }: FieldProps) {
     <textarea
       rows={4}
       value={String(value ?? '')}
-      title={param.tooltip}
+      title={fieldTitle(param)}
       style={{ ...inputStyle, resize: 'vertical' }}
       onInput={(e) => onChange((e.target as HTMLTextAreaElement).value)}
     />
@@ -386,3 +387,5 @@ export function fieldFor(type: string): (props: FieldProps) => preact.JSX.Elemen
       return UnsupportedField;
   }
 }
+
+export { fieldTitle };

@@ -120,10 +120,24 @@ export function BlinkPanel({ values }: CustomPanelProps) {
         <button style={buttonStyle} disabled={!frames.length} onClick={ouvrir}>
           {m.blink_open_sequence()}
         </button>
-        <button style={buttonStyle} disabled={!state?.count} onClick={() => pas(-1)}>
+        {/* Bare glyphs carry nothing to a screen reader, and a tooltip that never opens
+            because the button is disabled carries nothing to anyone. */}
+        <button
+          style={buttonStyle}
+          disabled={!state?.count}
+          title={m.blink_previous()}
+          aria-label={m.blink_previous()}
+          onClick={() => pas(-1)}
+        >
           ◀
         </button>
-        <button style={buttonStyle} disabled={!state?.count} onClick={() => pas(1)}>
+        <button
+          style={buttonStyle}
+          disabled={!state?.count}
+          title={m.blink_next()}
+          aria-label={m.blink_next()}
+          onClick={() => pas(1)}
+        >
           ▶
         </button>
         <button
@@ -136,6 +150,8 @@ export function BlinkPanel({ values }: CustomPanelProps) {
           }}
           disabled={!state?.count}
           title={m.blink_auto_tip()}
+          aria-label={auto ? m.blink_pause() : m.blink_play()}
+          aria-pressed={auto}
           onClick={() => setAuto(!auto)}
         >
           {auto ? '❚❚' : '▶▶'}

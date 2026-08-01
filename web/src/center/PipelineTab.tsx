@@ -32,6 +32,7 @@ import {
   loadPresets,
   openResult,
   plan,
+  planStale,
   preset,
   presets,
   reclassify,
@@ -90,6 +91,7 @@ function KindSelect({
 }
 
 const CELL = { padding: '3px 8px' };
+const MUTED = 'var(--vscode-descriptionForeground)';
 
 /**
  * What the group will receive at calibration — **spelled out**.
@@ -568,51 +570,90 @@ export function PipelineTab() {
         {m.panel_pipeline()}
       </h2>
 
+      {/* The preset sits with the folder, and no longer after the table it governs. It carries
+          the grouping tolerances, so reading a grouping *then* being asked which rules produced
+          it was backwards — and the "smart telescope folder" entry of the home screen had it
+          right from the start by setting the preset before scanning. */}
       <Section title={m.pipeline_step1()}>
-        <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+        <div style={{ display: 'flex', gap: '8px', alignItems: 'center', flexWrap: 'wrap' }}>
           <button className="btn" onClick={() => void choisirDossier()} disabled={enCours}>
             {m.pipeline_browse()}
           </button>
           <span style={{ opacity: folder.value ? 1 : 0.6 }}>
             {folder.value || m.pipeline_no_folder()}
           </span>
+          {folder.value && (
+            <button
+              className="btn"
+              title={m.pipeline_rescan_tip()}
+              disabled={enCours || busy.value}
+              onClick={() => void scan(folder.value)}
+            >
+              {m.pipeline_rescan()}
+            </button>
+          )}
         </div>
+        <div style={{ display: 'flex', gap: '8px', alignItems: 'center', marginTop: '8px' }}>
+          <label for="pipeline-preset">{m.pipeline_preset()}</label>
+          <select
+            id="pipeline-preset"
+            value={preset.value}
+            disabled={enCours}
+            onChange={(e) => {
+              void setPreset((e.target as HTMLSelectElement).value);
+            }}
+          >
+            {presets.value.map((p) => (
+              <option key={p.name} value={p.name} title={p.hint}>
+                {p.label}
+              </option>
+            ))}
+          </select>
+        </div>
+        {/* The hint used to live in `<option title>`, which most platforms never render: the
+            one line that says what a preset is for was invisible. */}
+        <p style={{ margin: '4px 0 0', fontSize: '12px', color: MUTED }}>
+          {presets.value.find((p) => p.name === preset.value)?.hint ?? ''}
+        </p>
       </Section>
 
       {inventory.value && (
         <Section title={m.pipeline_step2()}>
-          <GroupTable />
-          <GroupWarnings />
-          <UnknownFrames />
-          <BlinkLights />
-        </Section>
-      )}
-
-      {inventory.value && (
-        <Section title={m.pipeline_step3()}>
-          <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-            <select
-              value={preset.value}
-              disabled={enCours}
-              onChange={(e) => {
-                void setPreset((e.target as HTMLSelectElement).value);
-              }}
-            >
-              {presets.value.map((p) => (
-                <option key={p.name} value={p.name} title={p.hint}>
-                  {p.label}
-                </option>
-              ))}
-            </select>
-            <button className="btn" onClick={() => void buildPlan()} disabled={enCours || busy.value}>
-              {m.pipeline_build_plan()}
-            </button>
-          </div>
+          {groupRows.value.length === 0 && unknownFrames.value.length === 0 ? (
+            // The scan found nothing: this section used to render its heading over an empty
+            // body, then the next one appeared as if all were well.
+            <p style={{ margin: 0, color: 'var(--vscode-editorWarning-foreground)' }}>
+              {m.pipeline_nothing_found()}
+            </p>
+          ) : (
+            <>
+              <GroupTable />
+              <GroupWarnings />
+              <UnknownFrames />
+              <BlinkLights />
+              <div style={{ marginTop: '8px', display: 'flex', gap: '8px', alignItems: 'center' }}>
+                <button
+                  className="btn"
+                  onClick={() => void buildPlan()}
+                  disabled={enCours || busy.value}
+                >
+                  {m.pipeline_build_plan()}
+                </button>
+                {/* Correcting a kind or excluding a group throws the plan away — silently,
+                    until now: the "Plan" section simply vanished from the page. */}
+                {planStale.value && (
+                  <span style={{ fontSize: '12px', color: 'var(--vscode-editorWarning-foreground)' }}>
+                    {m.pipeline_plan_stale()}
+                  </span>
+                )}
+              </div>
+            </>
+          )}
         </Section>
       )}
 
       {plan.value && (
-        <Section title={m.pipeline_step4({ count: plan.value.steps.length })}>
+        <Section title={m.pipeline_step3({ count: plan.value.steps.length })}>
           <Notes items={plan.value.notes} />
           <ol style={{ margin: '8px 0 0', paddingLeft: '22px', fontSize: '12px' }}>
             {plan.value.steps.map((step) => {
@@ -667,13 +708,13 @@ export function PipelineTab() {
       )}
 
       {plan.value && plan.value.products.length > 0 && (
-        <Section title={m.pipeline_step5()}>
+        <Section title={m.pipeline_step4()}>
           <Products />
         </Section>
       )}
 
       {plan.value && (
-        <Section title={m.pipeline_step6()}>
+        <Section title={m.pipeline_step5()}>
           <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
             {!enCours && (
               <button className="btn" onClick={() => void start()} disabled={busy.value}>

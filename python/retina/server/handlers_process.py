@@ -83,9 +83,12 @@ def _parameter(param, choices=None) -> dict:
 
 
 def _describe(cls) -> dict:
-    from ..documentation import has_doc, icon_name
+    from ..documentation import default_lang, doc_keywords, has_doc, icon_name
 
     return {
+        # Search terms, in the served language: they are what makes "gradient" or "stretch"
+        # find something in the explorer, which used to match the class name alone.
+        "keywords": list(doc_keywords(cls.process_id, default_lang())),
         "process_id": cls.process_id,
         "category": cls.category,
         "is_global": bool(cls.is_global),

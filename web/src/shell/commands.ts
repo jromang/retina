@@ -38,7 +38,7 @@ import { activeView, activeWindow, processes, windows } from '../state/store';
 import { runProcess } from '../processes/jobs';
 import { focusedProcess } from '../processes/focused';
 import { docTarget } from '../center/docTarget';
-import { openPalette } from './uiState';
+import { openPalette, shortcutsOpen } from './uiState';
 import { SCRIPT_FILTERS, askPath } from './native';
 import { saveImageAs } from './saveImage';
 import {
@@ -613,6 +613,16 @@ const SHELL_COMMANDS: Command[] = [
     // domain, it shows where things are. What the user does set in it, on the other hand
     // ("stop showing this"), goes through `app.preferences`, which echoes.
     run: () => startTour(),
+  },
+  {
+    // The cheat sheet had no shortcut and no palette entry: it lived in the Help menu alone,
+    // which is the one place someone hunting for a shortcut does not think to look.
+    id: 'help.shortcuts',
+    title: m.menu_shortcuts(),
+    category: m.cat_help(),
+    run: () => {
+      shortcutsOpen.value = true;
+    },
   },
   {
     id: 'palette.open',

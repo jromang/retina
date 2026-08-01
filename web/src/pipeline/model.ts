@@ -174,6 +174,14 @@ export const survey = signal<SurveyInfo | null>(null);
 export const presets = signal<PresetInfo[]>([]);
 export const preset = signal<string>('auto');
 export const plan = signal<PlanInfo | null>(null);
+/**
+ * A plan was built, then invalidated by a correction to the inventory or the preset.
+ *
+ * Without it the "Plan" section simply disappeared from the page when a group was reclassified
+ * — the right thing to do with a plan that no longer describes anything, but done in silence,
+ * so it read as the interface losing its place.
+ */
+export const planStale = signal(false);
 export const report = signal<RunReport | null>(null);
 export const busy = signal<boolean>(false);
 export const error = signal<string>('');
@@ -406,6 +414,7 @@ export async function setPreset(name: string): Promise<void> {
   preset.value = name;
   // The plan described the previous preset's steps: it is stale by construction.
   plan.value = null;
+  planStale.value = true;
   if (!inventory.value) return;
   busy.value = true;
   try {
@@ -458,6 +467,7 @@ async function mutate(method: string, params: Record<string, unknown>): Promise<
     await refreshSurvey();
     // the plan described the previous inventory: keeping it on screen would be a lie
     plan.value = null;
+    planStale.value = true;
     report.value = null;
   } catch (e) {
     fail(e);
@@ -554,6 +564,7 @@ export async function buildPlan(): Promise<void> {
   error.value = '';
   report.value = null;
   try {
+    planStale.value = false;
     plan.value = await client.call<PlanInfo>('pipeline.plan', {
       inventory: inventory.value,
       preset: preset.value,

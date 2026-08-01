@@ -186,7 +186,13 @@ export interface SessionState {
 /** A process parameter — the frontend derives its form field from it. */
 export interface ParameterMeta {
   id: string;
-  /** real | int | str | enum | bool | path | pathlist | floatlist | intlist | text | points | pointlist */
+  /**
+   * real | int | str | view | enum | bool | path | dir | pathlist | floatlist | intlist | text
+   * | points | pointlist.
+   *
+   * `view` is a `str` to the domain; what it adds is that the string names another open view,
+   * which is what lets the form offer them instead of a blank box.
+   */
   type: string;
   default: unknown;
   min: number | null;
@@ -210,6 +216,12 @@ export interface ProcessMeta {
   creates_window: boolean;
   supports_realtime: boolean;
   has_doc: boolean;
+  /**
+   * Search terms from the documentation frontmatter, in the served language — so a query
+   * typed in French matches the French page. This is the vocabulary of the field, written
+   * once per page, rather than a second list to keep in the interface.
+   */
+  keywords?: string[];
   /** Tabler icon name, resolved through /api/icons later on. */
   icon: string;
   parameters: ParameterMeta[];

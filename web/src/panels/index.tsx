@@ -30,9 +30,10 @@ import {
   windows,
 } from '../state/store';
 import { ParameterGrid } from '../processes/ParameterGrid';
+import { recentProcesses } from '../processes/focused';
 import { saveImageAs } from '../shell/saveImage';
 import { useTreeNav } from '../ui/treeNav';
-import { processRows, rowWindow, type ProcessRow } from './processRows';
+import { RECENT_CATEGORY, processRows, rowWindow, type ProcessRow } from './processRows';
 import { openContextMenu, type ContextMenuNode } from '../ui/ContextMenu';
 import { promptText } from '../ui/prompts';
 import type { PanelId } from '../shell/panels';
@@ -100,7 +101,7 @@ function ProcessExplorer() {
   const hoverTimer = useRef<number | undefined>(undefined);
   const scrollerRef = useRef<HTMLDivElement>(null);
 
-  const rows = processRows(processesByCategory.value, query);
+  const rows = processRows(processesByCategory.value, query, recentProcesses.value);
   const { start, end } = rowWindow(scrollTop, viewportHeight, rows.length, PROCESS_ROW_HEIGHT);
 
   const scheduleHover = (process: ProcessMeta, event: MouseEvent) => {
@@ -129,7 +130,7 @@ function ProcessExplorer() {
     items: rows.map((row) =>
       row.kind === 'header'
         ? { id: `h-${row.category}`, disabled: true }
-        : { id: row.process.process_id },
+        : { id: `${row.recent ? 'r-' : ''}${row.process.process_id}` },
     ),
     onActivate: (index) => open(rows[index]),
     // windowing: the targeted row may not be rendered — so move the scroll instead
@@ -197,14 +198,15 @@ function ProcessExplorer() {
                 {...nav.itemProps(index)}
                 style={{ height: `${PROCESS_ROW_HEIGHT}px`, padding: '4px 12px 0' }}
               >
-                {row.category} <span class="dim">({row.count})</span>
+                {row.category === RECENT_CATEGORY ? m.panels_recent() : row.category}{' '}
+                <span class="dim">({row.count})</span>
               </div>
             );
           }
           const process = row.process;
           return (
             <button
-              key={process.process_id}
+              key={`${row.recent ? 'r-' : ''}${process.process_id}`}
               class="tree-row"
               {...nav.itemProps(index)}
               style={{ height: `${PROCESS_ROW_HEIGHT}px` }}

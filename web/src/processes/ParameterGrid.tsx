@@ -11,7 +11,7 @@
 // greyed out is better than hiding them — their value explains what the step is going to do.
 
 import type { ParameterMeta } from '../api/types';
-import { fieldFor, isVisible } from './fields';
+import { fieldFor, fieldTitle, isVisible } from './fields';
 
 interface Props {
   parameters: readonly ParameterMeta[];
@@ -30,7 +30,7 @@ export function ParameterGrid({ parameters, values, onChange, readOnly }: Props)
         return [
           <label
             key={`${param.id}-label`}
-            title={verrou ? `${param.tooltip}\n${verrou}` : param.tooltip}
+            title={verrou ? `${fieldTitle(param)}\n${verrou}` : fieldTitle(param)}
             style={{
               fontSize: '12px',
               color: 'var(--vscode-descriptionForeground)',

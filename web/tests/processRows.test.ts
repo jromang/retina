@@ -59,3 +59,68 @@ describe('rowWindow', () => {
     expect(rowWindow(0, 220, 0, 22)).toEqual({ start: 0, end: 0 });
   });
 });
+
+describe('search reaches beyond the class name', () => {
+  const RICH = [
+    {
+      category: 'BackgroundModelization',
+      items: [
+        {
+          process_id: 'BackgroundExtraction',
+          category: 'BackgroundModelization',
+          keywords: ['gradient', 'pollution lumineuse', 'fond de ciel'],
+        } as ProcessMeta,
+      ],
+    },
+    {
+      category: 'IntensityTransformations',
+      items: [
+        {
+          process_id: 'AutoHistogram',
+          category: 'IntensityTransformations',
+          keywords: ['étirement', 'auto-stretch'],
+        } as ProcessMeta,
+      ],
+    },
+  ];
+
+  it('finds a process by a documentation keyword', () => {
+    // The whole point: "gradient" used to find `GradientCorrection` and miss the process
+    // people actually reach for.
+    const rows = processRows(RICH, 'gradient');
+    expect(rows.filter((r) => r.kind === 'item')).toHaveLength(1);
+    expect(rows[1]).toMatchObject({ process: { process_id: 'BackgroundExtraction' } });
+  });
+
+  it('ignores accents in the keywords too', () => {
+    expect(processRows(RICH, 'etirement').filter((r) => r.kind === 'item')).toHaveLength(1);
+  });
+
+  it('finds a process by its category', () => {
+    const rows = processRows(RICH, 'intensity');
+    expect(rows.filter((r) => r.kind === 'item')).toHaveLength(1);
+  });
+
+  it('matches nothing rather than everything when nothing matches', () => {
+    expect(processRows(RICH, 'zzz')).toEqual([]);
+  });
+});
+
+describe('recently used', () => {
+  it('puts them first without removing them from their category', () => {
+    // A list whose items move depending on what one did an hour ago cannot be learned: the
+    // recent group is a shortcut laid on top, not a reordering.
+    const rows = processRows(GROUPS, '', ['UnsharpMask']);
+    const items = rows.filter((r) => r.kind === 'item');
+
+    expect(rows[0]).toMatchObject({ kind: 'header', count: 1 });
+    expect(items).toHaveLength(4);
+    expect(items.filter((r) => r.process.process_id === 'UnsharpMask')).toHaveLength(2);
+    expect(items[0]).toMatchObject({ recent: true });
+  });
+
+  it('honours the search filter, and ignores a process that no longer exists', () => {
+    expect(processRows(GROUPS, 'histo', ['UnsharpMask'])).toHaveLength(2);
+    expect(processRows(GROUPS, '', ['Vanished'])[0]).toMatchObject({ category: 'Convolution' });
+  });
+});

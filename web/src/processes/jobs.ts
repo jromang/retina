@@ -10,6 +10,7 @@ import { m } from '../paraglide/messages';
 import { client } from '../api/client';
 import type { JobSnapshot, Snapshot } from '../api/types';
 import { pushToast } from '../notifications/store';
+import { noteProcessUsed } from './focused';
 import { processes } from '../state/store';
 
 export interface JobState {
@@ -86,6 +87,9 @@ export async function runProcess(
   if (view) payload['view'] = view;
   const result = await client.call<{ job: string }>('process.run', payload);
   upsert(result.job, { process_id: processId, state: 'queued' });
+  // On submission, not on success: what one is looking for again is what one just reached
+  // for, whether or not it worked.
+  noteProcessUsed(processId);
   return result.job;
 }
 

@@ -176,6 +176,27 @@ def doc_meta(process_id: str, lang: str = "") -> dict:
     return _read(process_id, lang)[0]
 
 
+@functools.lru_cache(maxsize=512)
+def doc_keywords(process_id: str, lang: str) -> tuple[str, ...]:
+    """Search terms of a page, from its frontmatter — what a user is likely to type.
+
+    The explorer's search box matched the ``process_id`` and nothing else, so "gradient"
+    found `GradientCorrection` but not `BackgroundExtraction`, and "stretch" missed
+    `AutoHistogram`. The vocabulary an astrophotographer uses is already written down, once,
+    in each page's ``keywords`` — and in their own language, which is why ``lang`` is part of
+    the key rather than resolved inside.
+
+    An undocumented process (a third-party one) simply has none.
+    """
+    try:
+        raw = _read(process_id, lang)[0].get("keywords", ())
+    except (KeyError, OSError):
+        return ()
+    if isinstance(raw, str):
+        raw = [raw]
+    return tuple(str(k) for k in raw)
+
+
 # --------------------------------------------------------------------------- #
 # Icons                                                                        #
 # --------------------------------------------------------------------------- #
