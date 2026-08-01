@@ -1882,7 +1882,7 @@ dependencies = [
 
 [[package]]
 name = "retina_core"
-version = "0.0.2"
+version = "0.0.3"
 dependencies = [
  "ndarray",
  "numpy",
@@ -1892,7 +1892,7 @@ dependencies = [
 
 [[package]]
 name = "retina_shell"
-version = "0.0.2"
+version = "0.0.3"
 dependencies = [
  "rfd",
  "serde_json",

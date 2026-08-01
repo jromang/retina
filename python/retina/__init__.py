@@ -42,7 +42,7 @@ from .processes.pixelmath import PixelMath  # noqa: E402
 for _name, _cls in all_processes().items():
     setattr(_sys.modules[__name__], _name, _cls)
 
-__version__ = "0.0.2"
+__version__ = "0.0.3"
 
 __all__ = [
     "DISPLAY_CHANNELS",
