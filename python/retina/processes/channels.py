@@ -36,9 +36,9 @@ class ChannelCombination(Process):
     process_id = "ChannelCombination"
     category = "ColorSpaces"
     parameters = [
-        Parameter("r", "str", "", label=N_("R view")),
-        Parameter("g", "str", "", label=N_("G view")),
-        Parameter("b", "str", "", label=N_("B view")),
+        Parameter("r", "view", "", label=N_("R view")),
+        Parameter("g", "view", "", label=N_("G view")),
+        Parameter("b", "view", "", label=N_("B view")),
     ]
 
     def _apply(self, data: np.ndarray) -> np.ndarray:

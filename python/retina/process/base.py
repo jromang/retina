@@ -22,7 +22,16 @@ class Parameter:
     """Descriptor of a process parameter (one column of the parameter table)."""
 
     id: str
-    type: str  # 'real' | 'int' | 'bool' | 'enum' | 'str'
+    #: 'real' | 'int' | 'bool' | 'enum' | 'str' | 'view' | 'path' | 'dir' | 'pathlist' |
+    #: 'floatlist' | 'intlist' | 'text' | 'points'.
+    #:
+    #: ``view`` **is** a string as far as the domain is concerned — it coerces, serializes and
+    #: replays exactly like ``str``, and a headless script assigns a plain identifier. What it
+    #: adds is a statement of *what the string designates*, which is what lets the generated
+    #: form offer the open views instead of a blank box. Combining SHO used to mean typing
+    #: three view identifiers from memory, with a typo silently falling back to the current
+    #: image.
+    type: str
     default: Any
     min: float | None = None
     max: float | None = None

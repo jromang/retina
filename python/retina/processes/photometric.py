@@ -293,28 +293,66 @@ class SpectrophotometricColorCalibration(Process):
         Parameter("apply", "bool", True, label=N_("Apply (otherwise: measure only)")),
         # --- instrumental response ---
         Parameter("spectrum_source", "enum", "gaia_xp",
-                  choices=("gaia_xp", "gaia_photometry"), label=N_("Spectrum source")),
-        Parameter("red_filter", "str", "", label=N_("Red filter")),
-        Parameter("green_filter", "str", "", label=N_("Green filter")),
-        Parameter("blue_filter", "str", "", label=N_("Blue filter")),
-        Parameter("red_sensor", "str", "", label=N_("Red sensor QE")),
-        Parameter("green_sensor", "str", "", label=N_("Green sensor QE")),
-        Parameter("blue_sensor", "str", "", label=N_("Blue sensor QE")),
-        Parameter("white_reference", "str", "average_spiral_galaxy",
+                  choices=("gaia_xp", "gaia_photometry"), label=N_("Spectrum source"),
+                  visible_when=("narrowband", (False,))),
+        # The 54 bundled curves are offered rather than named from memory: their identifiers
+        # are file stems (`astronomik_deep_sky_red`, `imx571`), and typing one from memory was
+        # a coin flip whose wrong side is silent — an unknown name falls back on the nominal
+        # passbands, which *is* the pre-SPCC behaviour, so the calibration would look like it
+        # had run. `parameter_choices` reads the folder on every projection of the schema, so
+        # a curve the user drops into `config_dir()/spectra` shows up without a restart.
+        Parameter("red_filter", "enum", "", label=N_("Red filter"),
+                  visible_when=("narrowband", (False,))),
+        Parameter("green_filter", "enum", "", label=N_("Green filter"),
+                  visible_when=("narrowband", (False,))),
+        Parameter("blue_filter", "enum", "", label=N_("Blue filter"),
+                  visible_when=("narrowband", (False,))),
+        Parameter("red_sensor", "enum", "", label=N_("Red sensor QE"),
+                  visible_when=("narrowband", (False,))),
+        Parameter("green_sensor", "enum", "", label=N_("Green sensor QE"),
+                  visible_when=("narrowband", (False,))),
+        Parameter("blue_sensor", "enum", "", label=N_("Blue sensor QE"),
+                  visible_when=("narrowband", (False,))),
+        # Not gated: the white reference is what *defines* the neutral, in both modes.
+        Parameter("white_reference", "enum", "average_spiral_galaxy",
                   label=N_("White reference")),
         # --- narrowband ---
         Parameter("narrowband", "bool", False, label=N_("Narrowband mode")),
         Parameter("red_wavelength", "real", 656.3, 300.0, 1100.0,
-                  label=N_("Red wavelength (nm)")),
-        Parameter("red_bandwidth", "real", 7.0, 0.1, 300.0, label=N_("Red bandwidth (nm)")),
+                  label=N_("Red wavelength (nm)"), visible_when=("narrowband", (True,))),
+        Parameter("red_bandwidth", "real", 7.0, 0.1, 300.0, label=N_("Red bandwidth (nm)"),
+                  visible_when=("narrowband", (True,))),
         Parameter("green_wavelength", "real", 500.7, 300.0, 1100.0,
-                  label=N_("Green wavelength (nm)")),
+                  label=N_("Green wavelength (nm)"), visible_when=("narrowband", (True,))),
         Parameter("green_bandwidth", "real", 7.0, 0.1, 300.0,
-                  label=N_("Green bandwidth (nm)")),
+                  label=N_("Green bandwidth (nm)"), visible_when=("narrowband", (True,))),
+        # 500.7 nm on both green and blue is not a copy/paste slip: it is the HOO palette,
+        # where OIII feeds the two channels at once.
         Parameter("blue_wavelength", "real", 500.7, 300.0, 1100.0,
-                  label=N_("Blue wavelength (nm)")),
-        Parameter("blue_bandwidth", "real", 7.0, 0.1, 300.0, label=N_("Blue bandwidth (nm)")),
+                  label=N_("Blue wavelength (nm)"), visible_when=("narrowband", (True,))),
+        Parameter("blue_bandwidth", "real", 7.0, 0.1, 300.0, label=N_("Blue bandwidth (nm)"),
+                  visible_when=("narrowband", (True,))),
     ]
+
+    #: parameter → curve family offered in the drop-down.
+    _CURVE_KIND = {
+        "red_filter": "filter", "green_filter": "filter", "blue_filter": "filter",
+        "red_sensor": "sensor", "green_sensor": "sensor", "blue_sensor": "sensor",
+        "white_reference": "white_reference",
+    }
+
+    @classmethod
+    def parameter_choices(cls, param_id: str) -> tuple[str, ...] | None:
+        kind = cls._CURVE_KIND.get(param_id)
+        if kind is None:
+            return None
+        from .. import spectra
+
+        ids = tuple(info.id for info in spectra.list_curves(kind))
+        # The empty entry stays first for filters and sensors: it means "nominal passband",
+        # a legitimate answer when the rig's curve is not in the base. The white reference
+        # has no such fallback — it is what defines the neutral — so it is not offered.
+        return ids if kind == "white_reference" else ("", *ids)
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)

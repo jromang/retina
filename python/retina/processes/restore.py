@@ -67,7 +67,7 @@ class Deconvolution(Process):
         Parameter("psf_sigma", "real", 2.0, 0.1, 20.0, label=N_("PSF sigma")),
         Parameter("psf_beta", "real", 2.5, BETA_RANGE[0], BETA_RANGE[1],
                   label=N_("Moffat beta")),
-        Parameter("psf_view", "str", "", label=N_("PSF image (view identifier)")),
+        Parameter("psf_view", "view", "", label=N_("PSF image (view identifier)")),
         Parameter("star_threshold", "real", 5.0, 1.0, 50.0,
                   label=N_("Star detection threshold (sigma)")),
         Parameter("iterations", "int", 20, 1, 500, label=N_("Iterations")),

@@ -89,7 +89,7 @@ class HistogramMatching(Process):
 
     process_id = "HistogramMatching"
     category = "ColorCalibration"
-    parameters = [Parameter("reference", "str", "", label=N_("Reference view"))]
+    parameters = [Parameter("reference", "view", "", label=N_("Reference view"))]
 
     def _apply(self, data: np.ndarray) -> np.ndarray:
         from skimage.exposure import match_histograms
@@ -146,7 +146,7 @@ class LinearFit(Process):
 
     process_id = "LinearFit"
     category = "ColorCalibration"
-    parameters = [Parameter("reference", "str", "", label=N_("Reference view"))]
+    parameters = [Parameter("reference", "view", "", label=N_("Reference view"))]
 
     def _apply(self, data: np.ndarray) -> np.ndarray:
         from ..process import context
@@ -177,9 +177,9 @@ class ColorCalibration(Process):
     process_id = "ColorCalibration"
     category = "ColorCalibration"
     parameters = [
-        Parameter("white_reference", "str", "",
+        Parameter("white_reference", "view", "",
                   label=N_("White preview (empty = gray-world)")),
-        Parameter("background_reference", "str", "",
+        Parameter("background_reference", "view", "",
                   label=N_("Background preview (empty = image)")),
     ]
 
@@ -221,7 +221,7 @@ class LRGBCombination(Process):
     process_id = "LRGBCombination"
     category = "ColorSpaces"
     parameters = [
-        Parameter("luminance", "str", "", label=N_("Luminance view")),
+        Parameter("luminance", "view", "", label=N_("Luminance view")),
         Parameter("weight", "real", 1.0, 0.0, 1.0, label=N_("L weight")),
     ]
 

@@ -128,7 +128,7 @@ class ServerApp:
         self.chat = ChatService(self)
 
         self.rpc = Dispatcher(on_mutation=self.broadcast.mark_state_dirty)
-        self.handlers = AppHandlers(app, self.snapshots)
+        self.handlers = AppHandlers(app, self.snapshots, self.runner)
         self.layout_handlers = LayoutHandlers(app, self.layout)
         self.notification_handlers = NotificationHandlers(app)
         self.process_handlers = ProcessHandlers(self.runner)

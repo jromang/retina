@@ -17,6 +17,7 @@ import {
   buildPlan,
   busy,
   calibrationSummary,
+  blinkLights,
   cancel,
   diskShort,
   error,
@@ -49,6 +50,7 @@ import { client } from '../api/client';
 import { m } from '../paraglide/messages';
 import { plural } from '../ui/plural';
 import { askPath } from '../shell/native';
+import { FIRST_LIGHT, openGuide } from './docTarget';
 import { PlanStepEditor } from './PlanStepEditor';
 
 const KIND_LABEL: Record<string, string> = {
@@ -416,6 +418,25 @@ function GroupWarnings() {
   );
 }
 
+/**
+ * The way into Blink, from where the subs are actually being judged.
+ *
+ * Blink had no link from the wizard, so reviewing the raw frames meant the File menu, then
+ * re-picking by hand the files just scanned. Its verdict — "exclude from the project" — writes
+ * back into this very inventory, so the two belong on the same screen.
+ */
+function BlinkLights() {
+  const lights = (inventory.value?.frames ?? []).filter((f) => f.kind === 'light').length;
+  if (!lights) return null;
+  return (
+    <div style={{ marginTop: '8px' }}>
+      <button className="btn" onClick={blinkLights} title={m.pipeline_blink_tip()}>
+        {m.pipeline_blink({ count: lights })}
+      </button>
+    </div>
+  );
+}
+
 /** The files we could not classify — and what is needed to do it by hand. */
 function UnknownFrames() {
   const frames = unknownFrames.value;
@@ -563,6 +584,7 @@ export function PipelineTab() {
           <GroupTable />
           <GroupWarnings />
           <UnknownFrames />
+          <BlinkLights />
         </Section>
       )}
 
@@ -719,6 +741,14 @@ export function PipelineTab() {
                 ))}
               </ul>
               <SelectionSummary />
+              {/* Where the wizard used to stop. Pre-processing is half the road: what follows
+                  — crop, gradient, colour, stretch, export — has no entry point anywhere, and
+                  the getting-started guide stopped here too. */}
+              <p style={{ margin: '8px 0 0', fontSize: '12px' }}>
+                <button className="btn" onClick={() => openGuide(FIRST_LIGHT)}>
+                  {m.pipeline_next_guide()}
+                </button>
+              </p>
               <Notes items={report.value.notes} />
             </div>
           )}

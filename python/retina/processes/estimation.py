@@ -20,7 +20,7 @@ class B3Estimator(Process):
     process_id = "B3Estimator"
     category = "ColorCalibration"
     parameters = [
-        Parameter("continuum", "str", "", label=N_("Continuum view (broadband)")),
+        Parameter("continuum", "view", "", label=N_("Continuum view (broadband)")),
         Parameter("factor", "real", 0.0, 0.0, 100.0, label=N_("k factor (0 = auto)")),
         Parameter("pedestal", "real", 0.05, 0.0, 1.0, label=N_("Pedestal")),
     ]

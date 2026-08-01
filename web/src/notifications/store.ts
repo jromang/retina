@@ -16,6 +16,19 @@ import type { NotificationState, Snapshot } from '../api/types';
 export type NotificationKind = NotificationState['kind'];
 export type ServerNotification = NotificationState;
 
+/**
+ * A gesture offered alongside the announcement.
+ *
+ * Some events are only half a message without it: a process that opens a mask window says
+ * nothing about what to do with the mask, and the answer — set it on the view it came from —
+ * is three menus away. The button is the shortcut, never the only path: everything a toast
+ * offers exists in a menu and in `app.*`, since a toast lasts six seconds.
+ */
+export interface ToastAction {
+  label: string;
+  run: () => void;
+}
+
 export interface Toast {
   key: string;
   kind: NotificationKind;
@@ -23,6 +36,7 @@ export interface Toast {
   source?: string | undefined;
   /** An error toast only leaves on a gesture: missing it would mean missing the failure. */
   sticky: boolean;
+  action?: ToastAction | undefined;
 }
 
 /** Lifetime of a non-persistent toast. */
@@ -40,9 +54,16 @@ export const errorCount = computed(
 let toastCounter = 0;
 
 /** Shows a local toast. Info/warning fade by themselves; an error waits to be dismissed. */
-export function pushToast(kind: NotificationKind, message: string, source?: string): void {
+export function pushToast(
+  kind: NotificationKind,
+  message: string,
+  source?: string,
+  action?: ToastAction,
+): void {
   const key = `t${++toastCounter}`;
-  const toast: Toast = { key, kind, message, source, sticky: kind === 'error' };
+  // A toast carrying an action stays: it is an offer, and an offer that expires while being
+  // read is worse than none. Dismissing it, or taking it, closes it.
+  const toast: Toast = { key, kind, message, source, sticky: kind === 'error' || !!action, action };
   toasts.value = [...toasts.value, toast];
   if (!toast.sticky) setTimeout(() => dismissToast(key), TOAST_MS);
 }

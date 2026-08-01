@@ -24,6 +24,7 @@ import { LibraryPanel } from './LibraryPanel';
 import { StfPanel } from './StfPanel';
 import {
   activeView,
+  activeWindow,
   processes as processCatalog,
   processesByCategory,
   windows,
@@ -294,6 +295,21 @@ export function windowMenuItems(win: WindowState): ContextMenuNode[] {
         );
       },
     },
+    // The gesture a mask window exists for, offered where the window itself is. It used to
+    // live only under View ▸ Mask ▸ Set mask from a view…, a modal listing the views of
+    // matching geometry — reachable, but not where one is looking after a StarMask has just
+    // opened its window. Hidden on the active window: masking a view with itself is a no-op
+    // dressed as a gesture.
+    ...(activeWindow.value && activeWindow.value.id !== win.id
+      ? ([
+          {
+            label: m.panels_set_as_mask(),
+            icon: 'circle-filled',
+            run: () =>
+              call('app.set_mask', { source: win.id, window: activeWindow.value?.id }),
+          },
+        ] as ContextMenuNode[])
+      : []),
     'separator',
     {
       label: m.prompt_close(),

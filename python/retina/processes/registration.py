@@ -66,7 +66,7 @@ class StarAlignment(Process):
     category = "ImageRegistration"
     supports_realtime = False  # star detection + geometry of the reference
     parameters = [
-        Parameter("reference_id", "str", "", label=N_("Reference view (id)")),
+        Parameter("reference_id", "view", "", label=N_("Reference view (id)")),
         Parameter("reference_path", "path", "", label=N_("…or reference file")),
         Parameter("fill_value", "real", 0.0, 0.0, 1.0, label=N_("Out-of-field fill"),
                   tooltip=N_("Value of the areas not observed after registration")),
@@ -157,7 +157,7 @@ class DynamicAlignment(Process):
         Parameter("target", "floatlist", default=[], label=N_("Target points [x,y,…]")),
         Parameter("mode", "enum", "affine",
                   choices=("similarity", "affine", "projective"), label=N_("Transformation")),
-        Parameter("reference", "str", "", label=N_("Reference view (output geometry)")),
+        Parameter("reference", "view", "", label=N_("Reference view (output geometry)")),
     ]
 
     def _apply(self, data: np.ndarray) -> np.ndarray:
@@ -199,7 +199,7 @@ class PhaseCorrelationAlignment(Process):
     supports_realtime = False  # geometry of the reference
     is_maskable = False
     parameters = [
-        Parameter("reference_id", "str", "", label=N_("Reference view (id)")),
+        Parameter("reference_id", "view", "", label=N_("Reference view (id)")),
         Parameter("reference_path", "path", "", label=N_("…or reference file")),
         Parameter("upsample", "int", 10, 1, 100, label=N_("Subpixel factor")),
     ]
@@ -235,7 +235,7 @@ class FeatureAlignment(Process):
     supports_realtime = False  # geometry of the reference
     is_maskable = False
     parameters = [
-        Parameter("reference_id", "str", "", label=N_("Reference view (id)")),
+        Parameter("reference_id", "view", "", label=N_("Reference view (id)")),
         Parameter("reference_path", "path", "", label=N_("…or reference file")),
         Parameter("max_features", "int", 2000, 50, 20000, label=N_("Max ORB points")),
     ]

@@ -508,8 +508,44 @@ async function editPlan(method: string, params: Record<string, unknown>): Promis
 }
 
 /** Open a produced image in the viewport — same API as File → Open. */
+/**
+ * Open Blink over the light frames of the inventory.
+ *
+ * Blink existed but was an island: reaching it meant the File menu or the palette, and its
+ * `frames` parameter then had to be filled by hand — re-picking, one by one, the very files
+ * the wizard had just scanned. Yet reviewing the subs happens *here*, between the scan and the
+ * run, and its verdict (`pipeline.exclude`) feeds this same inventory.
+ *
+ * Lights only: nobody blinks a bias. Excluded frames stay in the sequence — they are exactly
+ * what one comes back to look at before restoring them.
+ */
+export function blinkLights(): void {
+  const frames = (inventory.value?.frames ?? [])
+    .filter((f) => f.kind === 'light')
+    .map((f) => f.path);
+  if (!frames.length) return;
+  // `layout.open_process` seeds the form, so the panel opens on the sequence rather than on
+  // an empty file list. Echoed by the domain, like every layout gesture.
+  void client
+    .call('layout.open_process', { process_id: 'Blink', values: { frames } })
+    .catch((e: unknown) => console.error(e));
+}
+
+/**
+ * Open an integration — and make it visible.
+ *
+ * A stack comes out **linear**: its sky background sits around 1e-3, so the window that opens
+ * after twenty minutes of computation is, to the eye, black. Every beginner's guide starts by
+ * telling people to auto-stretch, which means the first thing the application does with the
+ * result of its own pipeline is hand over something that looks like a failure. The screen
+ * stretch touches no pixel, and it is exactly what `app.open` followed by `app.compute_auto_stf`
+ * would do in the console — two calls, two echoes, nothing the user cannot undo or redo.
+ */
 export function openResult(path: string): void {
-  void client.call('app.open', { path }).catch(fail);
+  void client
+    .call('app.open', { path })
+    .then(() => client.call('app.compute_auto_stf'))
+    .catch(fail);
 }
 
 export async function buildPlan(): Promise<void> {

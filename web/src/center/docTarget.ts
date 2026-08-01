@@ -16,6 +16,19 @@ import { client } from '../api/client';
 
 export const docTarget = signal<string | null>(null);
 
+/**
+ * The guides, by id. `_guides/` cannot collide with a `process_id` by construction — the
+ * latter is a class name, so it carries neither a leading underscore nor a slash.
+ */
+export const GETTING_STARTED = '_guides/getting-started';
+export const FIRST_LIGHT = '_guides/first-light';
+
+/** Show a documentation page, opening the tab if it is not already there. */
+export function openGuide(id: string): void {
+  docTarget.value = id;
+  void client.call('layout.show', { panel: 'doc' }).catch(() => undefined);
+}
+
 /** Consume the current target (once only). */
 export function takeDocTarget(): string | null {
   const target = docTarget.value;

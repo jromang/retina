@@ -60,6 +60,18 @@ export function Toasts() {
           <span style={{ flex: 1, overflowWrap: 'anywhere' }}>
             {toast.source && <strong style={{ marginRight: '4px' }}>{toast.source}</strong>}
             {toast.message}
+            {toast.action && (
+              <button
+                class="btn"
+                style={{ display: 'block', marginTop: '6px' }}
+                onClick={() => {
+                  toast.action?.run();
+                  dismissToast(toast.key);
+                }}
+              >
+                {toast.action.label}
+              </button>
+            )}
           </span>
           <button
             title={m.notif_toast_close()}

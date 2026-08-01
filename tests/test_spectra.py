@@ -260,3 +260,45 @@ def test_filter_manager_refuses_to_remove_a_bundled_curve():
     with pytest.raises(ValueError, match="cannot be removed"):
         get("FilterManager")(action="remove", kind="filter",
                              name="baader_r").execute_global(Application())
+
+
+# --- the SPCC form offers the base instead of asking for its names -------------------------
+
+def test_spcc_offers_the_bundled_curves_as_choices():
+    """Six of SPCC's parameters used to be free text, over 54 curves whose identifiers are
+    file stems. A wrong name does not fail — it falls back on the nominal passbands, which is
+    the pre-SPCC behaviour, so the calibration looks like it ran."""
+    spcc = get("SpectrophotometricColorCalibration")
+
+    filters = spcc.parameter_choices("red_filter")
+    sensors = spcc.parameter_choices("green_sensor")
+    whites = spcc.parameter_choices("white_reference")
+
+    assert "baader_r" in filters and "sony_imx571_green" in sensors
+    # Empty stays offered for filters and sensors: "no curve for my rig" is legitimate, and it
+    # is what the process did before this base existed.
+    assert filters[0] == "" and sensors[0] == ""
+    # Not for the white reference: it is what *defines* the neutral, there is no fallback.
+    assert "" not in whites
+    assert spcc().white_reference in whites
+    assert spcc.parameter_choices("mag_faint") is None
+
+
+def test_spcc_choices_follow_a_user_curve(tmp_path, monkeypatch):
+    """Read on every projection of the schema, so a curve dropped in shows up without a
+    restart — the reason these are not static `choices`."""
+    monkeypatch.setattr(spectra, "config_path", lambda *parts: str(tmp_path.joinpath(*parts)))
+    spectra.save_user_curve("my_scope", "filter", [[400.0, 0.1], [700.0, 0.9]], label="Mine")
+
+    assert "my_scope" in get("SpectrophotometricColorCalibration").parameter_choices("blue_filter")
+
+
+def test_spcc_hides_the_mode_that_does_not_apply():
+    """The seven narrowband fields used to show at all times, next to the six broadband
+    pickers they exclude: twenty controls of which half were inert."""
+    params = {p.id: p for p in get("SpectrophotometricColorCalibration").parameters}
+
+    assert params["red_wavelength"].visible_when == ("narrowband", (True,))
+    assert params["red_filter"].visible_when == ("narrowband", (False,))
+    # The white reference belongs to both modes.
+    assert params["white_reference"].visible_when is None

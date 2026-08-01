@@ -632,7 +632,7 @@ class FindingChart(Process):
     is_global = True
     supports_realtime = False
     parameters = [
-        Parameter("view_id", "str", "", label=N_("Source window (empty = active)")),
+        Parameter("view_id", "view", "", label=N_("Source window (empty = active)")),
         Parameter("size", "int", 800, 128, 4096, label=N_("Chart size (px)")),
         Parameter("field_factor", "real", 3.0, 1.1, 20.0, label=N_("Field factor")),
         Parameter("grid_spacing", "real", 0.0, 0.0, 90.0,

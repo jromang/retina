@@ -22,7 +22,7 @@ class LocalNormalization(Process):
     category = "Calibration"
     supports_realtime = False  # reference of fixed size
     parameters = [
-        Parameter("reference", "str", "", label=N_("Reference view")),
+        Parameter("reference", "view", "", label=N_("Reference view")),
         Parameter("reference_path", "path", "", label=N_("…or reference file")),
         Parameter("scale", "real", 128.0, 4.0, 1024.0, label=N_("Background scale (σ)")),
     ]
@@ -92,7 +92,7 @@ class DrizzleIntegration(Process):
         Parameter("pixfrac", "real", 1.0, 0.01, 1.0, label=N_("Pixel fraction")),
         Parameter("supersample", "int", 3, 1, 8, label=N_("Samples per pixel"),
                   tooltip=N_("Accuracy of the overlap computation; 3 is enough in practice")),
-        Parameter("reference_id", "str", "", label=N_("Reference view (id)")),
+        Parameter("reference_id", "view", "", label=N_("Reference view (id)")),
         Parameter("reference_path", "path", "", label=N_("…or reference file")),
         Parameter("transforms", "floatlist", [], label=N_("Transforms (6 per frame)"),
                   tooltip=N_("Affine matrices a,b,c,d,e,f; empty = estimated from stars")),

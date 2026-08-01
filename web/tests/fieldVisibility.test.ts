@@ -2,9 +2,15 @@
 // what `BackgroundExtraction` uses to show the photutils settings only under the backend of the
 // same name, and the AI model selector only under the `ai` backend.
 
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 
 import type { ParameterMeta } from '../src/api/types';
+
+// `fields` reaches the open views through the store (the `view` field offers them rather than
+// having them typed), and the store builds the RPC client at import. Same stubs as the other
+// unit tests that touch a module pulling in `api/client`.
+vi.stubGlobal('location', { search: '', host: '127.0.0.1', protocol: 'http:' });
+vi.stubGlobal('sessionStorage', { getItem: () => null, setItem: () => undefined });
 
 const { isVisible } = await import('../src/processes/fields');
 

@@ -40,7 +40,7 @@ class CreateAlphaChannels(Process):
         Parameter("mode", "enum", "constant", choices=("constant", "luminance", "view"),
                   label=N_("Alpha source")),
         Parameter("value", "real", 1.0, 0.0, 1.0, label=N_("Constant value")),
-        Parameter("view_id", "str", "", label=N_("Source view")),
+        Parameter("view_id", "view", "", label=N_("Source view")),
     ]
 
     def _apply(self, data: np.ndarray) -> np.ndarray:

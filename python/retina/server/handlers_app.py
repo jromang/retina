@@ -105,9 +105,14 @@ APP_METHODS: dict[str, bool] = {
 class AppHandlers:
     """JSON ⇄ ``Application`` adapter."""
 
-    def __init__(self, app: Application, snapshots) -> None:
+    def __init__(self, app: Application, snapshots, runner) -> None:
         self._app = app
         self._snapshots = snapshots
+        # The queue, for the one operation here that is long: downloading a sample dataset.
+        # It was left out on the grounds that the queue belongs to the server — but so does
+        # `PipelineHandlers`, for the same reason, and the alternative was a hundred and sixty
+        # megabytes with no progress and no cancel.
+        self._runner = runner
 
     # --- resolution -----------------------------------------------------------
     def _window(self, window: str | None) -> ImageWindow | None:
@@ -205,23 +210,20 @@ class AppHandlers:
         return {str(k): v if isinstance(v, (str, int, float, bool)) or v is None else str(v)
                 for k, v in raw_data.items()}
 
-    async def download_sample(self, sample_id: str = "") -> str:
-        """Downloads a sample raw dataset and returns its folder.
+    def download_sample(self, sample_id: str = "") -> dict:
+        """Starts the download of a sample raw dataset. Returns its job id.
 
-        ``asyncio.to_thread`` rather than a direct call: a hundred and sixty megabytes on the
-        asyncio loop is the whole server frozen — no more WebSocket, no more viewport, no more
-        button to cancel. Nor is it a :class:`JobRunner` job: that queue belongs to the server,
-        and ``AppHandlers`` deliberately has no access to it. The client therefore holds the
-        wait on its promise, and the notification center receives the start then the arrival.
+        A **job**, and not a call awaited on the client's promise. ``retina.samples`` reports
+        its progress and honours cancellation through the thread's ``ProgressMonitor``, exactly
+        as a process does — but nothing was listening: a hundred and sixty megabytes arrived
+        with no progress bar and no way to stop, behind a button that said "Downloading…" for a
+        minute or two. Going through the runner is what connects the two ends, and it brings
+        along the status bar, the cancel button and republication in the snapshot.
         """
-        import asyncio
-
-        try:
-            return await asyncio.to_thread(self._app.download_sample, sample_id)
-        except (OSError, KeyError, ValueError) as exc:
-            # Network down, unknown id, wrong checksum: legitimate refusals the user must
-            # read, not server failures.
-            raise RpcError(DOMAIN_ERROR, str(exc)) from None
+        return {"job": self._runner.submit_call(
+            lambda: {"folder": self._app.download_sample(sample_id)},
+            "download_sample",
+        )}
 
     def view_ids(self) -> list[str]:
         """Every addressable view id, windows and previews alike."""

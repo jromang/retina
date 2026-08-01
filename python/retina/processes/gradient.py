@@ -102,7 +102,7 @@ class MultiscaleGradientCorrection(Process):
     parameters = [
         Parameter("scale", "int", 7, 3, 12, label=N_("Gradient scale (layers)")),
         Parameter("pedestal", "real", 0.1, 0.0, 1.0, label=N_("Pedestal")),
-        Parameter("reference", "str", "", label=N_("Reference view (no gradient)")),
+        Parameter("reference", "view", "", label=N_("Reference view (no gradient)")),
         Parameter("reference_path", "str", "", label=N_("Reference file")),
     ]
 
@@ -204,7 +204,7 @@ class SurveyReference(Process):
     is_global = True
     supports_realtime = False
     parameters = [
-        Parameter("view_id", "str", "", label=N_("Source window (empty = active)")),
+        Parameter("view_id", "view", "", label=N_("Source window (empty = active)")),
         Parameter("survey", "enum", "dss2-red",
                   choices=("dss2-red", "dss2-blue", "panstarrs-g", "panstarrs-r",
                            "panstarrs-i", "halpha", "custom"),
@@ -285,7 +285,7 @@ class GradientMergeMosaic(Process):
     process_id = "GradientMergeMosaic"
     category = "BackgroundModelization"
     is_maskable = False
-    parameters = [Parameter("other", "str", "", label=N_("Other panel (view)"))]
+    parameters = [Parameter("other", "view", "", label=N_("Other panel (view)"))]
 
     def _apply(self, data: np.ndarray) -> np.ndarray:
         from ..process import context

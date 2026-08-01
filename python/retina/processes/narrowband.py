@@ -180,9 +180,9 @@ class NBRGBCombination(Process):
     category = "ColorCalibration"
     supports_realtime = False
     parameters = [
-        Parameter("ha_view", "str", "", label=N_("Ha view")),
-        Parameter("oiii_view", "str", "", label=N_("OIII view")),
-        Parameter("sii_view", "str", "", label=N_("SII view")),
+        Parameter("ha_view", "view", "", label=N_("Ha view")),
+        Parameter("oiii_view", "view", "", label=N_("OIII view")),
+        Parameter("sii_view", "view", "", label=N_("SII view")),
         Parameter("ha_channel", "enum", "red", choices=CHANNELS, label=N_("Ha target channel")),
         Parameter("oiii_channel", "enum", "green", choices=CHANNELS,
                   label=N_("OIII target channel")),
@@ -274,9 +274,9 @@ class NarrowbandNormalization(Process):
     parameters = [
         Parameter("reference", "enum", "green", choices=CHANNELS,
                   label=N_("Reference channel")),
-        Parameter("red_view", "str", "", label=N_("Red channel view")),
-        Parameter("green_view", "str", "", label=N_("Green channel view")),
-        Parameter("blue_view", "str", "", label=N_("Blue channel view")),
+        Parameter("red_view", "view", "", label=N_("Red channel view")),
+        Parameter("green_view", "view", "", label=N_("Green channel view")),
+        Parameter("blue_view", "view", "", label=N_("Blue channel view")),
         Parameter("k_sigma", "real", 3.0, 1.0, 10.0, label=N_("Background threshold (k·σ)")),
         Parameter("match_scale", "bool", True, label=N_("Match scale as well as offset")),
     ]

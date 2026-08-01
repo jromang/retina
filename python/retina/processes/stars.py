@@ -96,7 +96,7 @@ class StarReduction(Process):
     parameters = [
         Parameter("method", "enum", "transfer",
                   choices=("transfer", "halo", "morphological"), label=N_("Method")),
-        Parameter("starless", "str", "", label=N_("Starless view")),
+        Parameter("starless", "view", "", label=N_("Starless view")),
         Parameter("strength", "real", 0.5, 0.0, 1.0, label=N_("Strength")),
         Parameter("iterations", "int", 1, 1, 10, label=N_("Iterations")),
     ]

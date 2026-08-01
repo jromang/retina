@@ -15,6 +15,7 @@ import { useRef, useState } from 'preact/hooks';
 import { m } from '../paraglide/messages';
 import type { ParameterMeta } from '../api/types';
 import { askPath } from '../shell/native';
+import { windows } from '../state/store';
 import { CurveEditor } from './CurveEditor';
 import { MonacoField, PathListEditor } from './editors';
 
@@ -180,8 +181,46 @@ export function EnumField({ param, value, onChange }: FieldProps) {
       onChange={(e) => onChange((e.target as HTMLSelectElement).value)}
     >
       {(param.choices ?? []).map((choice) => (
+        // An empty choice is a real one — "nominal passband" for an SPCC filter, "no curve"
+        // for a sensor. Rendered as is it would be a blank line one hesitates to click, so it
+        // gets the same placeholder as an empty view.
         <option key={choice} value={choice}>
-          {choice}
+          {choice === '' ? m.field_view_none() : choice}
+        </option>
+      ))}
+    </select>
+  );
+}
+
+/**
+ * A view identifier — offered, not typed.
+ *
+ * These parameters designate another open view: the three channels of a `ChannelCombination`,
+ * the reference of a `LinearFit`, the starless image of a `StarReduction`, the external PSF of
+ * a `Deconvolution`. They were free text, so combining SHO meant recalling three identifiers
+ * from memory — and a typo did not fail: the domain falls back on the current image, which
+ * produces a grey composition nobody can explain.
+ *
+ * Two details matter. The empty option is kept, because for most of these parameters empty is
+ * a meaningful default ("reuse the current image", "gray-world"); and a value that is **not**
+ * among the open views is added to the list rather than dropped, so opening a recipe whose
+ * reference is not loaded shows what it asks for instead of silently rewriting it.
+ */
+export function ViewField({ param, value, onChange }: FieldProps) {
+  const current = String(value ?? '');
+  const ids = windows.value.flatMap((win) => win.views.map((view) => view.id));
+  const options = current && !ids.includes(current) ? [current, ...ids] : ids;
+  return (
+    <select
+      value={current}
+      title={param.tooltip}
+      style={{ ...inputStyle, font: '12px var(--retina-font-ui)' }}
+      onChange={(e) => onChange((e.target as HTMLSelectElement).value)}
+    >
+      <option value="">{m.field_view_none()}</option>
+      {options.map((id) => (
+        <option key={id} value={id}>
+          {id}
         </option>
       ))}
     </select>
@@ -328,6 +367,8 @@ export function fieldFor(type: string): (props: FieldProps) => preact.JSX.Elemen
       return EnumField;
     case 'str':
       return StrField;
+    case 'view':
+      return ViewField;
     case 'path':
       return PathField;
     case 'dir':

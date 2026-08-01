@@ -69,6 +69,12 @@ class Job:
     #: notification, never in the snapshot — ``active()`` only lists jobs in flight, which
     #: do not have a result yet.
     result: dict | None = None
+    #: windows this run brought into existence — a mask, an aberration mosaic, a new image.
+    #: Fifteen processes open one instead of transforming the target, and until now they did
+    #: so in silence: the window appeared in the panel and the user had to notice it, then
+    #: work out what to do with it. Computed by difference around the run rather than reported
+    #: by the domain, which would mean touching `app.apply` for a fact that belongs to the job.
+    created_windows: list[str] = field(default_factory=list)
     monitor: ProgressMonitor = field(default_factory=ProgressMonitor)
     future: Future | None = None
     #: work to run when it is not a process (the pipeline, for instance).
@@ -86,6 +92,7 @@ class Job:
             "fraction": self.fraction,
             "progress_message": self.progress_message,
             "result": self.result,
+            "created_windows": list(self.created_windows),
         }
 
 
@@ -179,6 +186,7 @@ class JobRunner:
                 return
             job.state = "running"
             self._notify("job.started", job.to_dict())
+            before = {win.id for win in self._app.windows}
 
             if job.call is not None:
                 result = job.call()
@@ -191,6 +199,7 @@ class JobRunner:
                 # `run` dispatches: global process → execute_global, otherwise → active view
                 ok = self._app.run(item)
                 job.result = _result_of(item)
+            job.created_windows = [w.id for w in self._app.windows if w.id not in before]
             self._finish(job, "done" if ok else "error",
                          "" if ok else "the process returned a failure")
         except ProcessCancelled:

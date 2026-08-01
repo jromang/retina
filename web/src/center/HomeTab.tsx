@@ -12,6 +12,7 @@
 import { useState } from 'preact/hooks';
 
 import { client } from '../api/client';
+import { awaitJob } from '../processes/jobs';
 import { m } from '../paraglide/messages';
 import {
   currentProject,
@@ -24,14 +25,13 @@ import { folder as pipelineFolder, preset as pipelinePreset, scan as pipelineSca
   from '../pipeline/model';
 import { requestActivate } from '../shell/layoutClient';
 import { askPath } from '../shell/native';
-import { docTarget } from './docTarget';
+import { GETTING_STARTED, openGuide } from './docTarget';
 
 const MUTED = 'var(--vscode-descriptionForeground)';
 
 // The discovery walkthrough, on the documentation side. The `_guides/` prefix cannot collide
 // with a `process_id` (a class name), so the identifier travels the same route and the same
 // viewer as any process page.
-const GETTING_STARTED = '_guides/getting-started';
 
 function shortName(path: string): string {
   return path.split(/[\\/]/).filter(Boolean).pop() ?? path;
@@ -110,15 +110,11 @@ function PathList({
 }
 
 export function HomeTab() {
-  // Downloading the sample set takes a minute or two: the wait hangs on the call's promise,
-  // for lack of a server job (`AppHandlers` has no access to the `JobRunner`'s queue). The
-  // notification centre, for its part, receives the departure and the arrival.
+  // The download is a **job**: the status bar shows its progress and offers to cancel it, like
+  // any long operation. This flag only greys the button so it is not started twice.
   const [chargement, setChargement] = useState(false);
 
-  const ouvrirGuide = () => {
-    docTarget.value = GETTING_STARTED;
-    requestActivate('doc');
-  };
+  const ouvrirGuide = () => openGuide(GETTING_STARTED);
 
   // A downloaded set that stayed a folder in a cache would have made nobody discover
   // anything: we chain on to preprocessing, exactly where those raw frames are of use.
@@ -126,8 +122,13 @@ export function HomeTab() {
     if (chargement) return;
     setChargement(true);
     void client
-      .call<string>('app.download_sample', {})
-      .then((path) => {
+      .call<{ job: string }>('app.download_sample', {})
+      .then(({ job }) => awaitJob(job))
+      .then((result) => {
+        // Cancelled, or failed: the notification centre has already said so, and there is
+        // nothing to scan. Chaining anyway would open the wizard on an empty folder.
+        const path = result?.['folder'];
+        if (typeof path !== 'string') return;
         pipelinePreset.value = 'auto';
         pipelineFolder.value = path;
         requestActivate('pipeline');
