@@ -29,6 +29,7 @@ from typing import TYPE_CHECKING, Any
 
 from aiohttp import WSMsgType, web
 
+from ..io import format_groups as io_formats
 from .broadcast import Broadcaster
 from .chat import ChatService
 from .console import Console
@@ -274,6 +275,11 @@ class ServerApp:
             # there was then nobody to receive `restore_documents`.
             "session": self._session_state(),
             "methods": sorted(self.rpc.methods()),
+            # File extensions by group, from the domain's single dispatch point. The client
+            # builds its file dialogs and its "this format quantizes" warning from this
+            # rather than from a list of its own, which would drift at the first format
+            # added.
+            "formats": io_formats(),
         }
 
     def _session_state(self) -> dict:

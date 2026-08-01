@@ -34,10 +34,13 @@ import { newContainer } from '../pipeline/containerEdit';
 import { closeProject, openProject, saveProject, setLanguage } from '../project/project';
 import { confirmBox, promptChoice, promptText } from '../ui/prompts';
 import { pushToast } from '../notifications/store';
-import { activeWindow, processes, windows } from '../state/store';
+import { activeView, activeWindow, processes, windows } from '../state/store';
 import { runProcess } from '../processes/jobs';
+import { focusedProcess } from '../processes/focused';
+import { docTarget } from '../center/docTarget';
 import { openPalette } from './uiState';
 import { SCRIPT_FILTERS, askPath } from './native';
+import { saveImageAs } from './saveImage';
 import {
   activeScriptId,
   newScript,
@@ -84,7 +87,7 @@ const FILE_COMMANDS: Command[] = [
     id: 'file.open',
     title: m.cmd_file_open(),
     category: m.cat_file(),
-    python: 'app.open(chemin)',
+    python: 'app.open(path)',
     shortcut: 'Ctrl+O',
     run: () => {
       void askPath({ title: m.dialog_open_image() }).then((paths) => {
@@ -96,12 +99,10 @@ const FILE_COMMANDS: Command[] = [
     id: 'file.save_as',
     title: m.cmd_file_save_as(),
     category: m.cat_file(),
-    python: 'app.save(chemin)',
+    python: 'app.save(path)',
     shortcut: 'Ctrl+S',
     run: () => {
-      void askPath({ title: m.dialog_save_as(), save: true }).then((paths) => {
-        if (paths?.[0]) call('app.save', { path: paths[0] });
-      });
+      void saveImageAs(activeView.value).catch(() => undefined);
     },
   },
   {
@@ -160,14 +161,14 @@ const PROJECT_COMMANDS: Command[] = [
     id: 'project.open',
     title: m.cmd_project_open(),
     category: m.cat_project(),
-    python: 'app.open_project(chemin)',
+    python: 'app.open_project(path)',
     run: () => void openProject().catch((e: unknown) => console.error(e)),
   },
   {
     id: 'project.save',
     title: m.cmd_project_save(),
     category: m.cat_project(),
-    python: 'app.save_project(chemin)',
+    python: 'app.save_project(path)',
     shortcut: 'Ctrl+Shift+S',
     run: () => void saveProject().catch((e: unknown) => console.error(e)),
   },
@@ -175,7 +176,7 @@ const PROJECT_COMMANDS: Command[] = [
     id: 'project.save_as',
     title: m.cmd_project_save_as(),
     category: m.cat_project(),
-    python: 'app.save_project(chemin)',
+    python: 'app.save_project(path)',
     run: () => void saveProject(true).catch((e: unknown) => console.error(e)),
   },
   {
@@ -212,7 +213,7 @@ const SCRIPT_COMMANDS: Command[] = [
     title: m.cmd_script_new(),
     category: m.cat_script(),
     icon: 'file-code',
-    python: '# editor: the domain already exposes app.run_recipe(chemin)',
+    python: '# editor: the domain already exposes app.run_recipe(path)',
     run: () => {
       newScript();
     },
@@ -221,7 +222,7 @@ const SCRIPT_COMMANDS: Command[] = [
     id: 'script.open',
     title: m.cmd_script_open(),
     category: m.cat_script(),
-    python: 'open(chemin).read()',
+    python: 'open(path).read()',
     run: () => {
       void askPath({ title: m.dialog_open_script(), filters: SCRIPT_FILTERS }).then((paths) => {
         if (paths?.[0]) {
@@ -234,7 +235,7 @@ const SCRIPT_COMMANDS: Command[] = [
     id: 'script.save',
     title: m.cmd_script_save(),
     category: m.cat_script(),
-    python: 'open(chemin, "w").write(source)',
+    python: 'open(path, "w").write(source)',
     shortcut: 'Ctrl+S',
     localShortcut: true,
     run: () => {
@@ -246,7 +247,7 @@ const SCRIPT_COMMANDS: Command[] = [
     id: 'script.save_as',
     title: m.cmd_script_save_as(),
     category: m.cat_script(),
-    python: 'open(chemin, "w").write(source)',
+    python: 'open(path, "w").write(source)',
     run: () => {
       const id = activeScriptId.value;
       if (id) void saveScript(id, true).catch((error: unknown) => console.error(error));
@@ -279,7 +280,7 @@ const SCRIPT_COMMANDS: Command[] = [
     title: m.cmd_script_run(),
     category: m.cat_script(),
     icon: 'play',
-    // This line used to announce `app.run_recipe(chemin)` while it sends the **buffer** to the
+    // This line used to announce `app.run_recipe(path)` while it sends the **buffer** to the
     // console. The echo is the project's pillar: it cannot lie about what it does. The
     // "run the file" gesture is `script.run_file` below.
     python: '# the editor buffer, sent to the shared console',
@@ -295,7 +296,7 @@ const SCRIPT_COMMANDS: Command[] = [
     title: m.cmd_script_run_file(),
     category: m.cat_script(),
     icon: 'run-all',
-    python: 'app.run_recipe(chemin)',
+    python: 'app.run_recipe(path)',
     run: () => {
       const id = activeScriptId.value;
       if (id) void runFile(id).catch((error: unknown) => console.error(error));
@@ -340,6 +341,16 @@ const VIEW_COMMANDS: Command[] = [
     category: m.cat_view(),
     python: 'app.compute_auto_stf()',
     run: () => call('app.compute_auto_stf'),
+  },
+  {
+    // The counterpart of the one above, and the step everyone looks for: the auto-stretch is
+    // a display, this makes it the image. It goes out as a HistogramTransformation, so it is
+    // an ordinary history entry and Ctrl+Z takes it back.
+    id: 'view.apply_stf',
+    title: m.cmd_view_apply_stf(),
+    category: m.cat_view(),
+    python: 'app.apply_stf()',
+    run: () => call('app.apply_stf'),
   },
   {
     id: 'view.zoom_in',
@@ -758,12 +769,22 @@ function panelCommands(): Command[] {
   return (Object.keys(PANEL_META) as PanelId[]).map((panel) => {
     const meta = PANEL_META[panel];
     const exclusive = SIDEBAR_PANELS.includes(panel);
+    const show = () => (exclusive ? requestActivate(panel) : requestToggle(panel));
     const base: Command = {
       id: `panel.${panel}`,
       title: m.cmd_panel_show({ panel: meta.title }),
       category: m.cat_panels(),
       python: `app.layout.${exclusive ? 'activate' : 'toggle'}('${panel}')`,
-      run: () => (exclusive ? requestActivate(panel) : requestToggle(panel)),
+      // F1 is announced as "the documentation of the selected process" — so it aims at the
+      // form last worked in, and falls back to the index when there is none. The other panels
+      // have nothing to aim at.
+      run:
+        panel === 'doc'
+          ? () => {
+              if (focusedProcess.value) docTarget.value = focusedProcess.value;
+              show();
+            }
+          : show,
     };
     return meta.hint ? { ...base, shortcut: meta.hint } : base;
   });

@@ -16,6 +16,7 @@
 import { batch, computed, signal } from '@preact/signals';
 
 import { client } from '../api/client';
+import { forgetProcessFocus } from '../processes/focused';
 import { applyZoneSizes, zoneSizes, type ZoneSizes } from './zoneSizes';
 import {
   BUILTIN_PERSPECTIVES,
@@ -226,6 +227,7 @@ export function requestPerspective(name: string): void {
 }
 
 export function requestCloseProcess(processId: string): void {
+  forgetProcessFocus(processId);
   void client
     .call('layout.close_process', { process_id: processId })
     .catch((e: unknown) => console.error(e));

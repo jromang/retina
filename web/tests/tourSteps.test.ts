@@ -25,11 +25,21 @@ describe('tour steps', () => {
     expect(TOUR_STEPS.at(-1)?.anchor).toBeNull();
   });
 
-  it('skips a step whose anchor is absent from the DOM', () => {
+  it('skips a step whose anchor is absent and that opens nothing', () => {
     const visible = visibleSteps(TOUR_STEPS, () => false);
 
-    expect(visible.every((s) => s.anchor === null)).toBe(true);
+    expect(visible.every((s) => s.anchor === null || s.panel !== undefined)).toBe(true);
     expect(visible.length).toBeGreaterThan(0);
+  });
+
+  it('keeps a step that opens its own panel, even with the anchor still absent', () => {
+    // The filter runs before any step has opened anything: judging the console step on the
+    // DOM as it stands dropped it whenever the bottom zone started collapsed — and it is the
+    // step that presents the Python echo, the one thing no competitor has.
+    const visible = visibleSteps(TOUR_STEPS, () => false);
+
+    expect(visible.map((s) => s.id)).toContain('console');
+    expect(visible.map((s) => s.id)).toContain('processes');
   });
 
   it('keeps everything when the layout is complete', () => {

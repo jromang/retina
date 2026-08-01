@@ -392,6 +392,31 @@ export async function scan(path: string): Promise<void> {
   }
 }
 
+/**
+ * Change the preset — and regroup, which is the whole point.
+ *
+ * The preset carries the grouping tolerances, so it governs the table shown one section
+ * above. Setting it without re-surveying left the user reading a grouping the plan would
+ * *not* build: on a Seestar, one dark group per exposure on screen and a single one in the
+ * plan. Only the "smart telescope folder" entry escaped it, because it sets the preset before
+ * scanning — which is the shape this function gives every other path.
+ */
+export async function setPreset(name: string): Promise<void> {
+  if (preset.value === name) return;
+  preset.value = name;
+  // The plan described the previous preset's steps: it is stale by construction.
+  plan.value = null;
+  if (!inventory.value) return;
+  busy.value = true;
+  try {
+    await refreshSurvey();
+  } catch (e) {
+    fail(e);
+  } finally {
+    busy.value = false;
+  }
+}
+
 /** Ask the domain for its grouping again — after a scan, after every correction. */
 async function refreshSurvey(): Promise<void> {
   survey.value = inventory.value

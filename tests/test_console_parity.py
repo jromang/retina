@@ -49,6 +49,43 @@ def test_full_pipeline_headless(tmp_path, capsys):
     # which spawns a fresh interpreter.
 
 
+def test_apply_stf_bakes_the_display_and_clears_it():
+    """The gesture the histogram panel offers: display → pixels, in one echoed step.
+
+    Three things must hold together, and each was a way to get it wrong: the pixels take the
+    stretch, the STF goes back to the identity (otherwise the viewport shows it applied
+    twice), and the echo is the process — so the console reads the line one would have typed.
+    """
+    app = Application()
+    echoed: list[str] = []
+    app.on_echo = echoed.append
+
+    linear = Image(np.full((8, 8, 1), 0.01, dtype=np.float32))
+    win = app.new_window(linear)
+    app.set_active_window(win)
+    before = app.active_view.compute_auto_stf()
+    displayed = before.apply(app.active_view.image)
+
+    app.apply_stf()
+
+    np.testing.assert_allclose(app.active_view.image.data, displayed, atol=1e-6)
+    channel = app.active_view.stf.channels[0]
+    assert (channel.shadows, channel.midtones, channel.highlights) == (0.0, 0.5, 1.0)
+    assert app.active_view.history_index == 1  # undoable, like any process
+    assert any("HistogramTransformation(" in line for line in echoed)
+
+
+def test_apply_stf_is_idempotent_on_an_untouched_view():
+    """An identity STF must not silently modify the pixels."""
+    app = Application()
+    win = app.new_window(Image(np.full((4, 4, 1), 0.3, dtype=np.float32)))
+    app.set_active_window(win)
+
+    app.apply_stf()
+
+    np.testing.assert_allclose(app.active_view.image.data, 0.3, atol=1e-6)
+
+
 def test_recipe_execution(tmp_path):
     """`app.run_recipe` runs a script with app + retina in context, without the shell."""
     recipe = tmp_path / "recipe.py"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Retina VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-07-30 23:52+0200\n"
+"POT-Creation-Date: 2026-08-01 16:02+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -81,10 +81,11 @@ msgstr ""
 msgid "No documentation page for {id!r}"
 msgstr ""
 
-msgid "Documentation"
+#, python-brace-format
+msgid "Start with a guide, or pick one of the {count} processes."
 msgstr ""
 
-msgid "Start with a guide, or pick a process."
+msgid "Documentation"
 msgstr ""
 
 msgid "Guides"
@@ -1495,6 +1496,15 @@ msgid "Midtones"
 msgstr ""
 
 msgid "Highlights (white point)"
+msgstr ""
+
+msgid "Per channel (shadows, midtones, highlights, …)"
+msgstr ""
+
+#, python-brace-format
+msgid ""
+"channels expects triples (shadows, midtones, highlights): {n} values "
+"given."
 msgstr ""
 
 msgid "Working profile"

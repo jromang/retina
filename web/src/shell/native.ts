@@ -9,8 +9,11 @@
 // In browser mode (without a shell), these functions return `null`: the caller falls back on
 // manual entry. Browser mode remains a deliberately degraded mode.
 
+import { type FileFilter, readFilters } from '../api/formats';
 import { m } from '../paraglide/messages';
 import { promptText } from '../ui/prompts';
+
+export type { FileFilter };
 
 interface RetinaShell {
   invoke(cmd: string, args?: Record<string, unknown>): Promise<unknown>;
@@ -23,22 +26,10 @@ declare global {
   }
 }
 
-export interface FileFilter {
-  name: string;
-  extensions: string[];
-}
-
 /** True if the application is running in its native window (and not in a browser). */
 export function inNativeShell(): boolean {
   return window.__RETINA_SHELL__ === true && typeof window.retinaShell?.invoke === 'function';
 }
-
-/** Filters for the formats the domain can read — mirror of ``app.open``. */
-export const IMAGE_FILTERS: FileFilter[] = [
-  { name: m.filter_astro_images(), extensions: ['fits', 'fit', 'fts', 'xisf'] },
-  { name: m.filter_fits(), extensions: ['fits', 'fit', 'fts'] },
-  { name: m.filter_xisf(), extensions: ['xisf'] },
-];
 
 /** Scripts and recipes — what `app.run_recipe` can execute. */
 export const SCRIPT_FILTERS: FileFilter[] = [
@@ -67,7 +58,7 @@ async function invoke<T>(cmd: string, args: Record<string, unknown>): Promise<T 
 
 export function openFileDialog(
   title: string = m.dialog_open_image(),
-  filters: FileFilter[] = IMAGE_FILTERS,
+  filters: FileFilter[] = readFilters(),
   directory?: string,
 ): Promise<string | null> {
   return invoke<string>('open_file', { title, filters, directory });
@@ -75,7 +66,7 @@ export function openFileDialog(
 
 export function openFilesDialog(
   title: string = m.dialog_choose_files(),
-  filters: FileFilter[] = IMAGE_FILTERS,
+  filters: FileFilter[] = readFilters(),
 ): Promise<string[] | null> {
   return invoke<string[]>('open_files', { title, filters });
 }
@@ -89,7 +80,7 @@ export function openFolderDialog(
 export function saveFileDialog(
   title: string = m.dialog_save_as(),
   filename = '',
-  filters: FileFilter[] = IMAGE_FILTERS,
+  filters: FileFilter[] = readFilters(),
   directory?: string,
 ): Promise<string | null> {
   return invoke<string>('save_file', { title, filename, filters, directory });

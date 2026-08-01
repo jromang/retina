@@ -132,8 +132,8 @@ invalidates the calibration cache; the second does not.
 
 ## 5. Where to go next
 
-- **The process catalogue** — the Documentation home page lists all 136 processes by
-  category. Each page states what the process does, its parameters and their defaults.
+- **The process catalogue** — the Documentation home page lists every process by
+  category, and counts them for you. Each page states what the process does, its parameters and their defaults.
 - **The natural order of a session**: `retina-doc://ImageCalibration` →
   `retina-doc://StarAlignment` → `retina-doc://Integration` → `retina-doc://BackgroundExtraction`
   → `retina-doc://PhotometricColorCalibration` → stretch → `retina-doc://NoiseReduction`.

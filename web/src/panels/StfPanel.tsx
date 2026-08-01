@@ -17,7 +17,7 @@ import { useEffect, useRef, useState } from 'preact/hooks';
 
 import { m } from '../paraglide/messages';
 import { client } from '../api/client';
-import { activeView, activeWindow } from '../state/store';
+import { activeView, activeWindow, stfIsVisible } from '../state/store';
 import { fillBackground, prepare, token } from '../ui/canvas';
 import { drawCounts, useHistogram } from '../ui/Histogram';
 import { applyChannelStf } from '../viewport/shaders';
@@ -193,6 +193,8 @@ export function StfPanel() {
     );
   }
 
+  const stfMoves = stfIsVisible(view);
+
   const button = {
     background: 'var(--vscode-button-secondaryBackground)',
     color: 'var(--vscode-button-secondaryForeground)',
@@ -250,6 +252,19 @@ export function StfPanel() {
           }}
         >
           {m.process_reset()}
+        </button>
+        {/* The step from "the display is right" to "the image is right". Without it the three
+            values had to be read here and typed back into a HistogramTransformation form —
+            the domain has known how to build that process from an STF all along, and nothing
+            called it. Disabled on the identity: baking it would push a history entry that
+            changes nothing. */}
+        <button
+          style={button}
+          title={m.panel_stf_apply_tip()}
+          disabled={!stfMoves}
+          onClick={() => void client.call('app.apply_stf').catch(() => undefined)}
+        >
+          {m.panel_stf_apply()}
         </button>
         <label
           style={{ display: 'flex', gap: '4px', alignItems: 'center', fontSize: '12px' }}

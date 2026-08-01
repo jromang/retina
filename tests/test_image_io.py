@@ -349,3 +349,78 @@ def test_an_unknown_extension_says_so(tmp_path):
 
     with pytest.raises(ValueError, match="Unsupported extension"):
         save_image(str(tmp_path / "sample.xyz"), _checkerboard())
+
+
+# --- app.save: the same dispatch, from the console ---------------------------------------
+
+@pytest.mark.parametrize("name", ["shared.png", "shared.tif", "shared.jpg"])
+def test_app_save_writes_the_interop_formats(tmp_path, name):
+    """`app.save` used to know FITS and XISF only, and raised on everything else — while
+    `io.save_image` had known how to write these three all along."""
+    from retina.app import Application
+    from retina.io import load_image_array
+
+    app = Application()
+    app.new_window(_checkerboard(), window_id="R")
+    path = str(tmp_path / name)
+    app.save(path)
+
+    assert load_image_array(path).shape == (16, 24, 3)
+
+
+def test_app_save_stretch_bakes_the_stf_into_the_exported_copy(tmp_path):
+    """The point of the option: a linear image written to 8 bits is black without it, and the
+    pixels of the session must not move because of an export."""
+    from retina.app import Application
+    from retina.io import load_image_array
+    from retina.model.stf import STF, ChannelSTF
+
+    linear = Image(np.full((8, 8, 1), 0.002, dtype=np.float32))
+    app = Application()
+    win = app.new_window(linear, window_id="L")
+    win.main_view.stf = STF(channels=[ChannelSTF(shadows=0.0, midtones=0.005, highlights=1.0)])
+
+    flat = str(tmp_path / "linear.png")
+    stretched = str(tmp_path / "stretched.png")
+    app.save(flat)
+    app.save(stretched, stretch=True)
+
+    # 0.002 × 255 rounds to 1: the whole image lands on the first step above black, which is
+    # exactly the "my export came out empty" the option exists to prevent.
+    assert load_image_array(flat).max() <= 1.0 / 255.0
+    assert load_image_array(stretched).max() > 0.2
+    # The session is untouched: the stretch went into the file, not into the view.
+    assert win.main_view.image.data.max() == pytest.approx(0.002)
+
+
+def test_app_save_stretch_does_not_also_record_the_stf(tmp_path):
+    """XISF carries an STF. Baking it AND recording it would make a reader apply it twice."""
+    pytest.importorskip("xisf")
+    from retina.app import Application
+    from retina.io.xisf import load_xisf
+    from retina.model.stf import STF, ChannelSTF
+
+    app = Application()
+    win = app.new_window(Image(np.full((6, 6, 1), 0.01, dtype=np.float32)), window_id="X")
+    win.main_view.stf = STF(channels=[ChannelSTF(shadows=0.0, midtones=0.02, highlights=1.0)])
+    path = str(tmp_path / "baked.xisf")
+    app.save(path, stretch=True)
+
+    _, _, stf = load_xisf(path)
+    assert stf is None or stf.channels[0].midtones == pytest.approx(0.5)
+
+
+def test_format_groups_cover_the_dispatch():
+    """The interface builds its dialogs and its 8-bit warning from this, so it must not drift
+    from what `save_image` actually accepts."""
+    from retina.io import BYTE_RASTER_EXT, format_groups, is_byte_format
+
+    groups = format_groups()
+    assert "fits" in groups["astro"] and "xisf" in groups["astro"]
+    assert groups["float_raster"] == ["tif", "tiff"]
+    assert set(groups["byte_raster"]) == {e[1:] for e in BYTE_RASTER_EXT}
+    assert "cr2" in groups["raw"]  # read only — absent from the save dialog
+    assert not any(e.startswith(".") for group in groups.values() for e in group)
+
+    assert is_byte_format("/tmp/a.PNG") and not is_byte_format("/tmp/a.tif")
+    assert not is_byte_format("/tmp/a.fits")

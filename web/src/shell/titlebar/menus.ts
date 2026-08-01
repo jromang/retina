@@ -127,6 +127,7 @@ export function buildMenus({
       label: m.menu_view(),
       items: [
         cmd('view.autostretch'),
+        cmd('view.apply_stf'),
         sep,
         cmd('view.zoom_in'),
         cmd('view.zoom_out'),

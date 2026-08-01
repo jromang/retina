@@ -82,6 +82,7 @@ APP_METHODS: dict[str, bool] = {
     "app.set_stf_enabled": True,
     "app.set_stf": True,
     "app.compute_auto_stf": True,
+    "app.apply_stf": True,
     # sequence inspection (Blink)
     "app.blink": True,
     "app.blink_step": True,
@@ -133,9 +134,9 @@ class AppHandlers:
         """Opens an image file and returns the id of the created window."""
         return self._app.open(path).id
 
-    def save(self, path: str, window: str | None = None) -> None:
-        """Saves a window's main view."""
-        self._app.save(path, self._window(window))
+    def save(self, path: str, window: str | None = None, stretch: bool = False) -> None:
+        """Saves a window's main view. ``stretch`` bakes the STF into the exported copy."""
+        self._app.save(path, self._window(window), stretch=stretch)
 
     def close_window(self, window: str | None = None) -> None:
         """Closes an image window."""
@@ -496,6 +497,10 @@ class AppHandlers:
             ]
         )
         self._app.set_stf(stf, self._window(window))
+
+    def apply_stf(self, window: str | None = None) -> str:
+        """Bakes the display stretch into the pixels; returns the process id applied."""
+        return self._app.apply_stf(self._window(window)).process_id
 
     # --- state ----------------------------------------------------------------
     def snapshot(self) -> dict:

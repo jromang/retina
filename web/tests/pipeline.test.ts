@@ -440,4 +440,39 @@ describe('editing a plan step', () => {
     expect((surveys[0]?.params as { preset?: string }).preset).toBe('seestar');
     spy.mockRestore();
   });
+
+  it('regroups when the preset changes — the table governed by it must follow', async () => {
+    // The bug this pins: picking the preset in step 3 annulled the plan but left the table of
+    // step 2 grouped by the previous tolerances, so the user read a grouping the plan would
+    // not build.
+    setInventory([frame()]);
+    model.preset.value = 'auto';
+    model.plan.value = { steps: [], notes: [], output_dir: '/data/out' } as never;
+    const calls: { method: string; params?: unknown }[] = [];
+    const spy = vi
+      .spyOn(client, 'call')
+      .mockImplementation(async (method: string, params?: unknown) => {
+        calls.push({ method, params });
+        return { groups: [], matches: {} } as never;
+      });
+
+    await model.setPreset('osc');
+
+    const surveys = calls.filter((a) => a.method === 'pipeline.survey');
+    expect(surveys).toHaveLength(1);
+    expect((surveys[0]?.params as { preset?: string }).preset).toBe('osc');
+    expect(model.plan.value).toBeNull();
+    spy.mockRestore();
+  });
+
+  it('does not re-survey when the preset is set to what it already was', async () => {
+    setInventory([frame()]);
+    model.preset.value = 'osc';
+    const spy = vi.spyOn(client, 'call').mockResolvedValue({ groups: [], matches: {} } as never);
+
+    await model.setPreset('osc');
+
+    expect(spy).not.toHaveBeenCalled();
+    spy.mockRestore();
+  });
 });

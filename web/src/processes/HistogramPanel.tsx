@@ -49,9 +49,16 @@ function transferFor(processId: string, values: Record<string, unknown>): Transf
     };
     return (x) => ghsTransfer(x, p);
   }
-  const shadows = number(values, 'shadows', 0);
-  const midtones = number(values, 'midtones', 0.5);
-  const highlights = number(values, 'highlights', 1);
+  // Per-channel triples win over the scalars when they are set — otherwise a baked
+  // auto-stretch would plot the three values it does not use. One curve is drawn, for the
+  // first channel: the histogram behind it is already the union of the channels, and three
+  // superimposed curves would say less than one.
+  const perChannel = values['channels'];
+  const triple =
+    Array.isArray(perChannel) && perChannel.length >= 3 ? perChannel.map(Number) : null;
+  const shadows = triple ? triple[0]! : number(values, 'shadows', 0);
+  const midtones = triple ? triple[1]! : number(values, 'midtones', 0.5);
+  const highlights = triple ? triple[2]! : number(values, 'highlights', 1);
   return (x) => applyChannelStf(x, shadows, midtones, highlights);
 }
 

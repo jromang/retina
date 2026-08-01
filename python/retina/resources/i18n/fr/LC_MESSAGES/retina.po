@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Retina VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-07-30 23:52+0200\n"
+"POT-Creation-Date: 2026-08-01 16:02+0200\n"
 "PO-Revision-Date: 2026-07-27 14:30+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: fr\n"
@@ -84,11 +84,12 @@ msgstr "page de documentation hors de l'arborescence : {id!r}"
 msgid "No documentation page for {id!r}"
 msgstr "Aucune page de documentation pour {id!r}"
 
+#, python-brace-format
+msgid "Start with a guide, or pick one of the {count} processes."
+msgstr "Commencez par un guide, ou choisissez parmi les {count} process."
+
 msgid "Documentation"
 msgstr "Documentation"
-
-msgid "Start with a guide, or pick a process."
-msgstr "Commencez par un guide, ou choisissez un process."
 
 msgid "Guides"
 msgstr "Guides"
@@ -1542,6 +1543,17 @@ msgstr "Milieu (midtones)"
 
 msgid "Highlights (white point)"
 msgstr "Point blanc (highlights)"
+
+msgid "Per channel (shadows, midtones, highlights, …)"
+msgstr "Par canal (ombres, tons moyens, hautes lumières, …)"
+
+#, python-brace-format
+msgid ""
+"channels expects triples (shadows, midtones, highlights): {n} values "
+"given."
+msgstr ""
+"channels attend des triplets (ombres, tons moyens, hautes lumières) : {n}"
+" valeurs données."
 
 msgid "Working profile"
 msgstr "Profil de travail"

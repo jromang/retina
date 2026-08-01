@@ -40,6 +40,7 @@ import {
   scan,
   selectedStep,
   setExcluded,
+  setPreset,
   start,
   totalIntegration,
   unknownFrames,
@@ -572,8 +573,7 @@ export function PipelineTab() {
               value={preset.value}
               disabled={enCours}
               onChange={(e) => {
-                preset.value = (e.target as HTMLSelectElement).value;
-                plan.value = null;
+                void setPreset((e.target as HTMLSelectElement).value);
               }}
             >
               {presets.value.map((p) => (

@@ -24,8 +24,11 @@ is **destructive**: it rewrites pixel values into the view history.
 
 ## Use cases
 
-- **"Bake" an auto-stretch**: commit the STF's non-destructive stretch into the pixels
-  (see `HistogramTransformation.from_stf_channel`) once the composition is settled.
+- **"Bake" an auto-stretch**: commit the STF's non-destructive stretch into the pixels once
+  the composition is settled. `HistogramTransformation.from_stf(view.stf)` builds the process
+  that reproduces the display exactly, channel by channel; the *Apply* button of the histogram
+  panel — and `app.apply_stf()` — is that call, followed by a reset of the STF so the stretch
+  is not shown twice.
 - **Set the black point** to anchor the sky background without clipping stars.
 - **Lift the midtones** (faint nebulosity) by lowering the midtones slider.
 - **Recover highlights** by lowering the white point when star cores saturate.
@@ -63,6 +66,12 @@ $m \to 1$ darkens to the extreme ($\operatorname{mtf}\to 0$), and $m = 0.5$ is t
   the image brightens, above it darkens.
 - **`highlights`** — *real*, default `1.0`, range `0`–`1`. White point: input value mapped to 1.
   Any higher pixel is clipped to white.
+- **`channels`** — *floatlist*, default empty. Per-channel triples
+  `(shadows, midtones, highlights, …)`, flat. Empty means "the three values above, on every
+  channel", which is what this process always did. It exists because an auto-stretch is
+  computed **per channel** — `STF.auto_from_image` reads the median of each one — so baking
+  one with a single triple would shift the colour balance of the very display it reproduces.
+  A channel beyond the list keeps the last triple.
 
 ## Tips & pitfalls
 

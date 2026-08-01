@@ -18,6 +18,8 @@ import {
   setDragPayload,
   type DragPayload,
 } from '../dnd/dnd';
+import { docTarget } from '../center/docTarget';
+import { noteProcessFocus } from './focused';
 import { pushToast } from '../notifications/store';
 import { newScript } from '../scripts/scripts';
 import { seededValues, takeSeed } from '../shell/layoutClient';
@@ -105,12 +107,20 @@ export function ProcessPanel({ processId, onClose }: Props) {
     });
   };
 
+  // The tab is asked for the page of THIS process, not for the index: the button carries a
+  // book and the tooltip promises "Documentation", so landing on a table of contents was a
+  // small betrayal — and `docTarget`, the mechanism that makes it exact, already existed for
+  // the assistant.
   const showDoc = () => {
+    docTarget.value = processId;
     void client.call('layout.show', { panel: 'doc' }).catch(() => undefined);
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+    <div
+      style={{ display: 'flex', flexDirection: 'column', height: '100%' }}
+      onPointerDownCapture={() => noteProcessFocus(processId)}
+    >
       <div style={{ flex: 1, overflowY: 'auto', padding: '8px 12px' }}>
         {Custom && <Custom processId={processId} values={values} onChange={update} />}
         {meta.parameters.length === 0 && (

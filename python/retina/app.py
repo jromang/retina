@@ -393,28 +393,40 @@ class Application:
         self._notify_windows()
         return win
 
-    def save(self, path: str, window: ImageWindow | None = None) -> None:
+    def save(self, path: str, window: ImageWindow | None = None,
+             stretch: bool = False) -> None:
+        """Write the window's main view to ``path``, the format following the extension.
+
+        FITS and XISF carry the linear data as it is; TIFF keeps 32-bit float; PNG, JPEG,
+        WebP, JPEG 2000 and JPEG XL quantize (see :mod:`retina.io.raster`).
+
+        ``stretch=True`` bakes the view's screen transfer function into **the exported copy
+        only** — the pixels in the session do not move. Without it, an 8-bit export of a
+        linear image is black, since a linear sky background sits around 1e-3: this is the
+        difference between what the screen shows and what the file holds.
+        """
         win = window or self._active
         if win is None:
             raise RuntimeError(_t("No active window to save."))
-        ext = os.path.splitext(path)[1].lower()
         # The live solution takes precedence over the keywords inherited from the source
         # file: a PlateSolve done inside Retina must end up in what we write, otherwise it
         # would have to be redone on every reopening.
+        from .io import save_image
         from .io.fits import wcs_keywords
 
         keywords = {**win.keywords, **wcs_keywords(win.wcs)}
-        if ext in (".fits", ".fit", ".fts"):
-            from .io.fits import save_fits
+        view = win.main_view
+        image = view.image
+        stf = view.stf
+        if stretch:
+            from .model.image import Image
 
-            save_fits(path, win.main_view.image, keywords)
-        elif ext == ".xisf":
-            from .io.xisf import save_xisf
-
-            save_xisf(path, win.main_view.image, keywords, stf=win.main_view.stf)
-        else:
-            raise ValueError(_t("Unsupported extension: {ext}").format(ext=ext))
-        self._echo(f"app.save({path!r})")
+            image = Image(stf.apply(image))
+            # The stretch is now IN the pixels: also recording it would make a reader apply
+            # it a second time.
+            stf = None
+        save_image(path, image, keywords, stf=stf)
+        self._echo(f"app.save({path!r}{', stretch=True' if stretch else ''})")
 
     # --- projects (.retina) ---------------------------------------------------
     @property
@@ -806,6 +818,40 @@ class Application:
         if win is not None and win.current_view is not None:
             win.current_view.stf = stf
             self._echo(f"app.set_stf({stf!r})")
+
+    def apply_stf(self, window: ImageWindow | None = None):
+        """Write the screen stretch into the pixels, and reset the STF to the identity.
+
+        The step from "I have found the right display" to "this is now the image": until it
+        existed, the values had to be read off the histogram panel and typed back into a
+        HistogramTransformation form by hand. It goes through that very process, so the
+        result is an ordinary history entry, undoable, and the echo is the process itself
+        rather than a gesture of its own.
+
+        Returns the process applied, or ``None`` when the STF is the identity — there is
+        nothing to bake then, and pushing a history entry that changes no pixel would only
+        make the undo stack lie about what happened.
+        """
+        win = window or self._active
+        if win is None or win.current_view is None:
+            raise RuntimeError(_t("No target view."))
+        view = win.current_view
+        from .model.stf import STF, ChannelSTF
+        from .processes.histogram import HistogramTransformation
+
+        process = HistogramTransformation.from_stf(view.stf)
+        if not process.channels and (process.shadows, process.midtones, process.highlights) == (
+            0.0, 0.5, 1.0
+        ):
+            return None
+        # Through `apply`, not `execute_on`: that is what pushes the history entry and echoes
+        # the process itself. The console then reads the line one would have written by hand,
+        # not a gesture of the interface.
+        self.apply(process, view)
+        # The stretch now lives in the pixels: leaving the STF in place would display it a
+        # second time, and the image would look stretched twice — because it would be.
+        view.stf = STF(channels=[ChannelSTF() for _ in view.stf.channels])
+        return process
 
     def set_interaction_mode(self, mode, window: ImageWindow | None = None) -> None:
         win = window or self._active

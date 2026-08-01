@@ -396,8 +396,8 @@ def render_index(
     """Home page: the guides, then every process by category.
 
     The guides come **before** the catalogue, and that is the only defensible order: whoever
-    arrives here without knowing what to look for needs a walkthrough, not a hundred and
-    thirty-six cards. Whoever knows what they are looking for scrolls down one line.
+    arrives here without knowing what to look for needs a walkthrough, not a wall of cards.
+    Whoever knows what they are looking for scrolls down one line.
     """
     from .i18n import translate as _t
 
@@ -405,13 +405,18 @@ def render_index(
     # `?lang=en` must be so entirely, title included. Without this parameter, the page mixed
     # an English body with a French title.
     page = lang or default_lang()
+    index = doc_index()
+    # Counted from the registry rather than written down. The figure appeared in three places
+    # in prose, and all three said 136 while the catalogue had moved on: a number nobody can
+    # forget to update is worth more than a number that is right today.
+    total = sum(len(pids) for pids in index.values())
+    lead = _t("Start with a guide, or pick one of the {count} processes.", page)
     parts = [f"<h1>{_esc(_t('Documentation', page))}</h1>",
-             '<p class="doc-brief">'
-             f"{_esc(_t('Start with a guide, or pick a process.', page))}</p>"]
+             f'<p class="doc-brief">{_esc(lead.format(count=total))}</p>']
     guide_ids = guides()
     if guide_ids:
         parts.append(_section(_t("Guides", page), [_card(gid, lang) for gid in guide_ids]))
-    for category, pids in doc_index().items():
+    for category, pids in index.items():
         parts.append(_section(category, [_card(pid, lang) for pid in pids]))
     return _page(
         "\n".join(parts),

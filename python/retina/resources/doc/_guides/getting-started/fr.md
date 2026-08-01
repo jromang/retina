@@ -137,8 +137,8 @@ un poids nul dans l'empilement. Le premier invalide le cache de calibration, le 
 
 ## 5. Où aller ensuite
 
-- **Le catalogue de process** — la page d'accueil de la documentation liste les 136 process
-  par catégorie. Chaque page dit ce que fait le process, ses paramètres et leurs valeurs par
+- **Le catalogue de process** — la page d'accueil de la documentation liste tous les process
+  par catégorie, et les compte pour vous. Chaque page dit ce que fait le process, ses paramètres et leurs valeurs par
   défaut.
 - **L'ordre naturel d'une session** : `retina-doc://ImageCalibration` →
   `retina-doc://StarAlignment` → `retina-doc://Integration` →

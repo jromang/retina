@@ -235,6 +235,23 @@ export interface Hello {
   /** Session: recents, reopening, current project, documents to restore where applicable. */
   session: SessionState;
   methods: string[];
+  /** File extensions by group, from the domain's dispatch point — see {@link ImageFormats}. */
+  formats?: ImageFormats;
+}
+
+/**
+ * Extensions the domain reads and writes, without the leading dot.
+ *
+ * Published by the server rather than mirrored here: a list of our own would drift at the
+ * first format added. `byte_raster` is the one that carries a warning — those formats
+ * quantize, so a linear image written into one of them comes out black.
+ */
+export interface ImageFormats {
+  astro: string[];
+  float_raster: string[];
+  byte_raster: string[];
+  /** Camera RAW — read only: rawpy demosaics, it does not write back. */
+  raw: string[];
 }
 
 /** `project.command` notification — same shape as `layout.command`. */

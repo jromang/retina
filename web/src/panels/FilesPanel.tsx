@@ -25,7 +25,8 @@ import { client } from '../api/client';
 import { setDragImage, setFileDrag } from '../dnd/dnd';
 import { openScriptFromDisk } from '../scripts/scripts';
 import { filesRoot, setFilesRoot } from './filesRoot';
-import { IMAGE_FILTERS, askPath } from '../shell/native';
+import { isReadableImage } from '../api/formats';
+import { askPath } from '../shell/native';
 import { useTreeNav } from '../ui/treeNav';
 import { rowWindow } from './processRows';
 import {
@@ -44,7 +45,6 @@ import {
   withRoot,
 } from './fileTree';
 
-const IMAGE_EXTENSIONS = new Set(IMAGE_FILTERS[0]?.extensions ?? []);
 const MUTED = 'var(--vscode-descriptionForeground)';
 /** Height imposed on rows: arithmetic windowing demands a known height. */
 const ROW_HEIGHT = 22;
@@ -85,9 +85,8 @@ function extensionOf(name: string): string {
 
 function iconFor(entry: FileEntry, expanded: boolean): string {
   if (entry.is_dir) return expanded ? 'folder-opened' : 'folder';
-  const extension = extensionOf(entry.name);
-  if (IMAGE_EXTENSIONS.has(extension)) return 'file-media';
-  if (extension === 'py') return 'file-code';
+  if (isReadableImage(entry.name)) return 'file-media';
+  if (extensionOf(entry.name) === 'py') return 'file-code';
   return 'file';
 }
 
@@ -182,8 +181,7 @@ export function FilesPanel() {
       toggle(row);
       return;
     }
-    const extension = extensionOf(row.entry.name);
-    if (IMAGE_EXTENSIONS.has(extension)) {
+    if (isReadableImage(row.entry.name)) {
       // `app.open`, hence echoed: opening from this panel writes the same line as if it had
       // been typed in the console.
       void client.call('app.open', { path: row.path }).catch(fail);

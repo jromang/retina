@@ -11,6 +11,7 @@
 import { batch, computed, signal } from '@preact/signals';
 
 import { client, type ConnectionState } from '../api/client';
+import { imageFormats } from '../api/formats';
 import { hydrateNotifications, pushToast } from '../notifications/store';
 import { adoptSession, showHomeIfEmpty } from '../project/project';
 import { adoptLayout } from '../shell/layoutClient';
@@ -75,6 +76,20 @@ export function viewById(id: string): { view: ViewState; win: WindowState } | nu
 }
 
 /**
+ * True if the screen stretch moves anything — the identity is (0, 0.5, 1) per channel.
+ *
+ * This is the exact question behind two gestures: whether baking the stretch would do
+ * something, and whether an 8-bit export is about to produce a file darker than the screen.
+ * Both used to guess it separately.
+ */
+export function stfIsVisible(view: ViewState | null | undefined): boolean {
+  if (!view?.stf.enabled) return false;
+  return view.stf.channels.some(
+    (c) => c.shadows !== 0 || c.midtones !== 0.5 || c.highlights !== 1,
+  );
+}
+
+/**
  * Subscribers to the Python echo of the interface actions.
  *
  * The echo is **not** stored here. It used to be, in a bounded buffer that two views rendered
@@ -133,6 +148,9 @@ export function connectStore(): void {
       batch(() => {
         snapshot.value = hello.snapshot;
         methods.value = hello.methods;
+        // The file dialogs and the 8-bit export warning read this: the domain owns the list
+        // of formats, the interface only groups them into named filters.
+        if (hello.formats) imageFormats.value = hello.formats;
         // The hello is not a `state.changed` notification: the center is hydrated here.
         hydrateNotifications(hello.snapshot.notifications ?? []);
       });

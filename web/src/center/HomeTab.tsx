@@ -23,7 +23,7 @@ import {
 import { folder as pipelineFolder, preset as pipelinePreset, scan as pipelineScan }
   from '../pipeline/model';
 import { requestActivate } from '../shell/layoutClient';
-import { IMAGE_FILTERS, askPath } from '../shell/native';
+import { askPath } from '../shell/native';
 import { docTarget } from './docTarget';
 
 const MUTED = 'var(--vscode-descriptionForeground)';
@@ -138,7 +138,7 @@ export function HomeTab() {
   };
 
   const ouvrirImage = () => {
-    void askPath({ title: m.dialog_open_image(), filters: IMAGE_FILTERS }).then((paths) => {
+    void askPath({ title: m.dialog_open_image() }).then((paths) => {
       if (paths?.[0]) {
         // `app.open`, hence echoed: opening from home writes the same line as the console.
         void client.call('app.open', { path: paths[0] }).catch((e: unknown) => console.error(e));

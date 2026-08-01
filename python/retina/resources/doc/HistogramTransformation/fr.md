@@ -63,6 +63,12 @@ $m \to 1$ assombrit à l'extrême ($\operatorname{mtf}\to 0$), et $m = 0{,}5$ re
   dessous de 0,5 l'image s'éclaircit, au-dessus elle s'assombrit.
 - **`highlights`** — *real*, défaut `1.0`, plage `0`–`1`. Point blanc : valeur d'entrée mappée sur 1.
   Tout pixel supérieur est écrêté à blanc.
+- **`channels`** — *floatlist*, défaut vide. Triplets par canal
+  `(shadows, midtones, highlights, …)`, à plat. Vide signifie « les trois valeurs ci-dessus,
+  sur chaque canal », ce que ce process a toujours fait. Il existe parce qu'un auto-stretch se
+  calcule **par canal** — `STF.auto_from_image` lit la médiane de chacun —, si bien que le
+  graver avec un seul triplet décalerait l'équilibre des couleurs de l'affichage même qu'il
+  reproduit. Un canal au-delà de la liste garde le dernier triplet.
 
 ## Astuces & pièges
 

@@ -29,7 +29,7 @@ import {
   windows,
 } from '../state/store';
 import { ParameterGrid } from '../processes/ParameterGrid';
-import { askPath } from '../shell/native';
+import { saveImageAs } from '../shell/saveImage';
 import { useTreeNav } from '../ui/treeNav';
 import { processRows, rowWindow, type ProcessRow } from './processRows';
 import { openContextMenu, type ContextMenuNode } from '../ui/ContextMenu';
@@ -286,9 +286,12 @@ export function windowMenuItems(win: WindowState): ContextMenuNode[] {
       label: m.panels_save_as(),
       icon: 'save',
       run: () => {
-        void askPath({ title: m.panels_save_window({ window: win.id }), save: true }).then((paths) => {
-          if (paths?.[0]) call('app.save', { path: paths[0], window: win.id });
-        });
+        // The main view, not the active one: `app.save` writes the window's main view, and
+        // the 8-bit warning must judge the STF of what is actually going to be written.
+        const main = win.views.find((view) => !view.is_preview);
+        void saveImageAs(main, win.id, m.panels_save_window({ window: win.id })).catch(
+          () => undefined,
+        );
       },
     },
     'separator',
