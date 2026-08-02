@@ -20,6 +20,11 @@ retenant les pixels dont la **teinte** tombe dans une plage.
 dominante verte des étoiles, désaturer un halo bleu. Ce sont des gestes qu'un masque de
 luminance ne peut pas faire — la teinte n'a rien à voir avec la clarté.
 
+![Image source — ColorMask](figures/source.webp)
+![Masque produit — ColorMask](figures/mask.webp)
+
+*L'image source, et le masque de la plage de teintes sélectionnée.*
+
 ## Trois pièges, et comment ils sont traités
 
 **La teinte est circulaire.** Le rouge est à la fois à 0° et à 360°. Une plage « de 340 à 20 »

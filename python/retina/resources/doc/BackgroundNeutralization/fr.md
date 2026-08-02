@@ -19,6 +19,11 @@ image couleur mal calibrée présente souvent un fond légèrement rougeâtre, v
 (pollution lumineuse, filtres, réponse du capteur) ; ce process rend le fond **neutre en teinte**
 avant balance des blancs ou étirement, sans toucher au reste de la dynamique.
 
+![Avant — BackgroundNeutralization](figures/before.webp)
+![Après — BackgroundNeutralization](figures/after.webp)
+
+*Avant, et après neutralisation du fond de ciel d'un composite non calibré.*
+
 ## Cas d'usage
 
 - **Retirer une dominante de fond** avant `ColorCalibration` ou `PhotometricColorCalibration`, pour

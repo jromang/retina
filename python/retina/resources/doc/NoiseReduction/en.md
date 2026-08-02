@@ -22,6 +22,11 @@ the simplest entry point for smoothing residual noise after integration, before 
 the more specialized tools (`TGVDenoise`, `WaveletDenoise`, `NonLocalMeansDenoise`…) that offer
 finer control. It is a thin wrapper around `skimage.restoration`.
 
+![Before — NoiseReduction](figures/before.webp)
+![After — NoiseReduction](figures/after.webp)
+
+*Before, and after total-variation denoising at 0.15, on a crop at the pixel scale.*
+
 ## Use cases
 
 - **Quick clean-up** of an integrated image before stretching, without tuning many parameters.

@@ -21,6 +21,11 @@ layers back untouched. Result: a galaxy's or bright star's saturated core and it
 surrounding extensions become visible at the same time, without the halo or local-contrast
 crushing a plain curves stretch would produce.
 
+![Before — HDRMultiscaleTransform](figures/before.webp)
+![After — HDRMultiscaleTransform](figures/after.webp)
+
+*Before, and after a 6-layer HDR compression: the core comes back into range.*
+
 ## Use cases
 
 - **Reveal a galaxy's core and extensions** (bright bulge + faint spiral arms) in a single

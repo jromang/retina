@@ -17,6 +17,11 @@ references:
 résiduel, dégradés de lune) sur une grille robuste, puis le **soustrait**. C'est l'équivalent de
 l'ABE de PixInsight : indispensable pour aplatir le fond avant l'étirement et l'étalonnage couleur.
 
+![Avant — BackgroundExtraction](figures/before.webp)
+![Après — BackgroundExtraction](figures/after.webp)
+
+*Avant, et après retrait du fond modélisé. Même étirement d'écran des deux côtés, pris sur la source : le ciel s'aplanit, la nébulosité reste.*
+
 ## Cas d'usage
 
 - **Retirer un gradient** de pollution lumineuse ou de lune sur un champ large.

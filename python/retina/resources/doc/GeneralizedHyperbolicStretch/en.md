@@ -20,6 +20,11 @@ it exactly where the data you care about lives.
 Proposed by David Payne in 2021 and developed with Mike Cranfield, it became a native PixInsight
 module and remains at the heart of award-winning workflows.
 
+![Before — GeneralizedHyperbolicStretch](figures/before.webp)
+![After — GeneralizedHyperbolicStretch](figures/after.webp)
+
+*The linear frame as stored, and the same frame after a hyperbolic stretch.*
+
 ## Use cases
 
 - **First stretch of linear data**: the gesture it was designed for. Place the symmetry point

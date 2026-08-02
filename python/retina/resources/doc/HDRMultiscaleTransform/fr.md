@@ -21,6 +21,11 @@ les couches de détail sans les toucher. Résultat : les cœurs saturés d'une g
 étoile brillante et les extensions faibles environnantes deviennent simultanément visibles,
 sans le halo ni l'aplatissement du contraste local qu'un simple étirement de courbe produirait.
 
+![Avant — HDRMultiscaleTransform](figures/before.webp)
+![Après — HDRMultiscaleTransform](figures/after.webp)
+
+*Avant, et après une compression HDR à 6 couches : le cœur revient dans la plage.*
+
 ## Cas d'usage
 
 - **Révéler le cœur et les extensions d'une galaxie** (bulbe brillant + bras spiraux faibles)

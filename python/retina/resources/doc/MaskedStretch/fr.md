@@ -21,6 +21,11 @@ substitut pratique à un étirement classique + masque d'étoiles manuel, quand 
 le fond de ciel à un niveau cible sans faire exploser le cœur des étoiles ni saturer les
 hautes lumières.
 
+![Avant — MaskedStretch](figures/before.webp)
+![Après — MaskedStretch](figures/after.webp)
+
+*La pose linéaire telle que stockée, et la même après un étirement masqué vers un fond à 0,25.*
+
 ## Cas d'usage
 
 - **Premier étirement** d'une image linéaire (post-calibration/intégration) quand on veut

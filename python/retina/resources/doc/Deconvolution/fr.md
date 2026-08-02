@@ -25,6 +25,11 @@ Trois choses la distinguent d'un Richardson-Lucy nu :
 - une **régularisation** multi-échelle empêche le bruit de fond d'exploser quand on itère ;
 - le **deringing** atténue les anneaux autour des sources brillantes.
 
+![Avant — Deconvolution](figures/before.webp)
+![Après — Deconvolution](figures/after.webp)
+
+*Avant, et après 8 itérations régularisées avec deringing. Les profils stellaires se resserrent sans les anneaux sombres que laisse un tirage non régularisé.*
+
 ## Cas d'usage
 
 - **Resserrer les étoiles** et révéler la structure des galaxies sur des poses bien échantillonnées.

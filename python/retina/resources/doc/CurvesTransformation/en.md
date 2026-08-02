@@ -21,6 +21,11 @@ the finest and most general tonal control tool in the software. It can apply glo
 (`RGB/K`) or to a single channel (`R`, `G`, `B`), which also enables targeted color
 corrections.
 
+![Before — CurvesTransformation](figures/before.webp)
+![After — CurvesTransformation](figures/after.webp)
+
+*Before, and after a contrast S-curve.*
+
 ## Use cases
 
 - **Boost local contrast** with an S-curve: dig into the shadows, lift the highlights, while

@@ -21,6 +21,11 @@ inversée par endroits — ce qui en fait l'outil de contrôle tonal le plus fin
 général du logiciel. Elle peut s'appliquer globalement (`RGB/K`) ou à un seul canal
 (`R`, `G`, `B`), ce qui permet aussi des corrections colorimétriques ciblées.
 
+![Avant — CurvesTransformation](figures/before.webp)
+![Après — CurvesTransformation](figures/after.webp)
+
+*Avant, et après une courbe en S de contraste.*
+
 ## Cas d'usage
 
 - **Renforcer le contraste local** avec une courbe en S : creuser les ombres, hausser les

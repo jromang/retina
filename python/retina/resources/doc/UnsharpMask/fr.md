@@ -20,6 +20,11 @@ structures fines), puis on réinjecte ce résidu, amplifié, par-dessus l'image 
 technique de « masque flou » historique (héritée de la photographie argentique), ici implémentée
 par `skimage.filters.unsharp_mask` sur un flou gaussien.
 
+![Avant — UnsharpMask](figures/before.webp)
+![Après — UnsharpMask](figures/after.webp)
+
+*Avant, et après un masque flou de rayon 2 à 0,8. Le contraste local monte ; le niveau global, non.*
+
 ## Cas d'usage
 
 - **Faire ressortir les structures fines** d'une nébuleuse (filaments, dentelles) après un

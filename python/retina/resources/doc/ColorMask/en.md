@@ -20,6 +20,11 @@ What it is for: strengthening the Hα regions of a nebula without touching the r
 the green cast of stars, desaturating a blue halo. These are gestures a luminance mask cannot
 make — hue has nothing to do with lightness.
 
+![Source image — ColorMask](figures/source.webp)
+![Generated mask — ColorMask](figures/mask.webp)
+
+*The source image, and the mask of the selected hue range.*
+
 ## Three traps, and how they are handled
 
 **Hue is circular.** Red sits at both 0° and 360°. A range "from 340 to 20" must therefore cross

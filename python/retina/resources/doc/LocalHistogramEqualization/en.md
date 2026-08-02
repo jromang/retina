@@ -20,6 +20,11 @@ equalization function for each local region** of the image and smoothly interpol
 neighboring regions. The result lifts contrast on fine structures (nebula filaments, galaxy
 arms, lunar/planetary detail) without crushing global tones or blowing out the sky background.
 
+![Before — LocalHistogramEqualization](figures/before.webp)
+![After — LocalHistogramEqualization](figures/after.webp)
+
+*Before, and after local equalization (clip 0.02, kernel 128).*
+
 ## Use cases
 
 - **Bring out faint structure** (filaments, nebula wisps) buried in low-contrast background

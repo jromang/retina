@@ -25,6 +25,11 @@ Three things set it apart from a bare Richardson-Lucy:
 - a multiscale **regularization** keeps the background noise from exploding as you iterate;
 - **deringing** attenuates the rings around bright sources.
 
+![Before — Deconvolution](figures/before.webp)
+![After — Deconvolution](figures/after.webp)
+
+*Before, and after 8 regularized iterations with deringing. Star profiles tighten without the dark rings an unregularized run leaves behind.*
+
 ## Use cases
 
 - **Tighten stars** and reveal galaxy structure on well-sampled exposures.

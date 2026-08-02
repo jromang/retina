@@ -21,6 +21,11 @@ smooths them (opening/closing), isolates small bright or dark details (top-hat),
 their outlines (gradient). It is a shape-based tool, complementary to linear filters
 (convolution): it acts on the **local geometry** of extrema rather than a weighted average.
 
+![Before — MorphologicalTransformation](figures/before.webp)
+![After — MorphologicalTransformation](figures/after.webp)
+
+*Before, and after an erosion with a 3-pixel structuring element.*
+
 ## Use cases
 
 - **Isolate small stars** or bright spikes with `white_tophat`, to build or refine a star mask.

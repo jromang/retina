@@ -21,6 +21,11 @@ ce process ajuste **un seul polynôme global** de degré réglable — un outil 
 bien adapté aux gradients doux et globaux (pollution lumineuse, vignettage résiduel, lueur
 lunaire) plutôt qu'aux variations locales complexes.
 
+![Avant — GradientCorrection](figures/before.webp)
+![Après — GradientCorrection](figures/after.webp)
+
+*Avant, et après soustraction d'une surface polynomiale de degré 2.*
+
 ## Cas d'usage
 
 - **Retirer un gradient de pollution lumineuse** à faible degré (linéaire ou faiblement

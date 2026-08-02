@@ -22,6 +22,11 @@ PixelMath — les formules implémentées ici sont les nôtres ; ce qui est repr
 | `halo` | **Érode** la couche d'étoiles : elles rétrécissent au lieu de pâlir. | oui |
 | `morphological` | Filtre de minimum sur l'image, mélangé à l'original. | non |
 
+![Avant — StarReduction](figures/before.webp)
+![Après — StarReduction](figures/after.webp)
+
+*Avant, et après deux passes morphologiques à 0,6 — sans image starless.*
+
 ## Le modèle d'écran, et pourquoi pas une soustraction
 
 Les deux premières méthodes extraient la couche d'étoiles par le **modèle d'écran** :

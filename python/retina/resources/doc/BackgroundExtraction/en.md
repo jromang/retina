@@ -17,6 +17,11 @@ references:
 vignetting, moon glow) on a robust grid, then **subtracts** it. It is the equivalent of
 PixInsight's ABE: essential to flatten the background before stretching and color calibration.
 
+![Before — BackgroundExtraction](figures/before.webp)
+![After — BackgroundExtraction](figures/after.webp)
+
+*Before, and after removing the modelled background. Same screen stretch on both, taken from the source: the sky flattens, the nebulosity stays.*
+
 ## Use cases
 
 - **Remove a gradient** from light pollution or the moon over a wide field.

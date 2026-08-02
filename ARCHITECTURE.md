@@ -661,6 +661,48 @@ or fail depending on the machine's `LANG`.
 
 ---
 
+## 9 bis. The documentation, and why it is domain data
+
+`python/retina/documentation.py` is a **domain** module: the console and the GUI consume the same
+pages the same way. Sources live in `python/retina/resources/doc/<PageId>/{en,fr}.md`, where a
+page id is either a `process_id` or `_guides/<slug>` — a class name can hold neither a leading
+underscore nor a slash, so the two namespaces cannot collide and one identifier travels through
+`retina.doc()`, `render_page`, the `retina-doc://` links and the HTTP routes. Everything ships in
+the wheel; KaTeX is vendored; nothing needs the network to be read.
+
+Three things are **generated rather than written**, because a page that restates the code is a
+page that will contradict it:
+
+- the **`## Console` section** of every process page — class name, every parameter with its
+  default, and the single `app.run(...)` that executes it, built from the registry and the
+  `Parameter` schema. It is the reference statement of console/GUI parity (§4), which the
+  catalogue used to describe only as a set of form fields. Three pages (`ConeSearch`,
+  `MosaicPlanner`, `SurveyReference`) hand-write the section to show how to read `.result`; a
+  heading already present wins, and nothing is appended.
+- the **`related` chips** under the header, from the frontmatter — validated by the tests since
+  the beginning and, until now, rendered nowhere.
+- the **figures**, produced by running Retina on real data (`scripts/gen_doc_figures.py`, a
+  deliberate act; one spec module per process under `scripts/doc_figures/`, written against the
+  public API so each doubles as an executable example). A screenshot is a claim about the code
+  that nothing keeps true; a regenerable figure is not. Storage is in-repo under
+  `<PageId>/figures/*.webp`, with a per-image and a total ceiling enforced by `tests/test_docs.py`
+  — the docs travel inside the wheel, and PixInsight's 184 MB documentation tree is the
+  cautionary tale.
+
+Figures are referenced **relatively** (`figures/before.webp`) so the same Markdown works from
+disk and over HTTP. The viewer writes the page into an `iframe` with `document.write`, where a
+relative URL resolves against the application: hence `render_page(media_base=…)`, which rewrites
+`src` attributes only, and the `/api/doc-media/` route. A `<base href>` would have been shorter
+and wrong — the pages carry a table of contents whose `#` anchors it would send out of the frame.
+
+`documentation.search()` scans the pages of one language in memory (`lru_cache`), weighting
+title, keywords and body, requiring every term, and **folding diacritics**: half the catalogue is
+French and a search box is typed at speed, so an unaccented query has to find the accented word.
+Exposed as `retina.doc_search(...)` and over `/api/doc-search`; the corpus is small enough that
+an index would be machinery to maintain rather than time saved.
+
+---
+
 ## 10. MCP server and the built-in assistant
 
 ### MCP server — `python/retina/server/mcp/`

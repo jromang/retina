@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Retina VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-08-01 16:02+0200\n"
+"POT-Creation-Date: 2026-08-02 09:17+0200\n"
 "PO-Revision-Date: 2026-07-27 14:30+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: fr\n"
@@ -83,6 +83,16 @@ msgstr "page de documentation hors de l'arborescence : {id!r}"
 #, python-brace-format
 msgid "No documentation page for {id!r}"
 msgstr "Aucune page de documentation pour {id!r}"
+
+msgid "Related"
+msgstr "En relation"
+
+msgid ""
+"Every gesture in the interface echoes its Python. The same object runs "
+"headless:"
+msgstr ""
+"Chaque geste de l'interface émet son équivalent Python. Le même objet "
+"s'exécute sans coque :"
 
 #, python-brace-format
 msgid "Start with a guide, or pick one of the {count} processes."

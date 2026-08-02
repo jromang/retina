@@ -19,6 +19,11 @@ calibrated color image often shows a faint reddish, greenish, or bluish backgrou
 pollution, filters, sensor response); this process makes the background **hue-neutral** before
 white balancing or stretching, without touching the rest of the dynamic range.
 
+![Before — BackgroundNeutralization](figures/before.webp)
+![After — BackgroundNeutralization](figures/after.webp)
+
+*Before, and after neutralizing the sky background of an uncalibrated composite.*
+
 ## Use cases
 
 - **Remove a background color cast** before `ColorCalibration` or `PhotometricColorCalibration`,

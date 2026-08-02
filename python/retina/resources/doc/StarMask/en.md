@@ -21,6 +21,11 @@ the source image but **creates a new window** holding the mask, ready to be appl
 process in order to protect — or, conversely, to target — the stars. The detection catalog from
 the last run stays available through the instance's `.stars` attribute.
 
+![Source image — StarMask](figures/source.webp)
+![Generated mask — StarMask](figures/mask.webp)
+
+*The source field, and the mask the process builds from it.*
+
 ## Use cases
 
 - **Protect the stars** during aggressive noise reduction or deconvolution: apply the mask

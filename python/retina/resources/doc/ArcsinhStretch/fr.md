@@ -22,6 +22,11 @@ sont conservés, donc les **teintes ne dérivent pas vers le blanc** quand les �
 cœur d'une galaxie approchent la saturation. C'est un process **destructif** (il réécrit les
 pixels), à la différence de la STF qui n'agit que sur l'affichage.
 
+![Avant — ArcsinhStretch](figures/before.webp)
+![Après — ArcsinhStretch](figures/after.webp)
+
+*La pose linéaire telle que stockée, et la même après un étirement arcsinh.*
+
 ## Cas d'usage
 
 - **Étirer une image linéaire** (issue de l'intégration) en gardant des couleurs fidèles sur

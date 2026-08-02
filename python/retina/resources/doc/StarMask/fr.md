@@ -22,6 +22,11 @@ masque, prête à être appliquée à un autre process pour protéger — ou au 
 les étoiles. Le catalogue de détection de la dernière exécution reste accessible via
 l'attribut `.stars` de l'instance.
 
+![Image source — StarMask](figures/source.webp)
+![Masque produit — StarMask](figures/mask.webp)
+
+*Le champ source, et le masque que le process en construit.*
+
 ## Cas d'usage
 
 - **Protéger les étoiles** pendant un débruitage ou une déconvolution agressive : appliquer le

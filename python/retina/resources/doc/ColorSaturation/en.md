@@ -20,6 +20,11 @@ across the whole image. Unlike `SCNR` (which specifically targets green) or `Col
 (which rebalances per-channel gains), `ColorSaturation` changes neither hue nor perceived
 brightness: it pushes or pulls "colorfulness" without touching the image's tonal structure.
 
+![Before — ColorSaturation](figures/before.webp)
+![After — ColorSaturation](figures/after.webp)
+
+*Before, and after doubling saturation — hue and luminance unchanged.*
+
 ## Use cases
 
 - **Bring out color** in nebulae or galaxies whose chromatic signal is faint after stretching

@@ -22,6 +22,11 @@ d'entrée le plus simple pour lisser le bruit résiduel après intégration, ava
 outils plus spécialisés (`TGVDenoise`, `WaveletDenoise`, `NonLocalMeansDenoise`…) qui offrent
 davantage de réglages fins. C'est un mince wrapper autour de `skimage.restoration`.
 
+![Avant — NoiseReduction](figures/before.webp)
+![Après — NoiseReduction](figures/after.webp)
+
+*Avant, et après débruitage par variation totale à 0,15, sur un recadrage à l'échelle du pixel.*
+
 ## Cas d'usage
 
 - **Nettoyage rapide** d'une image intégrée avant étirement, sans régler de nombreux

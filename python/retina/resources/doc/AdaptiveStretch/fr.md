@@ -22,6 +22,11 @@ sélectivement le contraste des zones structurées (nébulosités, bras de galax
 le grain du fond de ciel. Il s'agit d'un process **destructif** : les pixels sont réécrits dans
 l'historique de la vue.
 
+![Avant — AdaptiveStretch](figures/before.webp)
+![Après — AdaptiveStretch](figures/after.webp)
+
+*La pose linéaire telle que stockée, et la même après la courbe que le process tire de l'image elle-même.*
+
 ## Cas d'usage
 
 - **Étirer une image linéaire** en préservant les faibles structures diffuses sans faire

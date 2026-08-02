@@ -21,6 +21,11 @@ introduit un champ auxiliaire qui absorbe les **rampes lisses** (dégradés de l
 typiques des nébuleuses et des halos d'étoiles) tout en gardant les bords nets. C'est une
 implémentation **numpy pure, sans dépendance externe**, de l'algorithme de Bredies-Kunisch-Pock.
 
+![Avant — TGVDenoise](figures/before.webp)
+![Après — TGVDenoise](figures/after.webp)
+
+*Avant, et après 100 itérations TGV à 0,15 : le grain part, les dégradés restent.*
+
 ## Cas d'usage
 
 - **Débruiter le fond de ciel et les nébulosités faibles** sans écraser les dégradés lumineux subtils

@@ -8,7 +8,7 @@ from __future__ import annotations
 
 from .app import Application, app
 from .backend import HAS_RUST, backend_name, gaussian_convolve
-from .documentation import doc
+from .documentation import doc, doc_search
 from .model.image import Image
 from .model.stf import STF, ChannelSTF
 from .model.view import View
@@ -71,6 +71,7 @@ __all__ = [
     "app",
     "backend_name",
     "doc",
+    "doc_search",
     "gaussian_convolve",
     "get",
     "load_builtin",

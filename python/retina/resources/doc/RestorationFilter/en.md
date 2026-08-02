@@ -21,6 +21,11 @@ a single pass, making it noticeably faster at the cost of a simpler noise model.
 parameter arbitrates the sharpness/noise trade-off; the `unsupervised` mode estimates it
 automatically through a Bayesian approach.
 
+![Before — RestorationFilter](figures/before.webp)
+![After — RestorationFilter](figures/after.webp)
+
+*Before, and after a Wiener restoration — direct, non-iterative.*
+
 ## Use cases
 
 - **Fast correction of focus blur or seeing turbulence** that can be modeled as Gaussian, on

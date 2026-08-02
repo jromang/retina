@@ -19,6 +19,11 @@ combinaison de filtres à bande étroite. Plutôt que de désaturer toute l'imag
 **plafonne** le canal ciblé par une référence « neutre » calculée à partir des deux autres
 canaux, préservant les étoiles et les teintes naturelles ailleurs dans l'image.
 
+![Avant — SCNR](figures/before.webp)
+![Après — SCNR](figures/after.webp)
+
+*Avant, et après retrait du vert. La dominante est authentique : la source est un composite trois bandes non calibré.*
+
 ## Cas d'usage
 
 - **Éliminer la dominante verte** typique des capteurs Bayer après démosaïçage ou d'une

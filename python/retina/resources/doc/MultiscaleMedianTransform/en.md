@@ -21,6 +21,11 @@ sharp edges better** (star boundaries, junctions between structures) and produce
 ringing artifacts** around high-contrast objects than its linear counterpart. It is the tool of
 choice when classic wavelet denoising or enhancement leaves visible halos.
 
+![Before — MultiscaleMedianTransform](figures/before.webp)
+![After — MultiscaleMedianTransform](figures/after.webp)
+
+*Before, and after attenuating the two finest scales.*
+
 ## Use cases
 
 - **Denoise the sky background** by attenuating/thresholding the finest detail layer

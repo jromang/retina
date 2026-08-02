@@ -19,6 +19,11 @@ est fixée par `sigma`. C'est l'opérateur de lissage le plus fondamental du cat
 process du projet à avoir été porté en Rust natif (`retina._core`), il sert de référence pour le
 motif « opérateur compilé relâchant le GIL » décrit dans `CLAUDE.md`.
 
+![Avant — GaussianConvolution](figures/before.webp)
+![Après — GaussianConvolution](figures/after.webp)
+
+*Avant, et après un flou gaussien de σ = 3 — le lissage de référence.*
+
 ## Cas d'usage
 
 - **Adoucir le bruit** avant une opération sensible aux hautes fréquences (mesure de FWHM,

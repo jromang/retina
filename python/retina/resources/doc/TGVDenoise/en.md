@@ -21,6 +21,11 @@ separated by jumps (the "staircasing" artifact), TGV² introduces an auxiliary f
 keeping edges sharp. This is a **pure numpy, dependency-free** implementation of the
 Bredies-Kunisch-Pock algorithm.
 
+![Before — TGVDenoise](figures/before.webp)
+![After — TGVDenoise](figures/after.webp)
+
+*Before, and after 100 TGV iterations at 0.15: the grain goes, the gradients stay.*
+
 ## Use cases
 
 - **Denoise the sky background and faint nebulosity** without crushing subtle brightness gradients

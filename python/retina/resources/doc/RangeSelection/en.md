@@ -20,6 +20,11 @@ is the equivalent of PixInsight's `RangeSelection` tool: a **non-destructive** p
 **creates a new window** (like `StarMask`), meant to be used as a protection or targeting
 mask on another view.
 
+![Source image — RangeSelection](figures/source.webp)
+![Generated mask — RangeSelection](figures/mask.webp)
+
+*The source image, and the mask of the selected brightness band.*
+
 ## Use cases
 
 - **Protect the sky background** during a stretch: select the low values (`lower=0`, low

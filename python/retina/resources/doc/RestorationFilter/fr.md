@@ -21,6 +21,11 @@ non-linéaire), ce filtre se calcule en une seule passe : il est donc nettement 
 au prix d'une modélisation plus simple du bruit. Le paramètre `balance` arbitre le compromis
 netteté/bruit ; le mode `unsupervised` l'estime automatiquement par une approche bayésienne.
 
+![Avant — RestorationFilter](figures/before.webp)
+![Après — RestorationFilter](figures/after.webp)
+
+*Avant, et après une restauration de Wiener — directe, non itérative.*
+
 ## Cas d'usage
 
 - **Correction rapide de flou de mise au point ou de turbulence** modélisable par une gaussienne,

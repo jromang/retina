@@ -19,6 +19,11 @@ by `sigma`. It is the most fundamental smoothing operator in the catalogue — t
 the project to be ported to native Rust (`retina._core`), and it serves as the reference example
 for the "compiled operator releasing the GIL" pattern described in `CLAUDE.md`.
 
+![Before — GaussianConvolution](figures/before.webp)
+![After — GaussianConvolution](figures/after.webp)
+
+*Before, and after a Gaussian blur of σ = 3 — the reference smoothing.*
+
 ## Use cases
 
 - **Soften noise** before an operation sensitive to high frequencies (FWHM measurement, source

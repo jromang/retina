@@ -22,6 +22,11 @@ ou ajuste finement le contraste et la luminosité d'une image déjà étirée.
 Contrairement à la STF (ScreenTransferFunction), qui n'agit que sur **l'affichage**, cette
 transformation est **destructive** : elle réécrit les valeurs de pixels dans l'historique.
 
+![Avant — HistogramTransformation](figures/before.webp)
+![Après — HistogramTransformation](figures/after.webp)
+
+*La pose linéaire telle que stockée — sans étirement d'écran, d'où le noir — et la même après la transformation.*
+
 ## Cas d'usage
 
 - **« Cuire » un auto-stretch** : reporter dans les pixels l'étirement non destructif calculé

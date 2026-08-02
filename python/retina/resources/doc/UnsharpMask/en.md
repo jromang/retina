@@ -20,6 +20,11 @@ structure), and that residual, amplified, is added back on top of the original. 
 historical "unsharp mask" technique inherited from film photography, implemented here via
 `skimage.filters.unsharp_mask` on top of a Gaussian blur.
 
+![Before — UnsharpMask](figures/before.webp)
+![After — UnsharpMask](figures/after.webp)
+
+*Before, and after an unsharp mask of radius 2 at 0.8. Local contrast rises; the overall level does not.*
+
 ## Use cases
 
 - **Bring out fine structure** in a nebula (filaments, lace-like detail) after stretching,

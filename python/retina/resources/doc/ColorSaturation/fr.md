@@ -21,6 +21,11 @@ vert) ou à `ColorCalibration` (qui rééquilibre les gains par canal), `ColorSa
 la teinte ni la luminosité perçue : il pousse ou retire de la « couleur » sans toucher au dessin
 lumineux de l'image.
 
+![Avant — ColorSaturation](figures/before.webp)
+![Après — ColorSaturation](figures/after.webp)
+
+*Avant, et après doublement de la saturation — teinte et luminance inchangées.*
+
 ## Cas d'usage
 
 - **Faire ressortir la couleur** de nébuleuses ou de galaxies dont le signal chromatique est ténu

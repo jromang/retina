@@ -4,7 +4,7 @@ category: PixelMath
 title: PixelMath
 brief: Évalue une expression Python (numpy) pixel à pixel sur une ou plusieurs images.
 keywords: [pixelmath, expression, numpy, arithmétique, combinaison]
-related: [PixelMath, Invert, ChannelCombination, Rescale]
+related: [Invert, ChannelCombination, Rescale]
 icon: math-function
 references:
   - "PixInsight — PixelMath tool reference."

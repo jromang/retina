@@ -21,6 +21,11 @@ compresses that range instead. The result is a stretch that selectively boosts c
 structured areas (nebulosity, galaxy arms) without amplifying sky-background grain. It is a
 **destructive** process: pixel values are rewritten into the view's history.
 
+![Before — AdaptiveStretch](figures/before.webp)
+![After — AdaptiveStretch](figures/after.webp)
+
+*The linear frame as stored, and the same frame after the curve the process derives from the image itself.*
+
 ## Use cases
 
 - **Stretch a linear image** while preserving faint diffuse structure without lifting the

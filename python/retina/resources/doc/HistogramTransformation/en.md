@@ -22,6 +22,11 @@ contrast and brightness of an already-stretched image.
 Unlike the STF (ScreenTransferFunction), which only affects **display**, this transformation
 is **destructive**: it rewrites pixel values into the view history.
 
+![Before — HistogramTransformation](figures/before.webp)
+![After — HistogramTransformation](figures/after.webp)
+
+*The linear frame as stored — no screen stretch, which is why it looks black — and the same frame after the transformation.*
+
 ## Use cases
 
 - **"Bake" an auto-stretch**: commit the STF's non-destructive stretch into the pixels once

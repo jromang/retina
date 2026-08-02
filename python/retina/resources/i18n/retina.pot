@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Retina VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-08-01 16:02+0200\n"
+"POT-Creation-Date: 2026-08-02 09:17+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -79,6 +79,14 @@ msgstr ""
 
 #, python-brace-format
 msgid "No documentation page for {id!r}"
+msgstr ""
+
+msgid "Related"
+msgstr ""
+
+msgid ""
+"Every gesture in the interface echoes its Python. The same object runs "
+"headless:"
 msgstr ""
 
 #, python-brace-format

@@ -21,6 +21,11 @@ fits **one global polynomial** of adjustable degree — a fast, lightweight tool
 smooth, global gradients (light pollution, residual vignetting, moon glow) rather than complex
 local variations.
 
+![Before — GradientCorrection](figures/before.webp)
+![After — GradientCorrection](figures/after.webp)
+
+*Before, and after subtracting a degree-2 polynomial surface.*
+
 ## Use cases
 
 - **Remove a low-degree light-pollution gradient** (linear or gently curved) over a uniform

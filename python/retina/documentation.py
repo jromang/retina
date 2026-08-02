@@ -9,6 +9,8 @@ ARCHITECTURE.md).
 - :func:`render_markdown` / :func:`render_page` / :func:`render_index` — full HTML rendering
   (Markdown → HTML + KaTeX for the math + Pygments for the code), for the doc viewer.
   **Lazy** import of ``markdown``: absent → raw reading is still possible.
+- :func:`search` — full text over the pages of one language. This is what
+  ``retina.doc_search("gradient")`` returns in the console.
 - :func:`icon_name` / :func:`icon_path` / :func:`icon_svg` — a process's icon.
 
 Location of the sources: ``retina/resources/doc/<ProcessId>/{fr,en}.md`` and the embedded
@@ -35,6 +37,7 @@ the path under ``resources/doc/``.
 from __future__ import annotations
 
 import functools
+import re
 from pathlib import Path
 
 import yaml
@@ -302,7 +305,39 @@ def render_markdown(md_text: str) -> str:
     )
 
 
-def _header_html(process_id: str, meta: dict) -> str:
+def _related_html(meta: dict, lang: str) -> str:
+    """Neighbouring pages, as clickable chips under the header.
+
+    The ``related`` field was written in every frontmatter and validated by the tests, but
+    rendered nowhere: the only way to reach a neighbouring page was to read as far as the
+    ``See also`` section at the bottom. The prose stays — it says *why* the pages are related,
+    which a chip cannot — and these chips answer the other need, jumping there right away.
+
+    A target with no page of its own is dropped rather than shown dead: the frontmatter names
+    processes, and a third-party one may not be documented.
+    """
+    ids = [str(r) for r in (meta.get("related") or [])]
+    chips = []
+    for rid in ids:
+        try:
+            title = doc_meta(rid, lang).get("title") or rid
+            svg = icon_svg(rid)
+        except (KeyError, OSError):
+            continue
+        chips.append(
+            f'<a class="doc-related-chip" href="retina-doc://{_esc(rid)}">'
+            f'<span class="doc-icon">{svg}</span>{_esc(title)}</a>'
+        )
+    if not chips:
+        return ""
+    label = _t("Related", lang)
+    return (
+        '<div class="doc-related">'
+        f'<span class="doc-related-label">{_esc(label)}</span>{"".join(chips)}</div>'
+    )
+
+
+def _header_html(process_id: str, meta: dict, lang: str = "") -> str:
     title = meta.get("title") or process_id
     category = meta.get("category", "")
     brief = meta.get("brief", "")
@@ -323,8 +358,80 @@ def _header_html(process_id: str, meta: dict) -> str:
         f'<div class="doc-icon">{svg}</div>'
         f"<div><h1>{_esc(title)}</h1>{cat}</div>"
         "</div>"
-        f"{brief_html}{chips}"
+        f"{brief_html}{chips}{_related_html(meta, lang)}"
     )
+
+
+# --------------------------------------------------------------------------- #
+# The console section — generated, never written                               #
+# --------------------------------------------------------------------------- #
+#: A page that already carries this heading keeps its own section (see
+#: :func:`_console_markdown`).
+_HAND_WRITTEN_CONSOLE = re.compile(r"^##\s+Console\s*$", re.MULTILINE)
+
+
+def _console_markdown(process_id: str, lang: str, body: str) -> str:
+    """The equivalent console snippet for a process — built from the registry.
+
+    Console/GUI parity is the product's founding pillar, and until now the documentation
+    said so nowhere: the reference described the parameters of a *form*. This section states
+    the other half — the class name, the keyword for each parameter, its default, and the
+    single call that runs it — and it is **generated from the schema**, so no page can
+    describe a signature the code no longer has.
+
+    Three pages (``ConeSearch``, ``MosaicPlanner``, ``SurveyReference``) hand-write this
+    section to show how to consume ``.result``, which no generator can guess. Their heading
+    wins: we add nothing.
+    """
+    if is_guide(process_id) or _HAND_WRITTEN_CONSOLE.search(body):
+        return ""
+    try:
+        from .process.registry import all_processes
+
+        cls = all_processes().get(process_id)
+    except Exception:
+        return ""
+    if cls is None:
+        return ""
+
+    params = list(getattr(cls, "parameters", []))
+    args = ", ".join(f"{p.id}={p.default!r}" for p in params)
+    one_line = f"app.run({process_id}({args}))"
+    if len(one_line) <= 88:
+        call = one_line
+    else:
+        # One parameter per line: a wrapped call is unreadable, and this block is meant to be
+        # copied then edited line by line.
+        lines = "\n".join(f"    {p.id}={p.default!r}," for p in params)
+        call = f"app.run({process_id}(\n{lines}\n))"
+    lead = _t(
+        "Every gesture in the interface echoes its Python. The same object runs headless:",
+        lang,
+    )
+    return (
+        f"\n\n## Console\n\n{lead}\n\n"
+        f"```python\nfrom retina import app, {process_id}\n\n{call}\n```\n"
+    )
+
+
+# --------------------------------------------------------------------------- #
+# Figures                                                                      #
+# --------------------------------------------------------------------------- #
+#: A ``src`` that is already absolute (scheme, or rooted at the site) is left alone; only the
+#: relative ones — ``figures/before.webp``, written that way so the same Markdown works in the
+#: viewer and, later, on a static site — are rebased.
+_RELATIVE_SRC = re.compile(r'(<img\b[^>]*?\bsrc=")(?!\w+:|//|/)([^"]*)(")', re.IGNORECASE)
+
+
+def _rebase_media(html: str, media_base: str) -> str:
+    """Prefix the relative ``src`` of a rendered page with *media_base*.
+
+    The viewer writes the page into an ``iframe`` with ``document.write``, so a relative
+    ``src`` resolves against the *application's* origin and 404s. A ``<base href>`` would fix
+    the images and break everything else: the pages carry a table of contents, whose ``#``
+    anchors a base tag sends navigating out of the frame. Hence this targeted rewrite.
+    """
+    return _RELATIVE_SRC.sub(lambda m: f"{m.group(1)}{media_base}{m.group(2)}{m.group(3)}", html)
 
 
 def _page(
@@ -377,15 +484,20 @@ def render_page(
     *,
     theme: str = "dark",
     assets_base: str | None = None,
+    media_base: str | None = None,
 ) -> str:
-    """Full HTML page of a process (header + rendered body).
+    """Full HTML page of a process (header + rendered body + console section).
 
     ``assets_base`` replaces the assets' ``file://`` prefix — necessary as soon as the page
     is served over HTTP rather than loaded from disk. See :func:`_assets_base`.
+    ``media_base`` does the same for the figures a page embeds — see :func:`_rebase_media`.
     """
     meta, body = _read(process_id, lang)
     meta.setdefault("category", _category_of(process_id))
-    html = _header_html(process_id, meta) + render_markdown(body)
+    body += _console_markdown(process_id, lang, body)
+    html = _header_html(process_id, meta, lang) + render_markdown(body)
+    if media_base:
+        html = _rebase_media(html, media_base)
     return _page(html, theme=theme, assets_base=assets_base, lang=lang)
 
 
@@ -457,6 +569,123 @@ def _esc(s: str) -> str:
     )
 
 
-# console alias: ``retina.doc(...)`` → raw Markdown text.
+# --------------------------------------------------------------------------- #
+# Full text search                                                             #
+# --------------------------------------------------------------------------- #
+#: Weight of a hit, by where it lands. A term found in the title names the page; found in the
+#: keywords it names the *subject*, in the reader's own words; found in the body it is only
+#: evidence that the page speaks of it — hence the widening gap.
+_W_TITLE, _W_KEYWORD, _W_BODY = 20, 8, 1
+#: Above this, one page's body swamps the ranking on a common word ("image", "pixel").
+_BODY_CAP = 5
+
+
+#: Markdown marks, dropped from a snippet: an excerpt is read, not rendered, and `##`,
+#: backticks and emphasis stars are noise in a result list.
+_MD_NOISE = re.compile(r"[`*_#>]|\[|\]\([^)]*\)")
+
+
+def _fold(text: str) -> str:
+    """Lower case **and** strip the diacritics, for matching only.
+
+    Half the catalogue is French, and a search box is typed at speed: a query written without
+    its accents must still find the accented word. Without this, the French half of the
+    documentation answered nothing to a query written the way people actually type it.
+    Decomposition is length-changing, which is precisely why the folded text is never used to
+    cut an excerpt — see :func:`_corpus`.
+    """
+    import unicodedata
+
+    decomposed = unicodedata.normalize("NFD", text.lower())
+    return "".join(c for c in decomposed if not unicodedata.combining(c))
+
+
+@functools.lru_cache(maxsize=4)
+def _corpus(lang: str) -> tuple[tuple[str, str, str, str, str], ...]:
+    """``(page_id, title, keywords, folded body, body)`` for every page of one language.
+
+    Read once per language and kept: the pages are package data, read-only for the lifetime
+    of the process. The whole corpus is about a megabyte of text — an index would be
+    machinery to maintain for a corpus a regex crosses in milliseconds.
+
+    The body is kept **twice**, folded for matching and as written for the excerpt: an
+    accent-stripped excerpt reads like a transcription error, and re-folding per query would
+    cost more than the megabyte it saves.
+    """
+    pages = guides() + [pid for pids in doc_index().values() for pid in pids]
+    out = []
+    for page_id in pages:
+        try:
+            meta, body = _read(page_id, lang)
+        except (KeyError, OSError):
+            continue
+        kws = meta.get("keywords") or []
+        if isinstance(kws, str):
+            kws = [kws]
+        low = _fold(body)
+        # Folding is not length-preserving for every alphabet; the offsets of one string would
+        # then point into the middle of the other. Ours is precomposed Latin, where it is —
+        # but the guard is one comparison, and it degrades to a folded excerpt rather than
+        # silently mis-quoting a page.
+        out.append((
+            page_id,
+            str(meta.get("title") or page_id),
+            _fold(" ".join(str(k) for k in kws)),
+            low,
+            body if len(low) == len(body) else low,
+        ))
+    return tuple(out)
+
+
+def _snippet(body: str, low: str, term: str, width: int = 140) -> str:
+    """A slice of the body around the first hit — what tells a result apart from its rank."""
+    at = low.find(term)
+    start = max(0, at - width // 3) if at >= 0 else 0
+    text = " ".join(_MD_NOISE.sub("", body[start : start + width]).split())
+    return ("…" if start else "") + text + "…"
+
+
+def search(query: str, lang: str = "", limit: int = 20) -> list[dict]:
+    """Pages matching *query*, best first.
+
+    Every term must appear somewhere in the page (title, keywords or body): on a catalogue
+    this size an ``or`` search answers "gradient extraction" with every page that mentions an
+    image. Returns dicts of ``page_id``, ``title``, ``score``, ``snippet``, ``is_guide``.
+
+    Console: ``retina.doc_search("gradient")``.
+    """
+    terms = [t for t in _fold(str(query)).split() if len(t) > 1]
+    if not terms:
+        return []
+    results = []
+    for page_id, title, keywords, low, body in _corpus(lang or default_lang()):
+        low_title = _fold(f"{title} {page_id}")
+        score = 0
+        for term in terms:
+            hits = low.count(term)
+            found = (term in low_title) or (term in keywords) or hits
+            if not found:
+                score = 0
+                break
+            score += _W_TITLE * low_title.count(term)
+            score += _W_KEYWORD * keywords.count(term)
+            score += _W_BODY * min(hits, _BODY_CAP)
+        if score:
+            results.append({
+                "page_id": page_id,
+                "title": title,
+                "score": score,
+                "snippet": _snippet(body, low, terms[0]),
+                "is_guide": is_guide(page_id),
+            })
+    results.sort(key=lambda r: (-r["score"], r["page_id"]))
+    return results[:limit]
+
+
+# console aliases: ``retina.doc(...)`` → raw Markdown text, ``retina.doc_search(...)`` → hits.
 def doc(process_id: str, lang: str = "") -> str:
     return doc_markdown(process_id, lang)
+
+
+def doc_search(query: str, lang: str = "", limit: int = 20) -> list[dict]:
+    return search(query, lang, limit)

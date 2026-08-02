@@ -22,6 +22,11 @@ sombres (top-hat), ou en extrait les contours (gradient). C'est un outil de trai
 forme, complémentaire aux filtres linéaires (convolution) : il agit sur la **géométrie locale**
 des extrema plutôt que sur une moyenne pondérée.
 
+![Avant — MorphologicalTransformation](figures/before.webp)
+![Après — MorphologicalTransformation](figures/after.webp)
+
+*Avant, et après une érosion par un élément structurant de 3 pixels.*
+
 ## Cas d'usage
 
 - **Isoler les petites étoiles** ou pointes lumineuses avec `white_tophat`, pour construire

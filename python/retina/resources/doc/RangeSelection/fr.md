@@ -20,6 +20,11 @@ l'équivalent de l'outil `RangeSelection` de PixInsight : un process **non destr
 **crée une nouvelle fenêtre** (comme `StarMask`), destinée à être utilisée comme masque de
 protection ou de ciblage sur une autre vue.
 
+![Image source — RangeSelection](figures/source.webp)
+![Masque produit — RangeSelection](figures/mask.webp)
+
+*L'image source, et le masque de la plage de luminosité sélectionnée.*
+
 ## Cas d'usage
 
 - **Protéger le fond de ciel** pendant un étirement : sélectionner les basses valeurs

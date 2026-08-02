@@ -22,6 +22,11 @@ formulas implemented here are ours; what is reused is the principle.
 | `halo` | **Erodes** the star layer: stars shrink rather than fade. | yes |
 | `morphological` | Minimum filter on the image, blended with the original. | no |
 
+![Before — StarReduction](figures/before.webp)
+![After — StarReduction](figures/after.webp)
+
+*Before, and after two morphological passes at 0.6 — no starless image needed.*
+
 ## The screen model, and why not a subtraction
 
 The first two methods extract the star layer through the **screen model**:

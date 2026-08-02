@@ -20,6 +20,11 @@ et le GHS permet de le dépenser exactement là où sont les données qui vous i
 Proposé par David Payne en 2021, développé avec Mike Cranfield, il est devenu un module natif
 de PixInsight et reste au cœur des traitements primés.
 
+![Avant — GeneralizedHyperbolicStretch](figures/before.webp)
+![Après — GeneralizedHyperbolicStretch](figures/after.webp)
+
+*La pose linéaire telle que stockée, et la même après un étirement hyperbolique.*
+
 ## Cas d'usage
 
 - **Premier étirement d'une image linéaire** : le geste pour lequel il a été conçu. On place le

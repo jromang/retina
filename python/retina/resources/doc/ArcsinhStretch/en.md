@@ -21,6 +21,11 @@ through the same ratio: the relative proportions between channels are preserved,
 not drift toward white** as stars or a galaxy core approach saturation. This is a
 **destructive** process (it rewrites pixel values), unlike the STF which only affects display.
 
+![Before — ArcsinhStretch](figures/before.webp)
+![After — ArcsinhStretch](figures/after.webp)
+
+*The linear frame as stored, and the same frame after an arcsinh stretch.*
+
 ## Use cases
 
 - **Stretch a linear image** (fresh out of integration) while keeping faithful colors on

@@ -22,6 +22,11 @@ entre régions voisines. Le résultat rehausse le contraste des structures fines
 nébuleuse, bras de galaxie, détails lunaires/planétaires) sans écraser les tons globaux ni
 saturer le fond de ciel.
 
+![Avant — LocalHistogramEqualization](figures/before.webp)
+![Après — LocalHistogramEqualization](figures/after.webp)
+
+*Avant, et après égalisation locale (écrêtage 0,02, noyau 128).*
+
 ## Cas d'usage
 
 - **Faire ressortir des structures ténues** (filaments, dentelles de nébuleuse) noyées dans un

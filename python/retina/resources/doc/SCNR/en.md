@@ -19,6 +19,11 @@ filters. Rather than desaturating the whole image, the algorithm **caps** the ta
 with a "neutral" reference computed from the two other channels, preserving stars and natural
 hues elsewhere in the image.
 
+![Before — SCNR](figures/before.webp)
+![After — SCNR](figures/after.webp)
+
+*Before, and after green removal. The cast is genuine: the source is an uncalibrated three-band composite.*
+
 ## Use cases
 
 - **Remove the green cast** typical of Bayer sensors after debayering or of a poorly balanced

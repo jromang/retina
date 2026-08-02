@@ -22,6 +22,11 @@ de structures) et produit **moins d'artefacts en anneau** (ringing) autour des o
 que son équivalent linéaire. C'est l'outil de choix quand le débruitage ou le rehaussement par
 ondelettes classique laisse des halos visibles.
 
+![Avant — MultiscaleMedianTransform](figures/before.webp)
+![Après — MultiscaleMedianTransform](figures/after.webp)
+
+*Avant, et après atténuation des deux échelles les plus fines.*
+
 ## Cas d'usage
 
 - **Débruiter le fond de ciel** en atténuant/seuillant la couche de détail la plus fine (bruit

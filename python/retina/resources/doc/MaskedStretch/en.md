@@ -20,6 +20,11 @@ it receives. It is the equivalent of PixInsight's `MaskedStretch` tool — a pra
 alternative to a classic stretch plus a manual star mask, useful when you want to bring the
 sky background up to a target level without blowing out star cores or clipping highlights.
 
+![Before — MaskedStretch](figures/before.webp)
+![After — MaskedStretch](figures/after.webp)
+
+*The linear frame as stored, and the same frame after a masked stretch to a background of 0.25.*
+
 ## Use cases
 
 - **First stretch** of a linear image (after calibration/integration), to bring the sky
