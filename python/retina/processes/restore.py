@@ -353,7 +353,19 @@ class UnsharpMask(Process):
     def _apply(self, data: np.ndarray) -> np.ndarray:
         from skimage.filters import unsharp_mask
 
-        out = unsharp_mask(data, radius=self.radius, amount=self.amount, channel_axis=-1)
+        # Channel by channel, and **not** `channel_axis=-1`: that argument returns garbage
+        # here (scikit-image 0.26) — on a colour crop it produced a black image, on mono
+        # (H, W, 1) a mean of 235 where the input was 0.18, with an overflow warning from
+        # numpy. So the process blackened every image it was given, mono included. The
+        # per-channel call is the well-trodden path, and it reproduces the reference formula
+        # `img + (img - blurred) * amount` to the bit (verified against `gaussian_filter`).
+        out = np.stack(
+            [
+                unsharp_mask(data[:, :, c], radius=self.radius, amount=self.amount)
+                for c in range(data.shape[2])
+            ],
+            axis=-1,
+        )
         return np.clip(out, 0.0, 1.0).astype(np.float32)
 
 

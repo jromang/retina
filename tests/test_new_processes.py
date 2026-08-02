@@ -282,3 +282,23 @@ def test_raw_extension_dispatch():
     with pytest.raises(Exception) as exc:
         load_image_array("/nonexistent/sample.cr2")
     assert "Unsupported" not in str(exc.value)
+
+
+@pytest.mark.parametrize("channels", [1, 3])
+def test_unsharp_mask_keeps_the_image_it_sharpens(channels):
+    """It used to return a black frame — on every image, mono included.
+
+    ``scikit-image`` 0.26's ``unsharp_mask`` returns garbage for ``channel_axis=-1``: an
+    overflow warning from numpy, a mean of 235 out of an input at 0.18 on ``(H, W, 1)``, and
+    a black frame on colour. The process had no test, so nothing said so. What is asserted
+    here is the invariant of an unsharp mask — it redistributes local contrast, it does not
+    change the overall level — plus the fact that it sharpens at all.
+    """
+    data = _stars(64, 64, channels, centers=((32, 32), (20, 44)), sigma=2.5, noise=0.02, seed=3)
+    out = get("UnsharpMask")(radius=2.0, amount=0.8).execute_on_image(Image(data)).data
+
+    assert np.isfinite(out).all()
+    assert out.shape == data.shape
+    assert abs(float(out.mean()) - float(data.mean())) < 0.05
+    # sharpening raises the local gradient
+    assert float(np.abs(np.diff(out, axis=0)).mean()) > float(np.abs(np.diff(data, axis=0)).mean())
