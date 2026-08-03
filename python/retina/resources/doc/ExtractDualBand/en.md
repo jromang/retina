@@ -23,6 +23,11 @@ half the height, single channel.
 This is the process to reach for with smart telescopes (Seestar, Dwarf) and any OSC camera
 behind an L-eXtreme / L-Ultimate style filter.
 
+![H-alpha band — ExtractDualBand](figures/ha.webp)
+![OIII band — ExtractDualBand](figures/oiii.webp)
+
+*The two bands a dual-band filter separates, Hα and OIII, from one colour mosaic.*
+
 ## Use cases
 
 - **Split a dual-band OSC session into true Ha and OIII masters**: run the extraction on each

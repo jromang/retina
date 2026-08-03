@@ -23,6 +23,11 @@ l'équivalent direct du DBE de PixInsight : plus lent à mettre en œuvre que l'
 automatique par grille, mais bien plus puissant sur les gradients complexes ou irréguliers,
 car l'utilisateur choisit exactement où l'algorithme doit faire confiance au fond.
 
+![Avant — DynamicBackgroundExtraction](figures/before.webp)
+![Après — DynamicBackgroundExtraction](figures/after.webp)
+
+*Avant, et après un modèle RBF ajusté sur une grille d'échantillons, contre un gradient réel.*
+
 ## Cas d'usage
 
 - **Gradients complexes** que l'extraction automatique par grille (`BackgroundExtraction`,

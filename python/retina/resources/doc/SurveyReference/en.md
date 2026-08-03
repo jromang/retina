@@ -24,6 +24,11 @@ The process is **global**: it does not touch the pixels of the source window. It
 **astrometric solution** on that window (`PlateSolve`, or a file that already carries its
 WCS — Retina reads it when opening).
 
+![The field — SurveyReference](figures/field.webp)
+![Survey reference — SurveyReference](figures/reference.webp)
+
+*The field, and the same field fetched from DSS2 red — resolved and framed on your own WCS, ready to blink against the image or hand to `MultiscaleGradientCorrection`.*
+
 ## Use cases
 
 - Correct a light-pollution gradient **without eroding extended nebulosity**, IFN, or the

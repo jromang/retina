@@ -15,6 +15,11 @@ gray+alpha (2 channels), color images become RGBA (4 channels), the PixInsight c
 carried by the `(H, W, C)` model. The alpha can be a constant, the image's own luminance,
 or the first channel of another open view.
 
+![Before — CreateAlphaChannels](figures/before.webp)
+![After — CreateAlphaChannels](figures/after.webp)
+
+*Before, and after adding an alpha channel derived from luminance, composited over the viewer's background.*
+
 ## Use cases
 
 - **Export a PNG with transparency** (`app.save`) — the natural outlet of this process.

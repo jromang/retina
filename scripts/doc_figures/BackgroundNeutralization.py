@@ -10,7 +10,7 @@ import retina
 
 
 def figures(ctx) -> None:
-    source = ctx.survey()
+    source = ctx.survey(balanced=False)
     after = retina.BackgroundNeutralization().execute_on_image(source)
     ctx.save("before", source)
     ctx.save("after", after)

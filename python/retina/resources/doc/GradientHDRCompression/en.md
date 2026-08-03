@@ -22,6 +22,11 @@ final image is reconstructed by solving a Poisson equation over the modified gra
 Unlike `HDRMultiscaleTransform`, which works by multiscale decomposition, this approach does
 not produce ring haloes around bright objects.
 
+![Before — GradientHDRCompression](figures/before.webp)
+![After — GradientHDRCompression](figures/after.webp)
+
+*Before, and after compressing the dynamic range in the gradient domain (beta 0.6).*
+
 ## Use cases
 
 - **Reveal core and faint extensions simultaneously** on a very high-dynamic-range object

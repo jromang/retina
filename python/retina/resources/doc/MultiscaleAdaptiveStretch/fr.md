@@ -23,6 +23,11 @@ Résultat : la dynamique globale se déploie (extensions faibles révélées, ha
 de tonalité, contrairement à un `AdaptiveStretch` ou `HistogramTransformation` appliqué directement
 sur l'image pleine résolution.
 
+![Avant — MultiscaleAdaptiveStretch](figures/before.webp)
+![Après — MultiscaleAdaptiveStretch](figures/after.webp)
+
+*Avant, et après un étirement adaptatif calculé échelle par échelle sur six couches.*
+
 ## Cas d'usage
 
 - **Révéler les extensions faibles** d'une nébuleuse ou d'une galaxie (queues de marée, halo)

@@ -21,6 +21,11 @@ pour supprimer tout résidu de teinte dans le noir. C'est l'équivalent léger d
 `ColorCalibration` de PixInsight (par opposition à sa variante photométrique, qui s'appuie sur
 un catalogue d'étoiles).
 
+![Avant — ColorCalibration](figures/before.webp)
+![Après — ColorCalibration](figures/after.webp)
+
+*Avant, et après équilibrage des blancs « monde gris » avec neutralisation du fond.*
+
 ## Cas d'usage
 
 - **Corriger une dominante** due à la pollution lumineuse, à un filtre ou à un capteur non

@@ -19,6 +19,11 @@ mosaic (CFA, typically a Bayer pattern) as delivered by the sensor — and reorg
 repeating 2×2 filter block. It is a purely geometric **decimation/repacking** operation, with
 no interpolation and no information loss: `MergeCFA` is its exact inverse.
 
+![Bayer mosaic — SplitCFA](figures/mosaic.webp)
+![CFA planes — SplitCFA](figures/planes.webp)
+
+*The Bayer checkerboard, and the four coherent planes it splits into.*
+
 ## Use cases
 
 - **Fix hot/cold pixels per photosite** (`CosmeticCorrection`) before demosaicing, so a defect

@@ -23,6 +23,11 @@ C'est l'outil linéaire de base pour le débruitage sélectif et le rehaussement
 à une échelle donnée — pendant direct de l'*ATrousWaveletTransform* / *MultiscaleLinearTransform*
 de PixInsight.
 
+![Avant — MultiscaleLinearTransform](figures/before.webp)
+![Après — MultiscaleLinearTransform](figures/after.webp)
+
+*Avant, et après amplification des deux couches starlet les plus fines.*
+
 ## Cas d'usage
 
 - **Débruiter sans flouter** : atténuer par seuillage doux le bruit concentré dans la couche

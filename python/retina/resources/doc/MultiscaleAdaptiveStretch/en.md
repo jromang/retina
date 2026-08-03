@@ -22,6 +22,11 @@ result: the global dynamic range unfolds (faint extensions revealed, highlights 
 **without** local contrast being smoothed out or artificially amplified by the tonal curve, unlike
 running `AdaptiveStretch` or `HistogramTransformation` directly on the full-resolution image.
 
+![Before — MultiscaleAdaptiveStretch](figures/before.webp)
+![After — MultiscaleAdaptiveStretch](figures/after.webp)
+
+*Before, and after an adaptive stretch computed scale by scale over six layers.*
+
 ## Use cases
 
 - **Reveal faint extensions** of a nebula or galaxy (tidal tails, halo) while keeping a detailed,

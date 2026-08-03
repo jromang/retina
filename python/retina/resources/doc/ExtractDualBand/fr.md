@@ -23,6 +23,11 @@ hauteur, en un seul canal.
 C'est le process à employer avec les télescopes intelligents (Seestar, Dwarf) et toute caméra
 OSC derrière un filtre de type L-eXtreme / L-Ultimate.
 
+![Bande H-alpha — ExtractDualBand](figures/ha.webp)
+![Bande OIII — ExtractDualBand](figures/oiii.webp)
+
+*Les deux bandes qu'un filtre dual-band sépare, Hα et OIII, depuis une seule mosaïque couleur.*
+
 ## Cas d'usage
 
 - **Séparer une session dual-band OSC en vrais masters Ha et OIII** : extraire sur chaque light

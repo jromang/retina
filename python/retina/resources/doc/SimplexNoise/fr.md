@@ -23,6 +23,11 @@ Perlin), elle interpole par spline une grille aléatoire grossière — un *valu
 — ce qui produit un résultat visuellement très proche (texture organique, sans direction
 privilégiée) pour un coût d'implémentation minimal.
 
+![Avant — SimplexNoise](figures/before.webp)
+![Après — SimplexNoise](figures/after.webp)
+
+*Avant, et après ajout d'un bruit simplex cohérent — celui qui modélise un gradient de ciel plutôt que le grain du capteur.*
+
 ## Cas d'usage
 
 - **Tester un pipeline de débruitage** : injecter un bruit synthétique contrôlé pour comparer

@@ -22,6 +22,11 @@ block artifacts and checkerboard-like pseudo-structures typical of decimated wav
 The threshold is derived automatically from the **robust noise level** (MAD) measured in each
 band, with no manual per-scale tuning.
 
+![Before — WaveletDenoise](figures/before.webp)
+![After — WaveletDenoise](figures/after.webp)
+
+*Before, and after thresholding the three finest wavelet levels.*
+
 ## Use cases
 
 - **Denoise low-SNR images** (faint targets, short subs, light-polluted skies) while preserving

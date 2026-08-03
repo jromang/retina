@@ -21,6 +21,11 @@ a Laplacian-of-Gaussian. Unlike a blur or a plain high-pass filter, this kernel 
 on a flat background and on very fine noise. It is a fast tool for pulling out diffuse
 nebulosity and filaments without needing the full stack of scales of a wavelet transform.
 
+![Before — RickerWaveletEnhance](figures/before.webp)
+![After — RickerWaveletEnhance](figures/after.webp)
+
+*Before, and after enhancing structures three pixels wide.*
+
 ## Use cases
 
 - **Reveal filaments or faint nebulosity** buried in a noisy sky background, by targeting

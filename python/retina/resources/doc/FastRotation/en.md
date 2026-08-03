@@ -19,6 +19,11 @@ interpolation whatsoever. Unlike `Rotation` (arbitrary angle), these operations 
 and lossless**: every output pixel is a direct copy of an input pixel, never a weighted blend
 of neighbors.
 
+![Before — FastRotation](figures/before.webp)
+![After — FastRotation](figures/after.webp)
+
+*Before, and after a quarter turn. Nothing is interpolated and no corner is lost — the same pixels, in another order.*
+
 ## Use cases
 
 - **Fix camera orientation** when a sensor is mounted at 90°/180°/270° from the expected

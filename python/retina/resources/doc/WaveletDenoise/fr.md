@@ -23,6 +23,11 @@ artefacts de bloc et les pseudo-structures en damier caractéristiques du débru
 ondelettes décimées. Le seuil est dérivé automatiquement du **bruit robuste** (MAD) mesuré
 dans chaque bande, sans réglage manuel par échelle.
 
+![Avant — WaveletDenoise](figures/before.webp)
+![Après — WaveletDenoise](figures/after.webp)
+
+*Avant, et après seuillage des trois niveaux d'ondelettes les plus fins.*
+
 ## Cas d'usage
 
 - **Débruiter des images faible SNR** (cibles faibles, poses courtes, ciel pollué) en

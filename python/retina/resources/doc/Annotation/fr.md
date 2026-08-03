@@ -20,6 +20,11 @@ du volet « grille » du script `AnnotateImage` de PixInsight : une fois le cham
 `PlateSolve`, cette grille permet de vérifier visuellement l'orientation, l'échelle et la validité
 du recalage astrométrique, ou simplement d'habiller une image pour publication.
 
+![Avant — Annotation](figures/before.webp)
+![Après — Annotation](figures/after.webp)
+
+*Un champ résolu, et le même avec la grille de coordonnées écrite dans les pixels. Le pas est de 0,05° : au défaut de 0,5°, aucune ligne ne tombe dans un champ aussi étroit.*
+
 ## Cas d'usage
 
 - **Vérifier une solution astrométrique** : une grille cohérente (lignes régulières, non tordues)

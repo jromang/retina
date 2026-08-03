@@ -20,6 +20,11 @@ pure gaussian blur: where that one targets performance on large images, `Convolu
 directly on `scipy.ndimage` to offer a wider variety of filters at the cost of a simpler,
 single-threaded implementation.
 
+![Before — Convolution](figures/before.webp)
+![After — Convolution](figures/after.webp)
+
+*Before, and after a box kernel of radius 6 — the square-edged smear that distinguishes it from a Gaussian of the same radius.*
+
 ## Use cases
 
 - **Lightly smooth noise** before star analysis, masking, or source detection, when a fine

@@ -16,6 +16,11 @@ chart), catalog stars drawn as disks scaled by magnitude, a center marker and ca
 points (north up, east left). It is a **global** process: the chart opens as a new window
 — itself plate-solved, so the celestial readout works immediately.
 
+![The field — FindingChart](figures/field.webp)
+![Finding chart — FindingChart](figures/chart.webp)
+
+*The field, and the chart drawn from its astrometric solution alone — three times wider than the frame, which is the usual reason to make one.*
+
 ## Use cases
 
 - **Locate a target** in its wider surroundings after a plate solve.

@@ -21,6 +21,11 @@ il place des objets ponctuels réels sur l'image — utile pour identifier des �
 une solution astrométrique ou préparer une planche annotée. C'est un process **destructif** :
 il peint directement dans les pixels (comme un burn-in), pas une couche superposée éditable.
 
+![Avant — CatalogAnnotation](figures/before.webp)
+![Après — CatalogAnnotation](figures/after.webp)
+
+*Un champ résolu, et le même avec les objets Gaia DR3 marqués dans les pixels — magnitude 20 et rayon de 16 pixels, bien au-delà des défauts, pour que les marqueurs survivent à l'échelle de la page.*
+
 ## Cas d'usage
 
 - **Vérifier une solution `PlateSolve`** en superposant les positions Gaia attendues sur

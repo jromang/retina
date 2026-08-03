@@ -19,6 +19,11 @@ than a plain average. It is the equivalent of PixInsight's tool of the same name
 space conversion that changes the image's **geometry** (channel count), not just its
 appearance.
 
+![Before — ConvertToGrayscale](figures/before.webp)
+![After — ConvertToGrayscale](figures/after.webp)
+
+*Before, and after collapsing the three channels to weighted luminance.*
+
 ## Use cases
 
 - Prepare a **luminance image** ahead of an LRGB combination (`LRGBCombination`), from an

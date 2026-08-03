@@ -18,6 +18,11 @@ single-channel image. It can extract the **R**, **G**, or **B** channel directly
 compute a Rec. 709-weighted **luminance** `L`. On an image that is already grayscale
 (a single channel), the process is a plain pass-through that copies the data.
 
+![Source image — ChannelExtraction](figures/source.webp)
+![Luminance — ChannelExtraction](figures/luminance.webp)
+
+*The colour frame, and the luminance channel pulled out of it.*
+
 ## Use cases
 
 - **Isolate a channel** to analyze or process it independently (selective denoising,

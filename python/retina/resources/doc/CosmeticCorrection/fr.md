@@ -20,6 +20,11 @@ du signal réel. Pour chaque pixel, l'algorithme compare sa valeur au **médian 
 remplacé par ce médian local. C'est l'équivalent du mode « Auto Detect » de l'outil
 CosmeticCorrection de PixInsight, sans carte de défauts préalable.
 
+![Avant — CosmeticCorrection](figures/before.webp)
+![Après — CosmeticCorrection](figures/after.webp)
+
+*Des pixels chauds et froids injectés dans une pose réelle, et la même après leur remplacement par la médiane locale. Les défauts sont ajoutés exprès : la source ne porte aucun défaut de capteur connu.*
+
 ## Cas d'usage
 
 - **Nettoyer un master dark/flat ou une brute** de ses pixels chauds/froids avant intégration,

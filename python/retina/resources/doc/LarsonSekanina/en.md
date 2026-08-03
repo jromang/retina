@@ -23,6 +23,11 @@ Anything **invariant under rotation** — the diffuse, roughly symmetric coma �
 the subtraction; anything that **depends on angle** — jets, fans, spiral structures — stands
 out in light and dark.
 
+![Before — LarsonSekanina](figures/before.webp)
+![After — LarsonSekanina](figures/after.webp)
+
+*Before, and after an 8-degree rotational gradient. Written for the jets of a comet, the same difference lifts the arms of a face-on spiral.*
+
 ## Use cases
 
 - **Reveal dust/gas jets** of a comet, invisible in the raw image because they are drowned in

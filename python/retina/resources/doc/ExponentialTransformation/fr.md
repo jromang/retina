@@ -19,6 +19,11 @@ et hautes lumières. Un unique paramètre `order` règle la force de l'effet. C'
 linéaire le plus élémentaire du catalogue — sans point noir/blanc réglable ni protection de
 couleur, à la différence de `HistogramTransformation` ou `ArcsinhStretch`.
 
+![Avant — ExponentialTransformation](figures/before.webp)
+![Après — ExponentialTransformation](figures/after.webp)
+
+*La pose linéaire telle que stockée, et la même après la courbe SMI à l'ordre 0,5.*
+
 ## Cas d'usage
 
 - **Éclaircir rapidement** une image sombre (PIP) sans passer par un réglage MTF à trois curseurs.

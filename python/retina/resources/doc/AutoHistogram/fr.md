@@ -19,6 +19,11 @@ C'est la version « cuite » (destructive) de l'auto-stretch : là où la STF ne
 l'affichage sans toucher aux données, `AutoHistogram` réécrit l'image dans l'historique de la
 vue. Il n'a qu'un seul réglage, `target_background`, qui fixe la luminosité du fond de ciel visé.
 
+![Avant — AutoHistogram](figures/before.webp)
+![Après — AutoHistogram](figures/after.webp)
+
+*La pose linéaire telle que stockée, et la même avec son fond porté à 0,25.*
+
 ## Cas d'usage
 
 - **Dégrossir rapidement une image linéaire** fraîchement intégrée, pour juger de sa qualité

@@ -21,6 +21,11 @@ each other. This "non-local" principle smooths the background noise while respec
 repetitive and **point-like** structures, in particular faint stars, which classic filters
 (Gaussian, median) tend to crush.
 
+![Before — NonLocalMeansDenoise](figures/before.webp)
+![After — NonLocalMeansDenoise](figures/after.webp)
+
+*Before, and after patch-based non-local means, on a crop at the pixel scale.*
+
 ## Use cases
 
 - **Denoise the sky background** of a stacked image without eroding faint stars or the

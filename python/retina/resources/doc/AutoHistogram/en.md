@@ -19,6 +19,11 @@ references:
 without touching the data, `AutoHistogram` rewrites the image into the view's history. It has
 a single control, `target_background`, which sets the targeted sky-background brightness.
 
+![Before — AutoHistogram](figures/before.webp)
+![After — AutoHistogram](figures/after.webp)
+
+*The linear frame as stored, and the same frame with its background driven to 0.25.*
+
 ## Use cases
 
 - **Quickly rough out a linear image** fresh out of integration, to judge its quality (noise,

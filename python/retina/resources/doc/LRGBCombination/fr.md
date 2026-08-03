@@ -22,6 +22,11 @@ préservée. L'opération travaille dans l'espace perceptuel **L\*a\*b\*** : le 
 la clarté, les canaux `a*`/`b*` portent la couleur, ce qui permet de substituer l'un sans
 perturber l'autre.
 
+![Avant — LRGBCombination](figures/before.webp)
+![Après — LRGBCombination](figures/after.webp)
+
+*Avant, et après remplacement de la luminance en gardant la chrominance.*
+
 ## Cas d'usage
 
 - **Combiner une luminance dédiée** (pose longue, filtre clair ou luminance synthétique) avec

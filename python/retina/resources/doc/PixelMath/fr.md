@@ -19,6 +19,11 @@ Python évalué en bac à sable (asteval), avec toute la puissance de numpy disp
 (`sqrt`, `log`, `clip`, `where`, opérateurs élément par élément…). C'est l'outil universel de
 combinaison, de correction et de création d'images.
 
+![Avant — PixelMath](figures/before.webp)
+![Après — PixelMath](figures/after.webp)
+
+*Avant, et après évaluation de `img ** 0.5` — un étirement écrit en arithmétique plutôt que choisi dans un menu.*
+
 ## Cas d'usage
 
 - **Arithmétique d'images** : `img_a - 0.9*img_b` (soustraction de gradient, différences).

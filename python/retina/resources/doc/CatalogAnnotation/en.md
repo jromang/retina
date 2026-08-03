@@ -21,6 +21,11 @@ image — useful for identifying stars, verifying an astrometric solution, or pr
 annotated plate. This is a **destructive** process: it paints straight into the pixels (a
 burn-in), not an editable overlay layer.
 
+![Before — CatalogAnnotation](figures/before.webp)
+![After — CatalogAnnotation](figures/after.webp)
+
+*A solved field, and the same field with Gaia DR3 objects marked in the pixels — magnitude 20 and a 16-pixel radius, well past the defaults, so the markers survive the page's scale.*
+
 ## Use cases
 
 - **Verify a `PlateSolve` solution** by overlaying the expected Gaia positions on the image

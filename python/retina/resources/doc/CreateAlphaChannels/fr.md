@@ -15,6 +15,11 @@ gris+alpha (2 canaux), une image couleur devient RVBA (4 canaux), la convention 
 que porte le modèle `(H, W, C)`. L'alpha peut être une constante, la luminance de l'image,
 ou le premier canal d'une autre vue ouverte.
 
+![Avant — CreateAlphaChannels](figures/before.webp)
+![Après — CreateAlphaChannels](figures/after.webp)
+
+*Avant, et après ajout d'un canal alpha dérivé de la luminance, composé sur le fond du visualiseur.*
+
 ## Cas d'usage
 
 - **Exporter un PNG avec transparence** (`app.save`) — le débouché naturel de ce process.

@@ -16,6 +16,11 @@ carte), étoiles du catalogue en disques proportionnels à la magnitude, marqueu
 points cardinaux (nord en haut, est à gauche). Process **global** : la carte s'ouvre en
 nouvelle fenêtre — elle-même résolue, le readout céleste y répond immédiatement.
 
+![Le champ — FindingChart](figures/field.webp)
+![Carte de repérage — FindingChart](figures/chart.webp)
+
+*Le champ, et la carte tracée depuis sa seule solution astrométrique — trois fois plus large que la pose, ce qui est la raison même d'en faire une.*
+
 ## Cas d'usage
 
 - **Situer une cible** dans son environnement après un plate-solve.

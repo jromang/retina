@@ -20,6 +20,11 @@ an RGB image into isolated components, `ChannelCombination` glues them back toge
 used both to reassemble a classic RGB after per-channel processing and to build a
 **narrowband false-color** composite (SHO/HOO palette) from three monochrome captures.
 
+![Before — ChannelCombination](figures/before.webp)
+![After — ChannelCombination](figures/after.webp)
+
+*Before, and after recombining the frame's own R, G and B planes in another order.*
+
 ## Use cases
 
 - **Rebuild an RGB** after processing `ChannelExtraction`(R), (G) and (B) independently

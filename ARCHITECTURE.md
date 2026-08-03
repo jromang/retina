@@ -689,6 +689,19 @@ page that will contradict it:
   — the docs travel inside the wheel, and PixInsight's 184 MB documentation tree is the
   cautionary tale.
 
+Two rules keep the figures honest at that scale. The generator **reviews its own output**: an
+image with no structure, or a before/after pair whose halves differ by less than a reader can
+see, is reported as a failure rather than written and forgotten. Judging a hundred and fifty
+images by eye does not scale, and both failure modes are arithmetic — the check found a colour
+mask selecting an empty hue range, a background neutralisation with nothing left to correct,
+and a sharpening that returned a black frame, which turned out to be a real bug in the process.
+And a process **without** a figure must be named in `scripts/doc_figures/_catalogue.py` with a
+reason, the test asserting that {illustrated, explained} partitions the registry exactly. The
+reasons divide into three: nothing to photograph (the process yields measurements, metadata or
+configuration), no honest data in the repository (the narrowband and photometric-calibration
+families, until a licensed multi-filter dataset arrives), and pending. Without that file, "no
+figure" and "nobody got to it" are indistinguishable six months later.
+
 Figures are referenced **relatively** (`figures/before.webp`) so the same Markdown works from
 disk and over HTTP. The viewer writes the page into an `iframe` with `document.write`, where a
 relative URL resolves against the application: hence `render_page(media_base=…)`, which rewrites

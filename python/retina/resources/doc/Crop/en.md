@@ -20,6 +20,11 @@ active image (`is_maskable = False`, since a blend mask assumes an unchanged sha
 the bounds as frame fractions rather than pixels makes the setting resolution-independent —
 useful for replaying the same crop on a differently resampled version of the same image.
 
+![Before — Crop](figures/before.webp)
+![After — Crop](figures/after.webp)
+
+*The full frame, and the cropped rectangle. The two are deliberately different sizes — that is the process.*
+
 ## Use cases
 
 - **Remove dirty edges** from an integrated stack (low-coverage areas, drizzle artifacts,

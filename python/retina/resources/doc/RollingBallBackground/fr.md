@@ -22,6 +22,11 @@ grille de boîtes ni de sigma-clipping, juste une opération morphologique class
 Sternberg, popularisée par ImageJ) — bien adaptée aux previews et aux champs où un seul rayon
 suffit à séparer fond et signal.
 
+![Avant — RollingBallBackground](figures/before.webp)
+![Après — RollingBallBackground](figures/after.webp)
+
+*Avant, et après retrait du fond par la boule roulante, sur le gradient réel qu'utilise `BackgroundExtraction`.*
+
 ## Cas d'usage
 
 - **Aplatir rapidement** un gradient de pollution lumineuse ou de vignetage résiduel, quand la

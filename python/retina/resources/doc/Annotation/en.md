@@ -20,6 +20,11 @@ pane of PixInsight's `AnnotateImage` script: once the field has been solved by `
 grid lets you visually verify the orientation, scale and validity of the astrometric registration,
 or simply dress up an image for publication.
 
+![Before — Annotation](figures/before.webp)
+![After — Annotation](figures/after.webp)
+
+*A solved field, and the same field with the coordinate grid drawn into the pixels. The grid step is 0.05 degrees: at the default 0.5, no line falls inside a field this narrow.*
+
 ## Use cases
 
 - **Check an astrometric solution**: a consistent grid (regular, untwisted lines) confirms that the

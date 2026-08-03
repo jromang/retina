@@ -22,6 +22,11 @@ tableaux** : les masters sont fournis comme chemins de fichiers et combinés dir
 gestion d'unités. Elle est suffisante pour un pipeline de calibration standard où darks et
 lights partagent le même temps de pose et la même température de capteur.
 
+![Pose brute — ImageCalibration](figures/raw.webp)
+![Pose calibrée — ImageCalibration](figures/calibrated.webp)
+
+*Une pose réelle du Palomar, et la même après correction de l'offset, du noir et du flat par des maîtres combinés de la même nuit. Chacune a son propre étirement d'écran : la calibration retire le piédestal exprès, et un étirement commun rendrait l'image corrigée noire.*
+
 ## Cas d'usage
 
 - **Prétraiter une session complète** de lights avant alignement et intégration, en une passe

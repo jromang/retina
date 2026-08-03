@@ -18,6 +18,11 @@ and vice versa, exactly like the negative of a photographic film. It is the simp
 operator in the catalog — no parameters, no neighborhood, essentially zero computational cost —
 yet it remains a valuable working tool, in particular for visually inspecting faint detail.
 
+![Before — Invert](figures/before.webp)
+![After — Invert](figures/after.webp)
+
+*Before, and after inversion — the photographic negative, one minus the pixel.*
+
 ## Use cases
 
 - **Track sky-background gradients**: on an inverted image, gentle background variations (light

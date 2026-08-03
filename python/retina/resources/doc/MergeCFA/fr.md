@@ -18,6 +18,11 @@ demi-résolution**, un par site du motif (00, 01, 10, 11). C'est l'inverse exact
 là où `SplitCFA` décime une mosaïque Bayer en 4 canaux séparés, `MergeCFA` réentrelace ces 4
 canaux pour reformer l'image CFA brute à géométrie originale, prête pour `Debayer`.
 
+![Plans CFA — MergeCFA](figures/planes.webp)
+![Mosaïque de Bayer — MergeCFA](figures/mosaic.webp)
+
+*Les quatre plans CFA, et la mosaïque qu'ils reconstituent — l'inverse de `SplitCFA`.*
+
 ## Cas d'usage
 
 - **Refermer un aller-retour `SplitCFA` → traitement par site → `MergeCFA`** : calibrer

@@ -21,6 +21,11 @@ artifacts), or a **full complex representation** (real and imaginary parts stack
 channels) that allows exact reconstruction through `InverseFourierTransform`. This mirrors the
 FourierTransform / InverseFourierTransform pair found in PixInsight.
 
+![Source image — FourierTransform](figures/source.webp)
+![Magnitude spectrum — FourierTransform](figures/spectrum.webp)
+
+*The frame, and its magnitude spectrum. Not a before/after: the spectrum is another way of looking at the same data, where periodic structure stands out.*
+
 ## Use cases
 
 - **Diagnose periodic patterns**: readout banding, poorly calibrated flat frames, filter moiré,

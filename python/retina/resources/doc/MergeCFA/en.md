@@ -18,6 +18,11 @@ one per site of the pattern (00, 01, 10, 11). It is the exact inverse of `SplitC
 `SplitCFA` decimates a Bayer mosaic into 4 separate channels, `MergeCFA` re-interleaves those 4
 channels to reform the raw CFA image at its original geometry, ready for `Debayer`.
 
+![CFA planes — MergeCFA](figures/planes.webp)
+![Bayer mosaic — MergeCFA](figures/mosaic.webp)
+
+*The four CFA planes, and the mosaic they interleave back into — the inverse of `SplitCFA`.*
+
 ## Use cases
 
 - **Close a `SplitCFA` → per-site processing → `MergeCFA` round trip**: calibrate (bias/dark),

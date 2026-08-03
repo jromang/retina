@@ -20,6 +20,11 @@ recouvrement moyenné, zones exclusives à un seul panneau recopiées telles que
 finale d'un flux de mosaïque, après recalage astrométrique (`PlateSolve`, `StarAlignment`) et
 reprojection commune (`MosaicReproject`).
 
+![Avant — GradientMergeMosaic](figures/before.webp)
+![Après — GradientMergeMosaic](figures/after.webp)
+
+*Deux panneaux d'un champ stellaire réel, et l'image unique qu'ils forment.*
+
 ## Cas d'usage
 
 - **Assembler une mosaïque grand champ** de plusieurs tuiles acquises et traitées séparément

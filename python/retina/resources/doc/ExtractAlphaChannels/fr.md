@@ -14,6 +14,11 @@ icon: layers-subtract
 PixInsight : **extract** produit une nouvelle fenêtre grise portant l'alpha (la source est
 intacte), **remove** retire l'alpha de la vue en place — historique et undo ordinaires.
 
+![Image RVB — ExtractAlphaChannels](figures/rgb.webp)
+![Canal alpha — ExtractAlphaChannels](figures/alpha.webp)
+
+*L'image RVB, et le canal alpha extrait dans une fenêtre à lui.*
+
 ## Cas d'usage
 
 - **Récupérer un masque** rangé en alpha (extraire, puis `app.set_mask`).

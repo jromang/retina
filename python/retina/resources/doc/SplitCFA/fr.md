@@ -19,6 +19,11 @@ references:
 2×2 répété du filtre. C'est une opération purement géométrique de **décimation/repackaging**,
 sans interpolation ni perte d'information : `MergeCFA` en est l'inverse exact.
 
+![Mosaïque de Bayer — SplitCFA](figures/mosaic.webp)
+![Plans CFA — SplitCFA](figures/planes.webp)
+
+*Le damier de Bayer, et les quatre plans cohérents qu'il donne.*
+
 ## Cas d'usage
 
 - **Corriger les pixels chauds/froids par photosite** (`CosmeticCorrection`) avant dématriçage,

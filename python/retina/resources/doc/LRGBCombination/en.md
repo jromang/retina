@@ -21,6 +21,11 @@ while the RGB's **chrominance** (hue and saturation) is preserved. The operation
 the perceptual **L\*a\*b\*** space: the `L*` channel carries lightness, the `a*`/`b*` channels
 carry color, which lets one be substituted without disturbing the other.
 
+![Before — LRGBCombination](figures/before.webp)
+![After — LRGBCombination](figures/after.webp)
+
+*Before, and after replacing the luminance while keeping the chrominance.*
+
 ## Use cases
 
 - **Combine a dedicated luminance** (long exposure, clear filter, or synthetic luminance)

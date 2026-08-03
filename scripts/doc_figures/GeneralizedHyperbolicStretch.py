@@ -15,5 +15,5 @@ def figures(ctx) -> None:
     after = retina.GeneralizedHyperbolicStretch(
         stretch_factor=3.0, local_intensity=0.5, symmetry_point=0.01
     ).execute_on_image(source)
-    ctx.save("before", source)
+    ctx.save("before", source, flat_on_purpose=True)
     ctx.save("after", after)

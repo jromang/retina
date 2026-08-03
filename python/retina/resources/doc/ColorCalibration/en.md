@@ -20,6 +20,11 @@ neutralization** that aligns the channel medians in a background region to remov
 tint in the black. It is the lightweight counterpart to PixInsight's `ColorCalibration` tool
 (as opposed to its photometric variant, which relies on a star catalog).
 
+![Before — ColorCalibration](figures/before.webp)
+![After — ColorCalibration](figures/after.webp)
+
+*Before, and after gray-world white balance with background neutralization.*
+
 ## Use cases
 
 - **Correct a color cast** caused by light pollution, a filter, or an unbalanced sensor, without

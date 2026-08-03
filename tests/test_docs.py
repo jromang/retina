@@ -6,11 +6,14 @@ identically by the console and by the GUI (cf. ARCHITECTURE.md, console/GUI pari
 
 from __future__ import annotations
 
+from pathlib import Path
+
 import pytest
 import retina
 from retina import documentation as D
 from retina.resources.icons import registry as icons
 
+ROOT = Path(__file__).resolve().parent.parent
 ALL = sorted(retina.all_processes())
 REFERENCE = ["HistogramTransformation", "PixelMath", "Deconvolution",
              "BackgroundExtraction", "Integration"]
@@ -363,3 +366,45 @@ def test_search_is_reachable_from_the_console():
 
 def test_an_empty_query_returns_nothing_rather_than_everything():
     assert D.search("", "en") == [] and D.search("  a ", "en") == []
+
+
+# --- the partition: illustrated, or explained ------------------------------ #
+def _figure_specs() -> set[str]:
+    folder = ROOT / "scripts" / "doc_figures"
+    return {p.stem for p in folder.glob("*.py") if not p.name.startswith("_")}
+
+
+def _not_illustrated() -> dict[str, str]:
+    import importlib.util
+
+    path = ROOT / "scripts" / "doc_figures" / "_catalogue.py"
+    spec = importlib.util.spec_from_file_location("doc_figures_catalogue", path)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module.NOT_ILLUSTRATED
+
+
+def test_every_process_is_illustrated_or_explained():
+    """No silent gap. A process with no figure and no stated reason is indistinguishable, six
+    months later, from one nobody has got to yet — so the catalogue has to say which."""
+    illustrated, explained = _figure_specs(), set(_not_illustrated())
+
+    assert not (illustrated & explained), (
+        f"both illustrated and explained away: {sorted(illustrated & explained)}")
+    assert not (illustrated - set(ALL)), f"figure spec for no process: {illustrated - set(ALL)}"
+    assert not (explained - set(ALL)), f"reason for no process: {explained - set(ALL)}"
+    assert not (set(ALL) - illustrated - explained), (
+        "no figure and no reason: " + ", ".join(sorted(set(ALL) - illustrated - explained)))
+
+
+def test_a_stated_reason_actually_says_something():
+    for pid, reason in _not_illustrated().items():
+        assert len(reason) > 12, f"{pid}: {reason!r} is not a reason"
+
+
+@pytest.mark.parametrize("pid", ALL)
+def test_a_spec_and_its_figures_agree(pid):
+    """A spec that ran must have left figures, and figures must come from a spec."""
+    has_figures = (D.doc_dir(pid) / "figures").is_dir()
+    if pid in _not_illustrated():
+        assert not has_figures, f"{pid}: listed as not illustrated but has figures"

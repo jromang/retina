@@ -20,6 +20,11 @@ bounded) — the equivalent of PixInsight's `NoiseGeneration` tool. It is the fu
 of a denoiser: instead of removing noise, it injects some, in a controlled and reproducible way
 via a seed.
 
+![Before — NoiseGenerator](figures/before.webp)
+![After — NoiseGenerator](figures/after.webp)
+
+*Before, and after adding Gaussian noise at 0.08 — noise put in on purpose, to test what takes it out.*
+
 ## Use cases
 
 - **Test a denoising pipeline** (`NoiseReduction`, `FastNLMeansDenoise`, `WaveletDenoise`…) on

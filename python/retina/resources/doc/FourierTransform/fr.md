@@ -22,6 +22,11 @@ trames, artefacts de lecture capteur) ; ou une représentation **complexe compl�
 via `InverseFourierTransform`. C'est l'équivalent du couple FourierTransform /
 InverseFourierTransform de PixInsight.
 
+![Image source — FourierTransform](figures/source.webp)
+![Spectre d'amplitude — FourierTransform](figures/spectrum.webp)
+
+*La pose, et son spectre d'amplitude. Ce n'est pas un avant/après : le spectre est une autre façon de regarder les mêmes données, où la structure périodique ressort.*
+
 ## Cas d'usage
 
 - **Diagnostiquer des motifs périodiques** : bandes de lecture (banding), trames de flat mal

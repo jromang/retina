@@ -22,6 +22,11 @@ independently, before reconstruction by simple summation. It is the fundamental 
 for selective denoising and scale-specific structure enhancement — the direct counterpart of
 PixInsight's *ATrousWaveletTransform* / *MultiscaleLinearTransform*.
 
+![Before — MultiscaleLinearTransform](figures/before.webp)
+![After — MultiscaleLinearTransform](figures/after.webp)
+
+*Before, and after amplifying the two finest starlet layers.*
+
 ## Use cases
 
 - **Denoise without blurring**: attenuate, by soft thresholding, the noise concentrated in the

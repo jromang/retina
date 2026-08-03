@@ -23,6 +23,11 @@ noyau/photocentre de la comète). Tout ce qui est **invariant par rotation** —
 à peu près symétrique — s'annule dans la soustraction ; ce qui **dépend de l'angle** — jets,
 éventails, structures en spirale — ressort en clair-obscur.
 
+![Avant — LarsonSekanina](figures/before.webp)
+![Après — LarsonSekanina](figures/after.webp)
+
+*Avant, et après un gradient rotationnel de 8°. Écrit pour les jets d'une comète, la même différence relève les bras d'une spirale vue de face.*
+
 ## Cas d'usage
 
 - **Révéler les jets de poussière/gaz** d'une comète, invisibles dans l'image brute car noyés

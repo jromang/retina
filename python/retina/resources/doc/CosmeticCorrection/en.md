@@ -20,6 +20,11 @@ threshold expressed in robust deviations (σ via MAD), the pixel is replaced by 
 median. This is the equivalent of PixInsight's CosmeticCorrection tool in "Auto Detect" mode,
 without a prior defect map.
 
+![Before — CosmeticCorrection](figures/before.webp)
+![After — CosmeticCorrection](figures/after.webp)
+
+*Hot and cold pixels injected into a real frame, and the same frame after they are replaced by the local median. The defects are added here on purpose: the source carries no known sensor fault.*
+
 ## Use cases
 
 - **Clean a master dark/flat or a light frame** of its hot/cold pixels before integration, when

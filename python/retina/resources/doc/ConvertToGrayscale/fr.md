@@ -19,6 +19,11 @@ simple moyenne. C'est l'équivalent de l'outil du même nom dans PixInsight : un
 d'espace colorimétrique qui change la **géométrie** de l'image (nombre de canaux), pas seulement
 son apparence.
 
+![Avant — ConvertToGrayscale](figures/before.webp)
+![Après — ConvertToGrayscale](figures/after.webp)
+
+*Avant, et après réduction des trois canaux à une luminance pondérée.*
+
 ## Cas d'usage
 
 - Préparer une **image de luminance** en amont d'une combinaison LRGB (`LRGBCombination`), à

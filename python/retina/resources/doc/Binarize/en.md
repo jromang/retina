@@ -19,6 +19,11 @@ thresholding operation — no gradient, no transition zone — applied independe
 channel. The result is pure black and white, useful as a building block for making masks or
 isolating structures above or below a given level.
 
+![Before — Binarize](figures/before.webp)
+![After — Binarize](figures/after.webp)
+
+*Before, and after thresholding at 0.2: every pixel becomes zero or one.*
+
 ## Use cases
 
 - **Build a rough mask** (galaxy silhouette, halo, saturated area) before refining it with

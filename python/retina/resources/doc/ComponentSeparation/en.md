@@ -22,6 +22,11 @@ information rather than stretching it channel by channel. It is typically used t
 gradient or a signal common to all layers, or to separate a continuum from a narrow emission line
 in narrowband imaging.
 
+![Source image — ComponentSeparation](figures/source.webp)
+![Components — ComponentSeparation](figures/components.webp)
+
+*The colour frame, and its three principal components — not a corrected image but another basis for the same data.*
+
 ## Use cases
 
 - **Isolate a correlated gradient** (light pollution, residual vignetting) present in a similar

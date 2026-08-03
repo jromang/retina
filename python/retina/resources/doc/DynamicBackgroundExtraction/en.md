@@ -23,6 +23,11 @@ PixInsight's DBE: slower to set up than automatic grid-based extraction, but far
 on complex or irregular gradients, because the user chooses exactly where the algorithm should
 trust the background.
 
+![Before — DynamicBackgroundExtraction](figures/before.webp)
+![After — DynamicBackgroundExtraction](figures/after.webp)
+
+*Before, and after an RBF model fitted through a coarse grid of samples on a real gradient.*
+
 ## Use cases
 
 - **Complex gradients** that automatic grid-based extraction (`BackgroundExtraction`,

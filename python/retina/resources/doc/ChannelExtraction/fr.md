@@ -18,6 +18,11 @@ mono-canal. Il peut extraire directement le canal **R**, **G** ou **B**, ou calc
 **luminance** `L` pondérée façon Rec. 709. Sur une image déjà en niveaux de gris (un seul
 canal), le process est un simple passe-plat qui recopie les données.
 
+![Image source — ChannelExtraction](figures/source.webp)
+![Luminance — ChannelExtraction](figures/luminance.webp)
+
+*L'image couleur, et le canal de luminance qui en est extrait.*
+
 ## Cas d'usage
 
 - **Isoler un canal** pour l'analyser ou le traiter indépendamment (débruitage sélectif,

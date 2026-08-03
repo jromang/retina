@@ -19,6 +19,11 @@ high-contrast detail (stars, nebula edges). The principle is simple and robust �
 Gaussian blur, blended pixel by pixel with the original image through a **protection mask**
 computed from the image's local gradient.
 
+![Before — ACDNR](figures/before.webp)
+![After — ACDNR](figures/after.webp)
+
+*Before, and after ACDNR at sigma 3 with a protection threshold of 0.3.*
+
 ## Use cases
 
 - **Clean up background noise** on an already-stretched image without blurring stars or the

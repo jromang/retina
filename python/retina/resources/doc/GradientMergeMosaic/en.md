@@ -20,6 +20,11 @@ result: overlap averaged, exclusive zones copied straight from whichever panel c
 is the final step of a mosaic workflow, after astrometric registration (`PlateSolve`,
 `StarAlignment`) and common reprojection (`MosaicReproject`).
 
+![Before — GradientMergeMosaic](figures/before.webp)
+![After — GradientMergeMosaic](figures/after.webp)
+
+*Two panels of a real star field, and the single frame they are glued into.*
+
 ## Use cases
 
 - **Assemble a wide-field mosaic** from several tiles acquired and processed separately

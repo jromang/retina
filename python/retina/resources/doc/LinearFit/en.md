@@ -19,6 +19,11 @@ corresponding channel of the reference. It is the equivalent of PixInsight's `Li
 **relative calibration** tool between images, not a stretch — the data stays linear, only the
 gain (`a`) and offset (`b`) of each channel are adjusted.
 
+![Before — LinearFit](figures/before.webp)
+![After — LinearFit](figures/after.webp)
+
+*Before, and after rescaling a frame onto a reference's level by least squares.*
+
 ## Use cases
 
 - **Equalize mosaic panels** before assembly (`MosaicReproject`), so overlap regions blend

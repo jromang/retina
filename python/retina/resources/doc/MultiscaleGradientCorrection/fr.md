@@ -21,6 +21,11 @@ les structures fines (étoiles, nébulosités, bruit) sont conservées intactes,
 de très basse fréquence — l'échelle la plus grossière de la décomposition, qui porte le
 gradient — est aplati.
 
+![Avant — MultiscaleGradientCorrection](figures/before.webp)
+![Après — MultiscaleGradientCorrection](figures/after.webp)
+
+*Avant, et après le mode aveugle, où les plus grandes échelles starlet sont tenues pour le gradient. Avec une référence de relevé, il fait mieux encore — voir `SurveyReference`.*
+
 ## Cas d'usage
 
 - Retirer un **gradient de pollution lumineuse** sur un champ large sans risquer d'éroder

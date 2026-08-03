@@ -19,6 +19,11 @@ est **agrandi** pour contenir l'intégralité de l'image tournée : aucun pixel 
 n'est perdu, les coins vides étant remplis de noir. C'est l'outil de rotation « fine » de
 Retina, à opposer à `FastRotation` qui ne gère que les multiples de 90° sans interpolation.
 
+![Avant — Rotation](figures/before.webp)
+![Après — Rotation](figures/after.webp)
+
+*Avant, et après une rotation de 30°. Un angle libre rééchantillonne chaque pixel et agrandit le cadre, laissant les coins noirs qu'un recadrage devra retirer.*
+
 ## Cas d'usage
 
 - **Redresser une image** légèrement inclinée à cause d'un défaut de mise en station ou d'une

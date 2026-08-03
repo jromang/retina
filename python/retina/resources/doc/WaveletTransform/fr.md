@@ -21,6 +21,11 @@ transformée inverse (`pywt.waverec2`). C'est un outil de traitement multi-éche
 complémentaire à la transformée starlet à trous de `MultiscaleLinearTransform`, mais basé sur de
 vraies ondelettes orthogonales (famille au choix : Daubechies, Symlets, Coiflets…).
 
+![Avant — WaveletTransform](figures/before.webp)
+![Après — WaveletTransform](figures/after.webp)
+
+*Avant, et après amplification des couches de détail, l'approximation étant laissée telle quelle.*
+
 ## Cas d'usage
 
 - **Accentuer les structures fines** (dentelles de nébuleuses, bras spiraux) en augmentant

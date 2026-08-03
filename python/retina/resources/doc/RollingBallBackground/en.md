@@ -21,6 +21,11 @@ the ball's apex at each pixel gives the **background model**. It is a **fast** a
 a classic morphological operation (Sternberg's method, popularized by ImageJ) — well suited to
 previews and to fields where a single radius is enough to separate background from signal.
 
+![Before — RollingBallBackground](figures/before.webp)
+![After — RollingBallBackground](figures/after.webp)
+
+*Before, and after the rolling-ball background is removed, on the same real gradient `BackgroundExtraction` uses.*
+
 ## Use cases
 
 - **Quickly flatten** a light-pollution gradient or residual vignetting, when speed matters more

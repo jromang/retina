@@ -19,6 +19,11 @@ image: none of the original content is lost, and the empty corners are filled wi
 is Retina's "fine" rotation tool, as opposed to `FastRotation`, which only handles multiples of
 90° with no interpolation.
 
+![Before — Rotation](figures/before.webp)
+![After — Rotation](figures/after.webp)
+
+*Before, and after a 30-degree rotation. A free angle resamples every pixel and enlarges the frame to fit, leaving the black corners a later crop has to remove.*
+
 ## Use cases
 
 - **Straighten an image** slightly tilted because of a polar-alignment error or a mount not

@@ -19,6 +19,11 @@ de pixels, sans aucune interpolation. Contrairement à `Rotation` (angle quelcon
 opérations sont **exactes et sans perte** : chaque pixel de sortie est une copie directe d'un
 pixel d'entrée, jamais une combinaison pondérée de voisins.
 
+![Avant — FastRotation](figures/before.webp)
+![Après — FastRotation](figures/after.webp)
+
+*Avant, et après un quart de tour. Rien n'est interpolé et aucun coin n'est perdu — les mêmes pixels, dans un autre ordre.*
+
 ## Cas d'usage
 
 - **Corriger l'orientation d'une caméra** montée à 90°/180°/270° de la référence attendue,

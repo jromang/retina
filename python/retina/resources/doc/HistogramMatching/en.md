@@ -20,6 +20,11 @@ copies the **cumulative histogram** of another image: it is the tool to reach fo
 need to unify the background and color balance across several frames before merging them
 (mosaic, integration, panorama).
 
+![Before — HistogramMatching](figures/before.webp)
+![After — HistogramMatching](figures/after.webp)
+
+*Before, and after matching the intensity distribution to a reference frame's.*
+
 ## Use cases
 
 - **Unify several exposures** of the same target taken under different dates or sky

@@ -19,6 +19,11 @@ highlights. A single `order` parameter controls the strength of the effect. This
 basic non-linear stretch in the catalog — no adjustable black/white point, no color protection,
 unlike `HistogramTransformation` or `ArcsinhStretch`.
 
+![Before — ExponentialTransformation](figures/before.webp)
+![After — ExponentialTransformation](figures/after.webp)
+
+*The linear frame as stored, and the same frame after the SMI curve at order 0.5.*
+
 ## Use cases
 
 - **Quickly brighten** a dark image (PIP) without going through a full three-slider MTF setup.

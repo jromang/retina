@@ -20,6 +20,11 @@ Rust dédié au seul flou gaussien : là où celui-ci vise la performance sur de
 `Convolution` s'appuie directement sur `scipy.ndimage` pour offrir plus de variété de filtres au
 prix d'une implémentation plus simple, mono-thread.
 
+![Avant — Convolution](figures/before.webp)
+![Après — Convolution](figures/after.webp)
+
+*Avant, et après un noyau carré de rayon 6 — l'étalement à bords droits qui le distingue d'une gaussienne de même rayon.*
+
 ## Cas d'usage
 
 - **Lisser légèrement le bruit** avant une analyse d'étoiles, un masquage ou une détection de

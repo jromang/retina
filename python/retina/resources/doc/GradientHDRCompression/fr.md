@@ -23,6 +23,11 @@ Poisson sur le champ de gradients modifié. Contrairement à `HDRMultiscaleTrans
 par décomposition multi-échelle, cette approche ne produit pas de halo en anneau autour des
 objets brillants.
 
+![Avant — GradientHDRCompression](figures/before.webp)
+![Après — GradientHDRCompression](figures/after.webp)
+
+*Avant, et après compression de la dynamique dans le domaine du gradient (bêta 0,6).*
+
 ## Cas d'usage
 
 - **Révéler simultanément noyau et extensions faibles** d'un objet à très forte dynamique

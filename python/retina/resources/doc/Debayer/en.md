@@ -20,6 +20,11 @@ missing values from neighboring pixels. It is the mandatory step between acquisi
 one-shot-color (OSC) sensor — or a color camera not already debayered — and any downstream
 color processing.
 
+![Bayer mosaic — Debayer](figures/mosaic.webp)
+![Reconstructed colour — Debayer](figures/debayered.webp)
+
+*A Bayer mosaic and its reconstruction into full colour. The mosaic is built from the survey's own bands, the repository carrying no real one-shot-colour raw.*
+
 ## Use cases
 
 - **First processing step** for a raw frame from a color camera (DSLR, OSC astro camera)

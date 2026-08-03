@@ -19,6 +19,11 @@ fast alternative to `BackgroundExtraction` (built on `photutils`): same star-res
 principle, but a much lighter C implementation, particularly advantageous on large fields or in
 batch processing.
 
+![Before — SEPBackground](figures/before.webp)
+![After — SEPBackground](figures/after.webp)
+
+*Before, and after subtracting the `sep` background model, on the same real gradient `BackgroundExtraction` uses.*
+
 ## Use cases
 
 - **Flatten a gradient** from light pollution or moonlight over a wide field under a tight time

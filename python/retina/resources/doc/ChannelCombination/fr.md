@@ -20,6 +20,11 @@ image RGB en composantes isolées, `ChannelCombination` les recolle. Elle sert a
 reformer un RGB classique après traitement séparé des canaux qu'à construire une **fausse
 couleur en bande étroite** (palette SHO/HOO) à partir de trois captures monochromes.
 
+![Avant — ChannelCombination](figures/before.webp)
+![Après — ChannelCombination](figures/after.webp)
+
+*Avant, et après recombinaison des plans R, V et B de l'image dans un autre ordre.*
+
 ## Cas d'usage
 
 - **Reformer un RGB** après avoir traité `ChannelExtraction`(R), (G) et (B) indépendamment

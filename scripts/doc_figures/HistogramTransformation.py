@@ -15,5 +15,5 @@ def figures(ctx) -> None:
     after = retina.HistogramTransformation(
         shadows=0.006, midtones=0.03
     ).execute_on_image(source)
-    ctx.save("before", source)
+    ctx.save("before", source, flat_on_purpose=True)
     ctx.save("after", after)

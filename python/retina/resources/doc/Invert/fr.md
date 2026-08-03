@@ -19,6 +19,11 @@ l'opérateur pixel-à-pixel le plus simple du catalogue — aucun paramètre, au
 de calcul quasi nul — mais il reste un outil de travail précieux, en particulier pour l'inspection
 visuelle des détails faibles.
 
+![Avant — Invert](figures/before.webp)
+![Après — Invert](figures/after.webp)
+
+*Avant, et après inversion — le négatif photographique, un moins le pixel.*
+
 ## Cas d'usage
 
 - **Traquer les gradients de fond de ciel** : sur une image inversée, les variations douces de

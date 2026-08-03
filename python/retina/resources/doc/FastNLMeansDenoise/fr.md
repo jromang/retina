@@ -20,6 +20,11 @@ qui respecte mieux les structures fines que le flou gaussien. La version OpenCV 
 précision (traitement en 8 bits) contre une **vitesse nettement supérieure**, ce qui la rend
 adaptée aux images de grand champ où la version scikit-image devient trop lente.
 
+![Avant — FastNLMeansDenoise](figures/before.webp)
+![Après — FastNLMeansDenoise](figures/after.webp)
+
+*Avant, et après moyennes non locales rapides à force 6, sur un recadrage à l'échelle du pixel.*
+
 ## Cas d'usage
 
 - **Débruiter rapidement une mosaïque ou un champ large** où `NonLocalMeansDenoise` (scikit-image,

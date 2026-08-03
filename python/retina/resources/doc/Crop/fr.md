@@ -21,6 +21,11 @@ une forme inchangée). Exprimer les bornes en fraction du cadre plutôt qu'en pi
 indépendant de la résolution — utile pour rejouer un recadrage sur un ré-échantillonnage différent
 de la même image.
 
+![Avant — Crop](figures/before.webp)
+![Après — Crop](figures/after.webp)
+
+*L'image entière, et le rectangle découpé. Les deux tailles diffèrent exprès — c'est le process.*
+
 ## Cas d'usage
 
 - **Éliminer les bords sales** d'une mosaïque d'empilement (zones à faible couverture, artefacts

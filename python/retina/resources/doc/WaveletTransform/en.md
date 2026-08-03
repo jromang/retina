@@ -21,6 +21,11 @@ inverse transform (`pywt.waverec2`). It is a generic multiscale processing tool,
 the à-trous starlet transform in `MultiscaleLinearTransform`, but built on true orthogonal
 wavelets (choice of family: Daubechies, Symlets, Coiflets…).
 
+![Before — WaveletTransform](figures/before.webp)
+![After — WaveletTransform](figures/after.webp)
+
+*Before, and after amplifying the detail layers while leaving the approximation alone.*
+
 ## Use cases
 
 - **Sharpen fine structures** (nebular filaments, spiral arms) by raising `detail_gain` above 1.

@@ -21,6 +21,11 @@ average never fully removes. It is the equivalent of PixInsight's *SuperBias* sc
 of using the stacked bias as-is for calibration, this smoothed model is used, which avoids
 injecting extra noise into calibrated lights.
 
+![Before — Superbias](figures/before.webp)
+![After — Superbias](figures/after.webp)
+
+*A real master bias, and the same master smoothed to its large-scale structure. Each has its own screen stretch: smoothing collapses the dynamic range, so a shared one would render the result flat grey.*
+
 ## Use cases
 
 - **Build a high-quality master bias** from an already-stacked bias pile (`Integration`),

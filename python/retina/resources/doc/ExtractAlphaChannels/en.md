@@ -14,6 +14,11 @@ icon: layers-subtract
 **extract** produces a new grayscale window holding the alpha (the source is untouched),
 **remove** strips the alpha from the view in place — ordinary history, ordinary undo.
 
+![RGB image — ExtractAlphaChannels](figures/rgb.webp)
+![Alpha channel — ExtractAlphaChannels](figures/alpha.webp)
+
+*The RGB frame, and the alpha channel pulled into a window of its own.*
+
 ## Use cases
 
 - **Recover a mask** stored as alpha (extract, then `app.set_mask`).

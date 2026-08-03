@@ -19,6 +19,11 @@ la plus simple qui soit — pas de dégradé, pas de zone de transition — appl
 à chaque canal. Le résultat est un noir et blanc pur, utile comme brique de base pour fabriquer
 des masques ou isoler des structures au-dessus/en-dessous d'un niveau donné.
 
+![Avant — Binarize](figures/before.webp)
+![Après — Binarize](figures/after.webp)
+
+*Avant, et après seuillage à 0,2 : chaque pixel devient zéro ou un.*
+
 ## Cas d'usage
 
 - **Fabriquer un masque grossier** (silhouette d'une galaxie, d'un halo, d'une zone saturée)

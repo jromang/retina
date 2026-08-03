@@ -20,6 +20,11 @@ photons) et **uniforme** (additif, borné) — équivalents à l'outil `NoiseGen
 PixInsight. C'est l'inverse fonctionnel d'un débruiteur : au lieu de retirer du bruit, on en
 injecte, de façon contrôlée et reproductible via une graine.
 
+![Avant — NoiseGenerator](figures/before.webp)
+![Après — NoiseGenerator](figures/after.webp)
+
+*Avant, et après ajout d'un bruit gaussien à 0,08 — du bruit mis exprès, pour éprouver ce qui l'enlève.*
+
 ## Cas d'usage
 
 - **Tester un pipeline de débruitage** (`NoiseReduction`, `FastNLMeansDenoise`,

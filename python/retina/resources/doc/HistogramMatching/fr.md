@@ -20,6 +20,11 @@ paramétrique (MTF), cette opération recopie **l'histogramme cumulé** d'une au
 c'est l'outil à utiliser pour uniformiser le fond et la couleur entre plusieurs trames avant
 de les fusionner (mosaïque, intégration, panorama).
 
+![Avant — HistogramMatching](figures/before.webp)
+![Après — HistogramMatching](figures/after.webp)
+
+*Avant, et après alignement de la distribution d'intensités sur celle d'une référence.*
+
 ## Cas d'usage
 
 - **Uniformiser plusieurs poses** d'une même cible prises à des dates ou conditions de ciel

@@ -20,6 +20,11 @@ valeurs manquantes de chaque plan couleur à partir des pixels voisins. C'est l'
 obligatoire entre l'acquisition d'un capteur one-shot-color (OSC) — ou d'une caméra couleur
 non pré-débayerisée — et tout traitement colorimétrique ultérieur.
 
+![Mosaïque de Bayer — Debayer](figures/mosaic.webp)
+![Couleur reconstruite — Debayer](figures/debayered.webp)
+
+*Une mosaïque de Bayer et sa reconstruction en couleur. La mosaïque est bâtie depuis les bandes du relevé, le dépôt ne portant aucune brute couleur réelle.*
+
 ## Cas d'usage
 
 - **Première étape de traitement** d'une pose brute issue d'une caméra couleur (DSLR, OSC

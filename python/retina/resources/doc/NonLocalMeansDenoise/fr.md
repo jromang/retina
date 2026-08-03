@@ -21,6 +21,11 @@ contribuent fortement l'un à l'autre. Ce principe « non local » permet de lis
 fond tout en respectant les structures répétitives et **ponctuelles**, en particulier les
 étoiles faibles, que les filtres classiques (gaussien, médian) tendent à écraser.
 
+![Avant — NonLocalMeansDenoise](figures/before.webp)
+![Après — NonLocalMeansDenoise](figures/after.webp)
+
+*Avant, et après moyennes non locales par patchs, sur un recadrage à l'échelle du pixel.*
+
 ## Cas d'usage
 
 - **Débruiter le fond de ciel** d'une image empilée sans éroder les étoiles faibles ni le

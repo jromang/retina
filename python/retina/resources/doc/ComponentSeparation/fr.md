@@ -22,6 +22,11 @@ pixel par pixel et recombine l'information plutôt que de l'étirer canal par ca
 typiquement à isoler un gradient ou un signal commun à toutes les couches, ou à séparer un
 continuum d'une raie étroite en imagerie narrowband.
 
+![Image source — ComponentSeparation](figures/source.webp)
+![Composantes — ComponentSeparation](figures/components.webp)
+
+*L'image couleur, et ses trois composantes principales — non pas une image corrigée mais une autre base pour les mêmes données.*
+
 ## Cas d'usage
 
 - **Isoler un gradient corrélé** (pollution lumineuse, vignettage résiduel) présent de façon

@@ -20,6 +20,11 @@ approach that respects fine structure better than a Gaussian blur. The OpenCV va
 little precision (8-bit processing) for **markedly higher speed**, making it well suited to
 wide-field images where the scikit-image variant becomes too slow.
 
+![Before — FastNLMeansDenoise](figures/before.webp)
+![After — FastNLMeansDenoise](figures/after.webp)
+
+*Before, and after fast non-local means at strength 6, on a crop at the pixel scale.*
+
 ## Use cases
 
 - **Quickly denoise a mosaic or a wide field** where `NonLocalMeansDenoise` (scikit-image, in

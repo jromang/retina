@@ -20,6 +20,11 @@ domain of spatial scales: all fine structures (stars, nebulosity, noise) are lef
 and only the very-low-frequency residual — the coarsest scale of the decomposition, which
 carries the gradient — is flattened.
 
+![Before — MultiscaleGradientCorrection](figures/before.webp)
+![After — MultiscaleGradientCorrection](figures/after.webp)
+
+*Before, and after the blind mode, where the largest starlet scales are taken to be the gradient. With a survey reference supplied it does better still — see `SurveyReference`.*
+
 ## Use cases
 
 - Remove a **light-pollution gradient** across a wide field without risking erosion of

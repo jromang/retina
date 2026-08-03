@@ -19,6 +19,11 @@ canal correspondant de la référence. C'est l'équivalent de l'outil `LinearFit
 un outil de **calibration relative** entre images, pas un étirement — les données restent
 linéaires, seuls le gain (`a`) et l'offset (`b`) de chaque canal sont ajustés.
 
+![Avant — LinearFit](figures/before.webp)
+![Après — LinearFit](figures/after.webp)
+
+*Avant, et après remise à l'échelle d'une pose sur le niveau d'une référence, aux moindres carrés.*
+
 ## Cas d'usage
 
 - **Égaliser des panneaux de mosaïque** avant assemblage (`MosaicReproject`), pour que les zones

@@ -21,6 +21,11 @@ It is the diagnostic/pedagogical counterpart of PixInsight's `SampleFormatConver
 for **previewing precision loss** before an integer TIFF/FITS export, or for deliberately
 reproducing banding in a test.
 
+![Before — SampleFormatConversion](figures/before.webp)
+![After — SampleFormatConversion](figures/after.webp)
+
+*Before, and after quantizing to three bits. A real conversion uses sixteen, where the difference is below what a screen shows; the banding here is the same effect, made large enough to look at.*
+
 ## Use cases
 
 - **Anticipate an 8- or 16-bit export**: see the banding (staircase contours) that an integer

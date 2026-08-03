@@ -22,6 +22,11 @@ la taille est proche de `width`, et s'annule aussi bien sur le fond uniforme que
 très fin. C'est un outil rapide pour faire ressortir nébulosités diffuses et filaments sans
 disposer de la pile complète d'échelles d'une transformée en ondelettes.
 
+![Avant — RickerWaveletEnhance](figures/before.webp)
+![Après — RickerWaveletEnhance](figures/after.webp)
+
+*Avant, et après rehaussement des structures larges de trois pixels.*
+
 ## Cas d'usage
 
 - **Révéler des filaments ou de la nébulosité faible** noyés dans un fond de ciel bruité, en

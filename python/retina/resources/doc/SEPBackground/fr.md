@@ -19,6 +19,11 @@ C'est l'alternative très rapide à `BackgroundExtraction` (basé sur `photutils
 de grille robuste aux étoiles, mais implémentation en C bien plus légère, particulièrement
 avantageuse sur les grands champs ou en traitement par lot.
 
+![Avant — SEPBackground](figures/before.webp)
+![Après — SEPBackground](figures/after.webp)
+
+*Avant, et après soustraction du modèle de fond `sep`, sur le gradient réel qu'utilise `BackgroundExtraction`.*
+
 ## Cas d'usage
 
 - **Aplatir un gradient** de pollution lumineuse ou de lune sur un champ large, avec un budget

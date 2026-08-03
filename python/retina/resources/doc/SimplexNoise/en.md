@@ -22,6 +22,11 @@ of true simplex noise (Perlin's simplicial grid), it spline-interpolates a coars
 classic *value noise* — which yields a visually very close result (organic texture, no
 preferred direction) for a minimal implementation cost.
 
+![Before — SimplexNoise](figures/before.webp)
+![After — SimplexNoise](figures/after.webp)
+
+*Before, and after adding coherent simplex noise — the kind that models a sky gradient rather than sensor grain.*
+
 ## Use cases
 
 - **Test a denoising pipeline**: inject controlled synthetic noise to compare `NoiseReduction`,

@@ -19,6 +19,11 @@ evaluated in a sandbox (asteval), with the full power of numpy available (`sqrt`
 `clip`, `where`, element-wise operators…). It is the universal tool for combining,
 correcting and generating images.
 
+![Before — PixelMath](figures/before.webp)
+![After — PixelMath](figures/after.webp)
+
+*Before, and after evaluating `img ** 0.5` — a stretch written as arithmetic rather than chosen from a menu.*
+
 ## Use cases
 
 - **Image arithmetic**: `img_a - 0.9*img_b` (gradient subtraction, differences).

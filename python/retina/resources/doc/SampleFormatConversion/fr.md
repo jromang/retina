@@ -21,6 +21,11 @@ renormalise dans `[0, 1]`. C'est l'équivalent pédagogique/diagnostic du `Sampl
 de PixInsight, utile pour **prévisualiser la perte de précision** avant un export en TIFF/FITS
 entier, ou pour reproduire volontairement du banding dans un test.
 
+![Avant — SampleFormatConversion](figures/before.webp)
+![Après — SampleFormatConversion](figures/after.webp)
+
+*Avant, et après quantification sur trois bits. Une vraie conversion en utilise seize, où l'écart passe sous ce qu'un écran montre ; le banding ici est le même effet, grossi assez pour être regardé.*
+
 ## Cas d'usage
 
 - **Anticiper un export 8 ou 16 bits** : voir apparaître le banding (contours en marches

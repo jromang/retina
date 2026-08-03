@@ -21,6 +21,11 @@ PixInsight's `ImageCalibration` (which handles units, exposure time, and dark sc
 and combined directly, with no unit bookkeeping. It is sufficient for a standard calibration
 pipeline where darks and lights share the same exposure time and sensor temperature.
 
+![Raw frame — ImageCalibration](figures/raw.webp)
+![Calibrated frame — ImageCalibration](figures/calibrated.webp)
+
+*A real Palomar light frame, and the same frame after bias, dark and flat correction with masters combined from that same night. Each is shown with its own screen stretch: calibration removes the bias pedestal on purpose, so a shared stretch would render the corrected frame black.*
+
 ## Use cases
 
 - **Preprocess a whole session** of lights before alignment and integration, one pass per image

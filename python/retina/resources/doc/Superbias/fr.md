@@ -22,6 +22,11 @@ du script *SuperBias* de PixInsight : au lieu d'utiliser le bias empilé tel que
 calibration, on utilise ce modèle lissé, qui n'injecte pas de bruit supplémentaire dans les
 lights calibrées.
 
+![Avant — Superbias](figures/before.webp)
+![Après — Superbias](figures/after.webp)
+
+*Un maître offset réel, et le même lissé jusqu'à sa structure grande échelle. Chacun a son étirement d'écran : le lissage écrase la dynamique, et un étirement commun rendrait le résultat gris uni.*
+
 ## Cas d'usage
 
 - **Fabriquer un master bias de qualité** à partir d'une pile de biases déjà intégrée

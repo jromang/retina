@@ -19,6 +19,11 @@ les détails à fort contraste (étoiles, bords de structures nébuleuses). Le p
 et robuste — un flou gaussien standard, mélangé pixel à pixel avec l'image d'origine à travers
 un **masque de protection** calculé à partir du gradient local de l'image.
 
+![Avant — ACDNR](figures/before.webp)
+![Après — ACDNR](figures/after.webp)
+
+*Avant, et après ACDNR à sigma 3 avec un seuil de protection de 0,3.*
+
 ## Cas d'usage
 
 - **Nettoyer le bruit de fond** d'une image déjà étirée sans flouter les étoiles ni les bords
