@@ -1,7 +1,7 @@
 {
   "name": "retina-webui",
   "private": true,
-  "version": "0.0.3",
+  "version": "0.0.4",
   "type": "module",
   "description": "Retina web frontend — a client of the scriptable API, VS Code workbench style",
   "engines": {
