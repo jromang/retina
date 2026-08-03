@@ -19,6 +19,11 @@ On a hundred stacked frames it is not, and for a reason worth stating: the patte
 so it adds up from frame to frame, while the noise averages down. The pattern's
 signal-to-noise ratio *increases* with the number of frames. This is WBPP's **LPS** step.
 
+![Before — LinearPatternSubtraction](figures/before.webp)
+![After — LinearPatternSubtraction](figures/after.webp)
+
+*Column banding, and the frame after it is subtracted. The pattern is injected: it is what an uncorrected read-out leaves, and it must go before debayering, since interpolation afterwards mixes it between colours and it is no longer separable.*
+
 ## How the pattern is separated from the sky
 
 For each column we take the **median** of its pixels. The median of a column of an astronomical

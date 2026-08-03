@@ -24,6 +24,11 @@ exposure**, thermal drift and power fluctuations included. On a real dataset (An
 CG16M, 90 s exposures) the gap between the two reaches 20 % of the sky background: ignoring
 it means being one fifth wrong about the very signal you are measuring.
 
+![Before — Overscan](figures/before.webp)
+![After — Overscan](figures/after.webp)
+
+*A real Palomar frame with its overscan strip, and the corrected frame with the strip subtracted and trimmed away. The section is read from the file's own `BIASSEC`, which is the whole point of the process and why this dataset was chosen for the sample catalogue.*
+
 ## Use cases
 
 - **Any sensor that declares a `BIASSEC`** — most scientific CCDs and some cooled CMOS. The

@@ -21,6 +21,11 @@ mégapixels demande sinon quatre allers-retours de zoom, pendant lesquels l'œil
 vient de voir. Mis côte à côte, la coma, le tilt et la courbure de champ deviennent
 immédiatement lisibles.
 
+![Image entière — AberrationInspector](figures/frame.webp)
+![Mosaïque des coins — AberrationInspector](figures/mosaic.webp)
+
+*L'image entière, et la mosaïque de ses coins, bords et centre à l'échelle du pixel. Les défauts optiques vivent aux bords et personne ne va les chercher un par un ; une vignette plus grande que l'image ne le permet est recadrée, jamais agrandie — agrandir des pixels inventerait une aberration.*
+
 ## Cas d'usage
 
 - **Contrôler un correcteur de coma** ou un réducteur de focale : les coins doivent se

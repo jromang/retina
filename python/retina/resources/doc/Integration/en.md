@@ -19,6 +19,11 @@ references:
 list of files and creates a new window. It is also used to build **masters** (bias, dark, flat)
 by robust averaging.
 
+![A single frame — Integration](figures/single.webp)
+![Six frames stacked — Integration](figures/stacked.webp)
+
+*One bias frame, and the stack of six. Bias rather than lights, because the dataset carries a single light per filter and a bias frame is nothing but noise — so the pair shows exactly what stacking is for: six frames divide the noise by about the square root of six. Each has its own screen stretch, the effect being a change in the spread of the values rather than in their level.*
+
 ## Use cases
 
 - **Stack a session's exposures** (after calibration and alignment) to gain SNR.

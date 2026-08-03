@@ -302,3 +302,26 @@ def test_unsharp_mask_keeps_the_image_it_sharpens(channels):
     assert abs(float(out.mean()) - float(data.mean())) < 0.05
     # sharpening raises the local gradient
     assert float(np.abs(np.diff(out, axis=0)).mean()) > float(np.abs(np.diff(data, axis=0)).mean())
+
+
+def test_overscan_survives_a_section_that_does_not_span_the_frame():
+    """Real headers do not promise a full-height BIASSEC.
+
+    The Palomar frames shipped as Retina's own example dataset declare
+    ``[2049:2080,1:4127]`` on a 4128-row sensor. One row short used to raise a bare numpy
+    broadcast error in the middle of a pre-processing run, mentioning neither overscan nor
+    the header that caused it.
+    """
+    from retina import Overscan
+
+    data = np.zeros((40, 30, 1), dtype=np.float32)
+    data[:, 25:30] = 5.0  # the overscan strip carries the read-out level
+    data[:, :25] = 12.0
+
+    # a section one row short of the frame, as the real headers write it
+    out = Overscan(bias_section="[26:30,1:39]").execute_on_image(Image(data)).data
+
+    assert out.shape == data.shape
+    assert np.isfinite(out).all()
+    # the level is removed everywhere, the unmeasured last row included
+    np.testing.assert_allclose(out[:, :25], 7.0, atol=1e-5)

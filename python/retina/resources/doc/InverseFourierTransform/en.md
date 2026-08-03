@@ -20,6 +20,11 @@ original spatial image **exactly**, channel by channel. It is the equivalent of 
 `InverseFourierTransform`: with no parameters, it applies a mathematically well-defined operation
 that simply inverts the forward FFT, with no approximation beyond floating-point rounding.
 
+![Magnitude spectrum — InverseFourierTransform](figures/spectrum.webp)
+![Restored frame — InverseFourierTransform](figures/restored.webp)
+
+*The magnitude spectrum, and the frame the inverse transform gives back. Not a before/after: a round trip is lossless, so the two ends would be the same picture.*
+
 ## Use cases
 
 - **Close a frequency-domain filtering pass**: after switching an image to `mode="complex"` with

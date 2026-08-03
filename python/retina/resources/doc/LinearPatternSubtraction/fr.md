@@ -19,6 +19,11 @@ Sur cent poses empilées, ça ne l'est plus, et pour une raison qui mérite d'ê
 est **fixe**, donc il s'additionne d'une pose à l'autre, quand le bruit, lui, se moyenne. Le
 rapport signal/bruit du motif *augmente* avec le nombre de poses. C'est l'étape **LPS** de WBPP.
 
+![Avant — LinearPatternSubtraction](figures/before.webp)
+![Après — LinearPatternSubtraction](figures/after.webp)
+
+*Un banding en colonnes, et la pose après soustraction. Le motif est injecté : c'est ce que laisse une lecture non corrigée, et il doit partir avant le débayerisation — après, l'interpolation l'a mélangé entre les couleurs et il n'est plus séparable.*
+
 ## Comment le motif est séparé du ciel
 
 Pour chaque colonne, on prend la **médiane** de ses pixels. La médiane d'une colonne d'image

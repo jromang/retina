@@ -21,6 +21,11 @@ et l'angle de rotation s'applique **après** le recadrage, sur la région extrai
 de composition final : cadrer, redresser un horizon ou aligner un axe galactique, et éliminer
 les bords irréguliers issus d'un empilement ou d'un recalage.
 
+![Avant — DynamicCrop](figures/before.webp)
+![Après — DynamicCrop](figures/after.webp)
+
+*L'image, et un rectangle tracé à 20° lu en une seule passe. La sortie fait exactement la taille du cadre — l'ancien mode, qui tourne après avoir découpé, agrandit le résultat et laisse des coins noirs.*
+
 ## Cas d'usage
 
 - **Cadrer la composition finale** d'une image empilée, en éliminant les bords sombres ou les

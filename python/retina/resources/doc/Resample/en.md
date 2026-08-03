@@ -19,6 +19,11 @@ recomputing every output pixel through **spline interpolation** at the chosen or
 accepts any real factor between `0.01` and `20.0` — upscaling or downscaling — and smooths the
 result with automatic anti-aliasing when reducing size.
 
+![Before — Resample](figures/before.webp)
+![After — Resample](figures/after.webp)
+
+*A crop, and the same crop reduced to a third. Laid side by side at the page's width the smaller one is scaled back up, which is exactly how resampling too far shows.*
+
 ## Use cases
 
 - **Downscale a final image** before web export or sharing (e.g. `scale = 0.5`).

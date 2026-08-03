@@ -19,6 +19,11 @@ recalculant chaque pixel de sortie par **interpolation spline** de l'ordre chois
 accepte n'importe quel facteur réel entre `0.01` et `20.0` — agrandissement ou réduction — et
 lisse le résultat par un anti-aliasing automatique en cas de réduction.
 
+![Avant — Resample](figures/before.webp)
+![Après — Resample](figures/after.webp)
+
+*Un recadrage, et le même réduit au tiers. Posés côte à côte à la largeur de la page, le plus petit est réagrandi — ce qui est précisément ainsi qu'un sous-échantillonnage excessif se voit.*
+
 ## Cas d'usage
 
 - **Réduire une image finale** avant export web ou partage (ex. `scale = 0.5`).

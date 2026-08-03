@@ -21,6 +21,11 @@ the detection robust even for a low-contrast trail buried in sky background and 
 a mask-generation process (like `StarMask` or `RangeSelection`): non-destructive, it never
 modifies the source view and is itself not maskable.
 
+![Source image — SatelliteTrailDetection](figures/source.webp)
+![Generated mask — SatelliteTrailDetection](figures/mask.webp)
+
+*A frame crossed by a trail, and the mask the process returns. The trail is injected.*
+
 ## Use cases
 
 - **Automatically locate** a Starlink satellite or aircraft trail on a single exposure,

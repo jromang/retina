@@ -69,17 +69,11 @@ NOT_ILLUSTRATED: dict[str, str] = {
                                 "screen — real, and below what a WebP figure can show",
 
     # --- pending: illustrable with what is here, simply not written yet ----------------- #
-    "AberrationInspector": "pending — builds a corner mosaic, which would make a good figure",
-    "AutoCrop": "pending — needs a frame with black borders, e.g. after a rotation",
-    "ChannelMatch": "pending — needs a channel shift injected first",
     "CloneStamp": "pending — needs a source patch and a target chosen by hand",
     "CometAlignment": "pending — needs several frames with a moving target",
-    "ConvertToRGBColor": "pending — a mono frame promoted to three identical channels",
-    "CosmicClip": "pending — needs cosmic-ray hits injected first",
     "DefectMap": "pending — needs a defect map file alongside the frame",
     "DrizzleIntegration": "pending — needs several dithered frames",
     "DynamicAlignment": "pending — needs two frames and a pair of matched points",
-    "DynamicCrop": "pending — the rotated-rectangle mode is the one worth showing",
     "FastIntegration": "pending — needs several frames",
     "FeatureAlignment": "pending — needs two overlapping frames",
     "GalaxyModel": "pending — its isophote fit was numerically unstable on every composite "
@@ -87,19 +81,10 @@ NOT_ILLUSTRATED: dict[str, str] = {
     "GradientHDRComposition": "pending — needs several exposures of one field",
     "HDRComposition": "pending — needs several exposures of one field",
     "Inpaint": "pending — needs a mask file alongside the frame",
-    "IntegerResample": "pending — binning, shown at the pixel scale",
-    "Integration": "pending — the single-frame-versus-stack pair is the most valuable figure "
-                   "left unwritten; the sample dataset has the frames",
-    "InverseFourierTransform": "pending — a round trip through the Fourier domain",
-    "LinearPatternSubtraction": "pending — needs a banding pattern injected first",
     "LocalNormalization": "pending — needs two frames of one field at different levels",
     "MosaicReproject": "pending — needs two solved, overlapping frames",
-    "Overscan": "pending — the sample dataset carries BIASSEC, so this one is within reach",
     "PhaseCorrelationAlignment": "pending — needs two shifted frames",
-    "PixelInterpolation": "pending — needs missing pixels injected first",
-    "Resample": "pending — a downscale, shown at the pixel scale",
     "Rescale": "pending — needs a frame that does not already span the full range",
-    "SatelliteTrailDetection": "pending — needs a trail injected first",
     "SeamlessClone": "pending — needs a patch and a target chosen by hand",
     "StarAlignment": "pending — needs two frames of one field; the sample dataset has them",
 }

@@ -22,6 +22,11 @@ n'est aucune.
 Contrairement à [Crop](retina-doc://Crop), qui applique des bornes qu'on lui donne,
 `AutoCrop` les **trouve**.
 
+![Avant — AutoCrop](figures/before.webp)
+![Après — AutoCrop](figures/after.webp)
+
+*Une pose tournée, avec les marges noires que la rotation laisse, et la même une fois rognées. Les marges ne sont pas mises en scène : les retirer est l'étape qui suit normalement une rotation.*
+
 ## Cas d'usage
 
 - **Après une intégration**, comme dernière étape : c'est le réglage par défaut du

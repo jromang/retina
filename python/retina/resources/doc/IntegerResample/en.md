@@ -20,6 +20,11 @@ into an identical `factor × factor` block (pure nearest-neighbor, no interpolat
 `Resample`, which accepts any real scale factor with interpolation, `IntegerResample` only
 handles integer ratios — it's the classic **software binning** tool of astrophotography.
 
+![Before — IntegerResample](figures/before.webp)
+![After — IntegerResample](figures/after.webp)
+
+*A crop, and the same crop binned 3×3. Nothing is interpolated: whole blocks are averaged, as a camera does when it bins on the sensor.*
+
 ## Use cases
 
 - **Simulate sensor binning** (2×2, 3×3…) after the fact on data acquired at 1×1, to reduce

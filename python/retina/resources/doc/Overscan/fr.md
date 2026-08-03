@@ -24,6 +24,11 @@ pose**, dérive thermique et fluctuations d'alimentation comprises. Sur un jeu r
 (Andor Aspen CG16M, poses de 90 s), l'écart entre les deux atteint 20 % du fond de ciel :
 le négliger, c'est se tromper d'un cinquième sur le signal qu'on cherche à mesurer.
 
+![Avant — Overscan](figures/before.webp)
+![Après — Overscan](figures/after.webp)
+
+*Une pose réelle du Palomar avec sa bande d'overscan, et la pose corrigée, bande soustraite puis retirée. La section est lue dans le `BIASSEC` du fichier — c'est tout l'intérêt du process, et la raison du choix de ce jeu d'exemple.*
+
 ## Cas d'usage
 
 - **Tout capteur qui déclare un `BIASSEC`** — la plupart des CCD scientifiques et une partie

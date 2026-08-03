@@ -86,8 +86,33 @@ class Overscan(Process):
         if sens == "global":
             return np.asarray(float(reduire(zone)), dtype=np.float32)
         if sens == "row":
-            return reduire(zone, axis=(1, 2), keepdims=True).astype(np.float32)
-        return reduire(zone, axis=(0, 2), keepdims=True).astype(np.float32)
+            levels = reduire(zone, axis=(1, 2), keepdims=True).astype(np.float32)
+            return self._span(levels, data.shape[0], axis=0)
+        levels = reduire(zone, axis=(0, 2), keepdims=True).astype(np.float32)
+        return self._span(levels, data.shape[1], axis=1)
+
+    @staticmethod
+    def _span(levels: np.ndarray, extent: int, *, axis: int) -> np.ndarray:
+        """Stretch the measured levels to the full axis, holding the nearest measured value.
+
+        A ``BIASSEC`` is not obliged to span the frame, and real ones do not: the Palomar
+        frames Retina ships as its own example dataset declare ``[2049:2080,1:4127]`` on a
+        4128-row sensor. One row short was enough for the subtraction to fail — and to fail as
+        a raw numpy broadcast error, in the middle of a pre-processing run, saying nothing
+        about overscan.
+
+        Holding the edge value is the conservative reading: the rows outside the section sit
+        against the border, and the read-out level there is by construction the closest thing
+        measured. Extrapolating a trend would invent a bias level nobody recorded.
+        """
+        measured = levels.shape[axis]
+        if measured >= extent:
+            slicer = [slice(None)] * levels.ndim
+            slicer[axis] = slice(0, extent)
+            return levels[tuple(slicer)]
+        pad = [(0, 0)] * levels.ndim
+        pad[axis] = (0, extent - measured)
+        return np.pad(levels, pad, mode="edge")
 
     def _apply(self, data: np.ndarray) -> np.ndarray:
         out = data.astype(np.float32)

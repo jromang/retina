@@ -19,6 +19,11 @@ The gesture is a simple one, and that is its strength. Comparing the four corner
 fifty-megapixel image otherwise takes four zoom round trips, during which the eye forgets what
 it just saw. Placed side by side, coma, tilt and field curvature become immediately readable.
 
+![Whole frame — AberrationInspector](figures/frame.webp)
+![Corner mosaic — AberrationInspector](figures/mosaic.webp)
+
+*The whole frame, and the mosaic of its corners, edges and centre at the pixel scale. Optical faults live at the edges and nobody scrolls to nine of them in turn; a tile larger than the frame allows is cropped, never enlarged, since enlarging pixels would invent an aberration.*
+
 ## Use cases
 
 - **Check a coma corrector** or focal reducer: the corners should look alike.

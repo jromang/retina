@@ -21,6 +21,11 @@ altered**. It is the natural complement to `DefectMap`: where `DefectMap` repair
 ahead of time (a supplied map), `PixelInterpolation` repairs holes already marked `NaN` in the
 data (mosaic edges, rejection masks, saturated pixels set to NaN upstream, etc.).
 
+![Before — PixelInterpolation](figures/before.webp)
+![After — PixelInterpolation](figures/after.webp)
+
+*Dead pixels, a dead patch and a dead column, and the frame after they are filled from their neighbours. The holes are injected — a frame that reaches the documentation has been calibrated and has none left.*
+
 ## Use cases
 
 - **Fill holes** left by an upstream step that set certain pixels to `NaN` (integration

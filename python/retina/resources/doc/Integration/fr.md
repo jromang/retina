@@ -19,6 +19,11 @@ fortement amélioré. Un **rejet sigma robuste** écarte, pixel par pixel, les v
 il lit une liste de fichiers et crée une nouvelle fenêtre. Il sert aussi à fabriquer les
 **masters** (bias, dark, flat) par moyenne robuste.
 
+![Une pose seule — Integration](figures/single.webp)
+![Six poses empilées — Integration](figures/stacked.webp)
+
+*Une pose d'offset, et l'empilement de six. Des offsets plutôt que des poses, parce que le jeu ne porte qu'une pose par filtre et qu'un offset n'est *que* du bruit — la paire montre donc exactement ce à quoi sert l'empilement : six poses divisent le bruit par environ racine de six. Chacune a son étirement d'écran, l'effet portant sur la dispersion des valeurs et non sur leur niveau.*
+
 ## Cas d'usage
 
 - **Empiler les poses** d'une session (après calibration et alignement) pour gagner en SNR.

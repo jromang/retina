@@ -21,6 +21,11 @@ neighbor pur, aucune interpolation). Contrairement à `Resample`, qui accepte un
 d'échelle réel quelconque avec interpolation, `IntegerResample` ne traite que des rapports
 entiers — c'est l'outil du **binning logiciel** classique en astrophotographie.
 
+![Avant — IntegerResample](figures/before.webp)
+![Après — IntegerResample](figures/after.webp)
+
+*Un recadrage, et le même binné 3×3. Rien n'est interpolé : des blocs entiers sont moyennés, comme le fait une caméra qui binne sur le capteur.*
+
 ## Cas d'usage
 
 - **Simuler un binning capteur** (2×2, 3×3…) a posteriori sur des données acquises en 1×1,

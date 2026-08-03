@@ -21,6 +21,11 @@ angle is applied **after** the crop, to the extracted region. This is the final 
 tool: framing a shot, straightening a horizon or aligning a galactic axis, and trimming the
 ragged edges left over from stacking or registration.
 
+![Before — DynamicCrop](figures/before.webp)
+![After — DynamicCrop](figures/after.webp)
+
+*The frame, and a rectangle drawn at 20 degrees read in a single pass. The output is exactly the size of the rectangle — the older mode, which rotates after cutting, enlarges the result and leaves black corners.*
+
 ## Use cases
 
 - **Frame the final composition** of a stacked image, trimming dark or artifact-ridden edges

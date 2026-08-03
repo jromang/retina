@@ -20,6 +20,11 @@ L.A.Cosmic exploits the **shape** of the defect: a cosmic-ray hit has a much sha
 (near point-like, sub-seeing scale) than the core of a real star, which lets it be detected and
 repaired without eroding astronomical sources.
 
+![Before — CosmicClip](figures/before.webp)
+![After — CosmicClip](figures/after.webp)
+
+*Cosmic-ray hits, and the frame after they are detected and replaced. The hits are injected: they are the short, bright, sharp-edged streaks that distinguish a cosmic ray from a star, and what the detector keys on.*
+
 ## Use cases
 
 - **Clean a single sub-frame** before integration, especially for long exposures where cosmic

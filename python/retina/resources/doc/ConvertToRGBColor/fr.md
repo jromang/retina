@@ -19,6 +19,11 @@ colorimétrique nouvelle : le résultat est une image « couleur » achromatique
 tout pixel), visuellement identique à l'original mais dotée de la géométrie de canaux
 attendue par les process spécifiquement RVB (`SCNR`, `ColorSaturation`, `LRGBCombination`…).
 
+![Avant — ConvertToRGBColor](figures/before.webp)
+![Après — ConvertToRGBColor](figures/after.webp)
+
+*Une pose mono, et l'image à trois canaux qu'elle devient — un canal étant teinté ensuite, la promotion ne changeant aucune valeur : ce qu'elle change, c'est qu'il y en a désormais trois par site, donc que l'image peut recevoir de la couleur.*
+
 ## Cas d'usage
 
 - Préparer une image en niveaux de gris (luminance, master L, image mono CCD/CMOS) pour lui

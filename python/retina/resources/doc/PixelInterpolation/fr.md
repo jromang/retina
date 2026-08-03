@@ -21,6 +21,11 @@ sont **jamais altérés**. C'est le complément naturel de `DefectMap` : là où
 défauts connus d'avance (carte fournie), `PixelInterpolation` répare des trous déjà marqués `NaN`
 dans les données (bord de mosaïque, masque de rejet, pixels saturés mis à NaN en amont, etc.).
 
+![Avant — PixelInterpolation](figures/before.webp)
+![Après — PixelInterpolation](figures/after.webp)
+
+*Des pixels morts, une zone morte et une colonne morte, et la pose une fois comblée depuis le voisinage. Les trous sont injectés — une pose qui arrive dans la documentation est calibrée et n'en a plus.*
+
 ## Cas d'usage
 
 - **Reboucher les trous** laissés par un traitement amont qui a mis certains pixels à `NaN`

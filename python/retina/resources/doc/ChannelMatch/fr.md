@@ -15,6 +15,11 @@ subpixel, et applique un facteur de correction linéaire optionnel par canal. C'
 des **franges colorées** : aberration chromatique latérale, ou légère dérive entre filtres
 d'une session mono+filtres combinée en RVB.
 
+![Avant — ChannelMatch](figures/before.webp)
+![Après — ChannelMatch](figures/after.webp)
+
+*Des liserés colorés, et le même champ une fois les canaux remis en coïncidence. Le décalage est injecté — la source est bâtie bande par bande sur une grille unique et ne porte aucune aberration chromatique propre.*
+
 ## Cas d'usage
 
 - **Éliminer les franges** rouges/bleues autour des étoiles après `ChannelCombination`.

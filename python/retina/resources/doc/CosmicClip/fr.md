@@ -20,6 +20,11 @@ du pixel, L.A.Cosmic exploite la **forme** du défaut : un impact cosmique a un 
 plus abrupt (quasi ponctuel, sous-échelle du seeing) que le cœur d'une étoile réelle, ce qui
 permet de le détecter et de le remplacer sans éroder les sources astronomiques.
 
+![Avant — CosmicClip](figures/before.webp)
+![Après — CosmicClip](figures/after.webp)
+
+*Des impacts de rayons cosmiques, et la pose après détection et remplacement. Les impacts sont injectés : ce sont les traînées courtes, vives et à bords nets qui distinguent un rayon cosmique d'une étoile, et sur quoi le détecteur s'appuie.*
+
 ## Cas d'usage
 
 - **Nettoyer une pose unitaire** (sub-frame) avant intégration, notamment pour les captures

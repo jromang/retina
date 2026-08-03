@@ -19,6 +19,11 @@ an achromatic "color" image (R = G = B at every pixel), visually identical to th
 but with the channel geometry expected by RGB-specific processes (`SCNR`, `ColorSaturation`,
 `LRGBCombination`, …).
 
+![Before — ConvertToRGBColor](figures/before.webp)
+![After — ConvertToRGBColor](figures/after.webp)
+
+*A mono frame, and the three-channel frame it becomes — here with one channel tinted afterwards, since the promotion itself changes no value: what it changes is that there are now three per site, so the frame can receive colour at all.*
+
 ## Use cases
 
 - Prepare a grayscale image (luminance, an L master, a mono CCD/CMOS frame) for a process

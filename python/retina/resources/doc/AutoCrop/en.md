@@ -21,6 +21,11 @@ received any at all.
 
 Unlike [Crop](retina-doc://Crop), which applies bounds you give it, `AutoCrop` **finds** them.
 
+![Before — AutoCrop](figures/before.webp)
+![After — AutoCrop](figures/after.webp)
+
+*A rotated frame with the black margins the rotation leaves, and the same frame after they are trimmed off. The margins are not staged: removing them is the step that normally follows a rotation.*
+
 ## Use cases
 
 - **After an integration**, as the last step: this is the default in the automated

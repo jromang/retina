@@ -21,6 +21,11 @@ reconstruit **exactement** l'image spatiale d'origine, canal par canal. C'est l'
 mathématiquement défini qui ne fait qu'inverser la FFT directe, sans aucune approximation au-delà
 de l'arrondi flottant.
 
+![Spectre d'amplitude — InverseFourierTransform](figures/spectrum.webp)
+![Image restituée — InverseFourierTransform](figures/restored.webp)
+
+*Le spectre d'amplitude, et l'image que la transformée inverse restitue. Ce n'est pas un avant/après : l'aller-retour est sans perte, les deux bouts seraient la même image.*
+
 ## Cas d'usage
 
 - **Clore un filtrage fréquentiel** : après avoir passé une image en `mode="complex"` avec

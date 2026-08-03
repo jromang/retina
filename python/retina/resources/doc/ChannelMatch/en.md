@@ -15,6 +15,11 @@ precision, and applies an optional linear correction factor per channel. It is t
 for **colored fringes**: lateral chromatic aberration, or a slight drift between filters
 in a mono+filters session combined into RGB.
 
+![Before — ChannelMatch](figures/before.webp)
+![After — ChannelMatch](figures/after.webp)
+
+*Coloured fringes, and the same field after the channels are shifted back into register. The misalignment is injected — the source is built band by band on one grid and carries no chromatic aberration of its own.*
+
 ## Use cases
 
 - **Kill red/blue fringes** around stars after `ChannelCombination`.

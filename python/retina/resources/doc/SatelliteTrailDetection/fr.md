@@ -22,6 +22,11 @@ contraste noyée dans le fond de ciel et les étoiles. C'est un process de gén�
 masque (comme `StarMask` ou `RangeSelection`) : non destructif, il ne modifie pas la vue
 source et n'est lui-même pas maskable.
 
+![Image source — SatelliteTrailDetection](figures/source.webp)
+![Masque produit — SatelliteTrailDetection](figures/mask.webp)
+
+*Une pose traversée par une traînée, et le masque que le process rend. La traînée est injectée.*
+
 ## Cas d'usage
 
 - **Repérer automatiquement** une traînée de satellite Starlink ou d'avion sur une pose
