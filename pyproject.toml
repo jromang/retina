@@ -140,7 +140,7 @@ project = ["h5py>=3.10"]
 # `onnx` is here rather than in [ai] because nothing needs it at runtime: onnxruntime
 # loads the model. The tests build tiny models on the fly to exercise the runtime
 # without downloading 218 MB, which is a test concern.
-dev = ["pytest>=8", "pytest-asyncio>=0.24", "ruff>=0.5", "mypy>=1.10", "babel>=2.14",
+dev = ["pytest>=8", "pytest-asyncio>=1.4.0", "ruff>=0.5", "mypy>=1.10", "babel>=2.14",
        "onnx>=1.15"]
 # Packaging toolchain. Kept apart from `dev`: it pulls in a heavy tool nobody needs in order to
 # develop or run the tests. See the [tool.briefcase] section for the pre-steps.
