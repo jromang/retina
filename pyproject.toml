@@ -70,7 +70,7 @@ astro = [
     # export silently. We declare what we consume.
     "tifffile>=2023.7",  # 32-bit float TIFF (the only raster format that preserves our data)
     "imageio>=2.31",     # 8-bit PNG/JPEG/BMP/WebP
-    "jplephem>=2.21",    # JPL DE kernels (EphemerisGenerator, kernel="de440s")
+    "jplephem>=2.24",    # JPL DE kernels (EphemerisGenerator, kernel="de440s")
     # JPEG XL: 6 MB, and wheels for cp310→cp314 on macOS (x86_64 + arm64), manylinux
     # (x86_64/aarch64/i686), musllinux and Windows (32/64/arm64) — better coverage than several
     # packages already listed here. A separate extra was not justified, and above all it would
@@ -101,7 +101,7 @@ astro-msvc = [
     "scikit-learn>=1.3",
     "tifffile>=2023.7",
     "imageio>=2.31",
-    "jplephem>=2.21",
+    "jplephem>=2.24",
     "pillow-jxl-plugin>=1.2",
 ]
 # AI star removal, denoising and deconvolution (StarNet/GraXpert ONNX models).
@@ -389,7 +389,7 @@ requires = [
     "astroalign>=2.5", "astroscrappy>=1.1", "colour-demosaicing>=0.2",
     "astroquery>=0.4", "matplotlib>=3.7", "reproject>=0.13", "sep>=1.4.1",
     "PyWavelets>=1.4", "rawpy>=0.19", "opencv-python-headless>=4.8",
-    "scikit-learn>=1.3", "tifffile>=2023.7", "imageio>=2.31", "jplephem>=2.21",
+    "scikit-learn>=1.3", "tifffile>=2023.7", "imageio>=2.31", "jplephem>=2.24",
     "pillow-jxl-plugin>=1.2",
     # AI star removal, denoising and deconvolution. Without it those processes appear in the
     # catalog and die on first use -- which is what the bundle smoke test caught.
