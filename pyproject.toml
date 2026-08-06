@@ -48,7 +48,7 @@ web = [
 ]
 # Astro ecosystem (calibration, stacking, background, stars, deconvolution…). Wrapped as Process.
 astro = [
-    "scipy>=1.11",
+    "scipy>=1.17.1",
     "scikit-image>=0.22",
     "photutils>=1.10",
     "ccdproc>=2.4",
@@ -83,7 +83,7 @@ astro = [
 # job, and the briefcase `requires` list further down. tests/test_packaging_manifest.py asserts
 # they stay in step, because the invariant used to be a paragraph and paragraphs drift.
 astro-msvc = [
-    "scipy>=1.11",
+    "scipy>=1.17.1",
     "scikit-image>=0.22",
     "photutils>=1.10",
     "ccdproc>=2.4",
@@ -385,7 +385,7 @@ requires = [
     # `astrometry` is deliberately ABSENT from it: the package does not compile under MSVC. On
     # Windows it is ASTAP that provides offline plate-solving (the .windows section below); the
     # .linux / .macOS sections reintroduce it.
-    "scipy>=1.11", "scikit-image>=0.22", "photutils>=1.10", "ccdproc>=2.4",
+    "scipy>=1.17.1", "scikit-image>=0.22", "photutils>=1.10", "ccdproc>=2.4",
     "astroalign>=2.5", "astroscrappy>=1.1", "colour-demosaicing>=0.2",
     "astroquery>=0.4", "matplotlib>=3.7", "reproject>=0.13", "sep>=1.4.1",
     "PyWavelets>=1.4", "rawpy>=0.19", "opencv-python-headless>=4.8",
