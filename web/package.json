@@ -16,20 +16,20 @@
     "typecheck": "npm run messages && tsc --noEmit"
   },
   "dependencies": {
-    "@preact/signals": "^2.0.1",
+    "@preact/signals": "^2.11.1",
     "@vscode/codicons": "^0.0.46-24",
     "dockview-core": "^7.0.4",
     "monaco-editor": "^0.56.0",
-    "preact": "^10.27.2"
+    "preact": "^10.29.8"
   },
   "devDependencies": {
-    "@inlang/paraglide-js": "^2.23.0",
-    "@inlang/plugin-message-format": "^4.4.0",
+    "@inlang/paraglide-js": "^2.24.1",
+    "@inlang/plugin-message-format": "^4.4.3",
     "@playwright/test": "^1.62.1",
     "@preact/preset-vite": "^2.10.2",
     "typescript": "^7.0.2",
     "vite": "^7.3.6",
-    "vitest": "^4.1.10"
+    "vitest": "^4.1.11"
   },
   "overrides": {
     "dompurify": "^3.4.12"
